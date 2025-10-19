@@ -64,11 +64,11 @@ Project Objectives
 
 \
 1. Run as is on Linux, Apple or Windows.\
-2. Provide all functions useful to genealogists in one place.\
+2. Provide all functions useful to genealogists in one place, all on a personal computer under the user's control.\
 3. Ability to sync trees on host machine, any other host machines
 running MELGenSys and utilizing the same tree, and any public tree sites
 (e.g., WikiTree.com, Ancestry.com, FamilySearch.org, etc).\
-4. Every data item in the database must be sourced/cited.\
+4. Every data item in the database to be sourced/cited.\
 5. Simple to use for everyone, including computer-challenged users.\
 6. Always Open Source.\
 \
@@ -111,7 +111,7 @@ would be the name of the directory/folder which houses the files unzipped
 from \"TestDB-26Sep2025.zip\". (Note - If the directory/folder was created
 in your home directory, just entering the name of the directory/folder is
 enough. If the directory/folder was created someplace else, then enter
-the full path to the directory/folder. In the form, enter a name to
+the full path to the directory/folder.) In the form, enter a name to
 assign to the Family DataBase \... maybe \"TestDB\". After completing
 the form, click \"Import DB\". The DataBase should import successfully
 with no fatal errors.\

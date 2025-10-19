@@ -4,7 +4,7 @@ priority - complete importing a Gedcom
 The task list below is by function (for the most part) and not prioritized.
 
 Main Menu (top level menu)
-  auto-refresh display whenever any of the variables on the page change
+  auto-refresh display whenever any of the variables on the page change, & other times (e.g., change to which DB is active)
     example: node is running and main menu is displayed; kill node - main menu page doesn't change
       perhaps force a refresh every so often OR perform the onload routine every so often
   allow focus ID to be set/changed
@@ -80,13 +80,16 @@ Import, Create or Remove a Family DataBase -> Create HTML Version of Family Data
       googleearth?  https://www.newyorkfamilyhistory.org/blog/using-google-earth-genealogy-putting-your-ancestors-map
   add favicon.ico link
   make buttons on Web page somehow stand out (spread them out, color them in?)
-  change the presentation of the Web page to be more presentable and user friendly
-    make it easy to access the index
-    file description on page - beginning and ending IDs
-    add "Usage Guide" button to table of contents page
+  change the presentation of the initial Web page to be more presentable and user friendly
+    make it easy to access the index (at a minimum, index choices should appear first in the display)
+      perhaps add a button to table of contents page for index rather than listing the various indexes at bottom of table of contents page
+    remove tableofcontents.html choice since that selection doesn't really do anything
+    change file names to beginning and ending IDs
+    add "Usage Guide" or "Navigation Guide" button to table of contents page
   Publish Web Site will be different than Create HTML in that Web site will be customizable
   add button to Web page tableofcontents.html file "Notify me when Web page updated"; get email address;
     send email to me containing the found email address; issue alert to user
+  add buttons for joining surname mailing lists (Lake, Kille, etc)
   functionality to add to MELGenKey HTML version of DB & to public Web Site
     (this will also apply "Publish Web Site")
     hovering over a $ amount or a Li amount will show conversion to other money in same year and the value for current year
@@ -99,8 +102,6 @@ Import, Create or Remove a Family DataBase -> Create HTML Version of Family Data
     do multiple recoll indexes:  LAKE Unsure area (already done), KILLE Unsure area
     user enters a search phrase; use recollq; edit the results to what I need; allow user to click on a result to bring up a file
     https://www.recoll.org/usermanual/webhelp/docs/RCL.PROGRAM.PYTHONAPI.INTRO.html
-  make the index selections more prominent
-    perhaps add a button to table of contents page for index rather than listing the various indexes at bottom of table of contents page
 
 Import, Create or Remove a Family DataBase -> Deport a Family DataBase
   back up data
@@ -142,7 +143,9 @@ Verify Family Data
     do not fix anything
     accept corrected data from user
   add check for multiple periods in ID
-  when verifying the index, 2 spaces not being after name can be easily auto-fixed
+  when verifying the index
+    2 spaces not being after name can be easily auto-fixed
+    add names and associated reference ID to index for names not already appearing in index (as in CreateIndex function)
   add line number (or exact text in error) to errors
   check for non-ASCII characters
   when checking Children Section for match on name in index & first name is "------", look for "name unknown"
@@ -476,6 +479,7 @@ Reports -> Produce Bio
   give user options to create bio using AI (user may have to have a login for AI)
     or to use a <textarea> to display the bio making it editable
     see Notes/UserUsingGemini.txt 
+    see https://github.com/karpathy/nanoGPT
   option to abbreviate Township, County, state name (see AncestralLine.html)
   option to use full date or just year 
   option to show full date in different formats (dd mmm yyyy, dd fullmonthname yyyy, fullmonthname dd, yyyy, mm/dd/yyyy, etc)
@@ -1415,6 +1419,7 @@ functions to add
     a strategy for accessing and analyzing information to build a comprehensive family tree
     define steps for accessing and using resources
   colorize photo
+  calculate a person's height and weight from a photo (AI can do this)
   translate
     text
     digital image
@@ -2201,7 +2206,7 @@ general/other
 
   allow directory structure to be anything
     preserve directory structure when importing DB
-    when importing Gedcom, allow user to specify structure in form
+    when importing, allow user to specify structure of input in form
 
   CROSS TESTING:
   try Chrome, Safari, Edge, Epiphany, Chromebook (using both ChromeOS & Linux)
@@ -2377,6 +2382,8 @@ general/other
     https://www.knowledgehut.com/tutorials/node-js/socket-services
 
   tidy up Timeline files (in Include/Timelines) (check for duplicate entries)
+  add to appropriate Timeline file
+    https://newenglandsociety.org/timeline/
   add button to each HTML page, if pressed brings up documentation for that page
   check4ActiveDB() in clib.js doesn't seem to be functioning as a promise (see MELGenKey.js & JS/OnThisDay.js)
   in any html file, any references or pointers (->) should be clickable
@@ -2406,4 +2413,18 @@ general/other
     the following functions use global variables; get rid of these global variables:  errors, info, warnings, msgs, rdata
       On This Day Report
       Recurring On This Day Report
+
+  printing
+    when formatting the printout (breaking long lines), if the area to print is too big (more than 1000 characters) it takes too much time to
+      do the reformat if looking for a space in each line to do the break; currently breaking at the line width specified by user whether there's
+      a space or character in that position; fix it so line always breaks at space
+
+  rename project? possible names:
+    GenSavant or Genealogy Savant
+    GenSage or Genealogy Sage
+    GenBrain or Genealogy Brain
+    GenMaster or Genealogy Master
+    GenGuru or Genealogy Guru (guru has religious significance)
+    GenSwami or Genealogy Swami (swami has religious significance)
+    GenSeer or Genealogy Seer (seer has religious significance)
 

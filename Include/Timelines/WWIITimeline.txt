@@ -1,5 +1,5 @@
 # World War II Events
-# v20250902
+# v20251013
 # any line with the # character in column 1 is considered a comment line
 # comment lines are not included in MELGenKey Reports
 29 Oct 1918 Start of the German Revolution. [1]
@@ -6032,7 +6032,7 @@
               Nationalist Government (China). [1]
 12 Oct 1943 Operation Cartwheel begins a bombing campaign against Rabaul. [1]
 13 Oct 1943 The new government of Italy sides with the Allies and declares
-              war on Germany. [1] [9]
+              war on Germany. [1] [9] [11]
 14 Oct 1943 229 of 292 B-17s reached the target in the Second Raid on
               Schweinfurt. Losses are so heavy that the long range daylight
               bombing campaign is suspended until the bombers can be escorted

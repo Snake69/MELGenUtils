@@ -1,5 +1,5 @@
 # Deaths of Notable People
-# v20250930
+# v20251018
 # any line with the # character in column 1 is considered a comment line
 # comment lines are not included in MELGenKey Reports
       - 961 David died and his throne is replaced by his son Solomon [3]
@@ -8033,7 +8033,7 @@
 25 Jun 1669 Francois de Vendome died, duke of Beaufort (b. 1616) [8]
 10 Sep 1669 Henrietta Maria of France died (b. 1609) [8]
  4 Oct 1669 Rembrandt Harmenszoon van Rijn, the Dutch painter, died [8]
-              [13] (b. 1606). [8] Some of his well known works include
+              [13] [19] (b. 1606). [8] Some of his well known works include
               Night Watch and Simeon in the Temple. [13]
 14 Oct 1669 Antonio Cesti died, Italian organist and composer (b. 1623) [8]
 24 Oct 1669 William Prynne died, English lawyer and author (b. 1600) [8]
@@ -11059,8 +11059,8 @@
               (b. 1764) [8]
  7 Oct 1793 Wills Hill died, 1st Marquess of Downshire, English politician,
               President of the Board of Trade (b. 1718) [8]
- 8 Oct 1793 John Hancock died, American merchant and politician, 1st
-              Governor of Massachusetts (b. 1737) [8]
+ 8 Oct 1793 John Hancock died, [8] [19] American merchant and politician,
+              1st Governor of Massachusetts (b. 1737) [8]
  9 Oct 1793 Jean Joseph Marie Amiot died, French missionary and linguist
               (b. 1718) [8]
 16 Oct 1793 Marie Antoinette [2] [8] (Austrian-born queen consort of Louis
@@ -13252,7 +13252,7 @@
               (b. 1761) [8]
  4 Sep 1849 Friedrich Laun died, German author (b. 1770) [8]
 25 Sep 1849 Johann Strauss I died, Austrian composer (b. 1804) [8]
- 7 Oct 1849 Edgar Allan Poe died, [2] [8] American short story writer,
+ 7 Oct 1849 Edgar Allan Poe died, [2] [8] [19] American short story writer,
               poet and critic (b. 1809) [8]
 17 Oct 1849 Frederic Francois Chopin, Polish master of short piano
               composition, died [2] [8] of tuberculosis [2] (b. 1810) [8]
@@ -20055,10 +20055,9 @@
 13 Oct 1931 Ernst Didring died, Swedish author (b. 1868) [8]
 17 Oct 1931 Alfons Maria Jakob died, German neurologist and academic
               (b. 1884) [8]
-18 Oct 1931 Thomas Alva Edison, inventor, died in West Orange, NJ at age 84
-              [4]
-            Thomas Edison died, American engineer and businessman, invented
-              the light bulb and phonograph (b. 1847) [8]
+18 Oct 1931 Thomas Edison died [4] [8] [19] in West Orange, NJ, [4] American
+              engineer and businessman, invented the light bulb and phonograph
+              (b. 1847) [8]
 21 Oct 1931 Arthur Schnitzler died, Austrian author and playwright (b. 1862)
               [8]
 26 Oct 1931 Charles Comiskey died, American baseball player and manager
@@ -26976,8 +26975,8 @@
               Prize laureate (b. 1872) [8]
  8 Oct 1967 Clement Attlee died, English soldier, lawyer, and politician,
               Prime Minister of the United Kingdom (b. 1883) [8]
- 9 Oct 1967 Che Guevara died, Argentinian-Cuban physician, politician and
-              guerrilla leader (b. 1928) [8]
+ 9 Oct 1967 Che Guevara executed, [8] [19] Argentinian-Cuban physician,
+              politician and guerrilla leader (b. 1928) [8]
             Cyril Norman Hinshelwood died, English chemist and academic,
               Nobel Prize laureate (b. 1897) [8]
             Andre Maurois died, French soldier and author (b. 1885) [8]
@@ -27089,22 +27088,18 @@
 31 Mar 1968 Grover Lowdermilk died, American baseball player (b. 1885) [8]
  1 Apr 1968 Lev Landau died, Azerbaijani-Russian physicist and academic,
               Nobel Prize laureate (b. 1908) [8]
- 4 Apr 1968 A lone assassin killed Dr. Martin Luther King, America's
-              leading civil rights activist, [13] in Memphis, Tennessee. [2]
-              Dr. King had been on the forefront of the non-violent struggle
-              to obtain civil rights for Blacks. James Earl Ray was later
-              convicted of the assassination. [13]
-            Martin Luther King Jr. died, American minister and activist,
-              Nobel Prize laureate (b. 1929); assassinated by James Earl
-              Ray at a motel in Memphis, Tennessee.[8]
+ 4 Apr 1968 A lone assassin killed Dr. Martin Luther King, America's leading
+              civil rights activist, [13] in Memphis, Tennessee. [2] Dr. King
+              (b. 1929) [8] had been on the forefront of the non-violent
+              struggle to obtain civil rights for Blacks. James Earl Ray
+              was later convicted of the assassination. [13]
  5 Apr 1968 Felix Couchoro died, Togolese writer (b. 1900) [8]
             Lajos Csordas died, Hungarian footballer [8]
             Giuseppe Paris died, Italian gymnast (b. 1895) [8]
- 7 Apr 1968 Motor racing world champion Jim Clark is killed in an accident
-              during a Formula Two race at Hockenheim. [8]
+ 7 Apr 1968 Motor racing world champion Jim Clark (b. 1936) is killed in
+              an accident during a Formula Two race at Hockenheim. [8]
             Edwin Baker died, Canadian co-founder of the Canadian National
               Institute for the Blind (CNIB) (b. 1893) [8]
-            Jim Clark died, Scottish race car driver (b. 1936) [8]
 10 Apr 1968 Gustavs Celmins died, Latvian lieutenant and politician (b. 1899)
               [8]
 12 Apr 1968 Heinrich Nordhoff died, German engineer (b. 1899) [8]
@@ -27792,7 +27787,7 @@
               (b. 1918) [8]
 29 Sep 1970 Edward Everett Horton died, American actor (b. 1886) [8]
  1 Oct 1970 Raul Riganti died, Argentinian race car driver (b. 1893) [8]
- 4 Oct 1970 Janis Joplin died [2] [8] of heroin overdose in Hollywood,
+ 4 Oct 1970 Janis Joplin died [2] [8] [19] of heroin overdose in Hollywood,
               [2] American singer-songwriter (b. 1943) [8]
  7 Oct 1970 Alphonse-Marie Parent died, Canadian priest and academic
               (b. 1906) [8]
@@ -28943,7 +28938,7 @@
 10 Oct 1974 Werner Heyking died, Danish actor (b. 1913) [8]
 13 Oct 1974 Otto Binder died, American author (b. 1911) [8]
             Anatoli Kozhemyakin died, Soviet footballer (b. 1953) [8]
-            Ed Sullivan died, American journalist and talk show host
+            Ed Sullivan died, [8] [19] American journalist and talk show host
               (b. 1901) [8]
 24 Oct 1974 David Oistrakh died, Ukrainian violinist (b. 1908) [8]
 26 Oct 1974 Bidia Dandaron died, Russian author and educator (b. 1914) [8]
@@ -31137,11 +31132,8 @@
  4 Oct 1981 Freddie Lindstrom died, American baseball player and coach
               (b. 1905) [8]
  5 Oct 1981 Gloria Grahame died, American actress (b. 1923) [8]
- 6 Oct 1981 Egyptian President Anwar Sadat was assassinated in Cairo [2]
-            Egyptian President Anwar Sadat is murdered by Islamic
-              extremists. [8]
-            Anwar Sadat died, Egyptian colonel and politician, 3rd President
-              of Egypt, Nobel Prize laureate (b. 1918) [8]
+ 6 Oct 1981 Egyptian President Anwar Sadat is assassinated [2] [8] [19]
+              in Cairo [2] by Islamic extremists (b. 1918). [8]
 13 Oct 1981 Rebecca Clarke died, English viola player and composer (b. 1886)
               [8]
 15 Oct 1981 Philip Fotheringham-Parker died, English race car driver
@@ -32391,8 +32383,9 @@
               (b. 1921) [8]
  1 Oct 1985 Ninian Sanderson died, Scottish race car driver (b. 1925) [8]
             E. B. White died, American essayist and journalist (b. 1899) [8]
- 2 Oct 1985 Rock Hudson died [2] [8] of complications of AIDS, [2] American
-              actor (b. 1925) [8]
+ 2 Oct 1985 Rock Hudson died, [2] [8] [19] first major US celebrity to die
+              [19] from complications of AIDS, [2] [19] American actor
+              (b. 1925) [8]
  5 Oct 1985 Karl Menger died, Austrian-American mathematician from the
               Vienna Circle (b. 1902) [8]
  6 Oct 1985 Police constable Keith Blakelock is murdered as riots erupt
@@ -32409,8 +32402,8 @@
               28th President of Brazil (b. 1905) [8]
 10 Oct 1985 Yul Brynner, the King in "The King and I" on stage and screen,
               died of lung cancer [2]
-            Orson Welles died, [2] [8] American actor, director, producer,
-              and screenwriter (b. 1915) [8]
+            Orson Welles died, [2] [8] [19] American actor, director,
+              producer, and screenwriter (b. 1915) [8]
 12 Oct 1985 Johnny Olson died, American radio host and game show announcer
               (b. 1910) [8]
             Ricky Wilson died, American singer-songwriter and guitarist
@@ -33865,7 +33858,7 @@
 30 Sep 1989 Virgil Thomson died, American composer and critic (b. 1896) [8]
  4 Oct 1989 Graham Chapman died [2] [8] of cancer, [2] English actor and
               screenwriter (b. 1941) [8]
- 6 Oct 1989 Bette Davis died, American actress (b. 1908) [8]
+ 6 Oct 1989 Bette Davis died, [8] [19] American actress (b. 1908) [8]
  9 Oct 1989 Yusuf Atilgan died, Turkish author and playwright (b. 1921) [8]
             Penny Lernoux died, American journalist and author (b. 1940) [8]
 11 Oct 1989 M. King Hubbert died, American geologist and academic (b. 1904)
@@ -35085,7 +35078,8 @@
               of Germany, Nobel Prize laureate (b. 1913) [8]
 13 Oct 1992 James Marshall died, American author and illustrator (b. 1942)
               [8]
-16 Oct 1992 Shirley Booth died, American actress and singer (b. 1898) [8]
+16 Oct 1992 Shirley Booth died, American actress [8] [19] and singer
+              (b. 1898), [8] Tony-, Academy-, and Emmy-winner [19]
 17 Oct 1992 Having gone to the wrong house, Japanese student Yoshihiro
               Hattori is killed by the homeowner in Baton Rouge,
               Louisiana. [8]
@@ -41367,7 +41361,7 @@
             Robert Vaidlo died, Estonian journalist and author (b. 1921) [8]
  3 Oct 2004 John Cerutti died, American baseball player and sportscaster
               (b. 1960) [8]
-            Janet Leigh died, American actress (b. 1927) [8]
+            Janet Leigh died, [8] [19] American actress (b. 1927) [8]
  4 Oct 2004 Gordon Cooper died, American colonel, engineer, and astronaut
               (b. 1927) [8]
  5 Oct 2004 Rodney Dangerfield died, American comedian, actor, producer,
@@ -41381,8 +41375,8 @@
  9 Oct 2004 Jacques Derrida died, Algerian-French philosopher and academic
               (b. 1930) [8]
 10 Oct 2004 Ken Caminiti died, American baseball player (b. 1963) [8]
-            Christopher Reeve died, [5] [8] American actor, producer and
-              activist (b. 1952) [8]
+            Christopher Reeve died, [5] [8] [19] American actor, producer
+              and activist (b. 1952) [8]
             Arthur H. Robinson died, American geographer and cartographer
               (b. 1915) [8]
             Maurice Shadbolt died, New Zealand author and playwright
@@ -48870,7 +48864,8 @@
               Sloan (b. 1922) [8]
             Arlen Specter died, American lieutenant and politician (b. 1930)
               [8]
-            Dody Weston Thompson died, American photographer (b. 1923) [8]
+            Dody Weston Thompson died, American photographer [8] [19]
+              (b. 1923) [8]
             Gart Westerhout died, Dutch-American astronomer and academic
               (b. 1927) [8]
 15 Oct 2012 Claude Cheysson died, French lieutenant and politician, French
@@ -56974,8 +56969,8 @@
 29 Sep 2017 Tom Alter died, Indian actor (b. 1950) [8]
 30 Sep 2017 Monty Hall died, American game show host (b. 1921) [8]
  1 Oct 2017 Dave Strader died, American sportscaster (b. 1955) [8]
- 2 Oct 2017 Tom Petty died, American singer-songwriter, guitarist, and
-              producer (b. 1950) [8]
+ 2 Oct 2017 Tom Petty died, [8] [19] American singer-songwriter, guitarist,
+              and producer (b. 1950) [8]
  5 Oct 2017 Eberhard van der Laan died, Dutch politician, mayor of Amsterdam
               (b. 1955) [8]
  6 Oct 2017 Ralphie May died, American stand-up comedian and actor (b. 1972)
@@ -57374,6 +57369,7 @@
               writer, filmmaker and public figure (b. 1924) [8]
  6 Oct 2018 Scott Wilson died, American actor (b. 1942) [8]
             Montserrat Caballe died, Spanish soprano (b. 1933) [8]
+15 Oct 2018 Microsoft cofounder Paul Allen died [19]
 18 Oct 2018 N. D. Tiwari died, Indian politician (b. 1925) [8]
 20 Oct 2018 Wim Kok died, Dutch prime minister (b. 1938) [8]
 23 Oct 2018 Todd Reid died, Australian tennis player (b. 1984) [8]
@@ -57613,8 +57609,8 @@
  5 Oct 2019 Toni Morrison died, American novelist (b. 1931) [8]
  6 Oct 2019 Ginger Baker died, English drummer (b. 1939) [8]
             Eddie Lumsden died, Australian rugby league player (b. 1936) [8]
-11 Oct 2019 Alexei Leonov died, Soviet/Russian cosmonaut and first human
-              to conduct a spacewalk (b. 1934) [8]
+11 Oct 2019 Alexei Leonov died, [8] [19] Soviet/Russian cosmonaut and first
+              human to conduct a spacewalk (b. 1934) [8]
 20 Mar 2020 Kenny Rogers, longtime star of country music, died. He was
               81. Known for such hits as "The Gambler," "Lady," "Islands in
               the Stream," and "Lucille," Rogers died peacefully at home of
@@ -57625,6 +57621,7 @@
 31 Aug 2020 baseball great Tom Seaver died [19]
 18 Sep 2020 Supreme Court Justice Ruth Bader Ginsburg died [19]
 13 Nov 2020 Paul Hornung, Green Bay Packers legend, died [16]
+18 Oct 2021 Former Secretary of State Colin Powell died [19]
  8 Jul 2022 former Japanese Prime Minister Shinzo Abe assassinated [19]
 31 Jul 2022 basketball legend Bill Russell died [19]
  8 Aug 2022 Olivia Newton-John died [19]

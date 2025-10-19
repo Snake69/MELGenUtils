@@ -1,5 +1,5 @@
 # USA Geographical Events
-# v20250909
+# v20251018
 # any line with the # character in column 1 is considered a comment line
 # comment lines are not included in MELGenKey Reports
         650 Cahokia (in present-day Illinois) founded. [1]
@@ -2386,14 +2386,14 @@
 28 Aug 1867 Midway Atoll was claimed. The largest island of Midway, Sand
               Island, had been claimed under the Guano Islands Act in 1858,
               but nothing more is known about this. [1]
-18 Oct 1867 Alaska formally transferred to the United States from the
-              Russian Empire for $7.2 million (US$126,274,285.71 in 2018)
+18 Oct 1867 Alaska formally transferred to the United States from the Russian
+              Empire [1] [33] for $7.2 million (US$126,274,285.71 in 2018)
               and designated the Department of Alaska. (The United States
               Senate approved the purchase on 9 Apr 1867.) New Archangel
               (Novoarkhangelsk now Sitka) is the capital. Due to a vague
               description and lack of quality surveying, the southeastern
               border with British holdings was unclear and disputed. [1]
-       1868 Phoenix, Arizona founded [1]
+       1868 Phoenix, Arizona founded. [1]
  9 May 1868 The city of Reno, Nevada, is founded. [3]
 22 Jun 1868 Arkansas was readmitted to Congress. [1]
 25 Jun 1868 Florida was readmitted to Congress. [1]

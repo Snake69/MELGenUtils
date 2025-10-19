@@ -1,5 +1,5 @@
 # American Revolution Events
-# v20250903
+# v20251019
 # any line with the # character in column 1 is considered a comment line
 # comment lines are not included in MELGenKey Reports
        1759 -1768, New England Planters immigrate to Nova Scotia, Canada
@@ -1844,17 +1844,17 @@
 28 Sep 1781 American forces backed by a French fleet begin their siege of
               Yorktown Heights, Virgina [2] [6]
 17 Oct 1781 Edward Hawke died, 1st Baron Hawke, English admiral (b. 1705) [2]
-19 Oct 1781 Seige of Yorktown ends. [2] [4] Cornwallis surrounded on land
-              and sea by Americans and French; Cornwallis (and 7000 of his men)
-              surrenders, Yorktown, VA. [4] After a long period of inactivity,
-              the British decided to pursue the Southern strategy. The British
-              were initially successful, but soon found themselves only in a
-              tenuous control of coastal cities. After a number of tactical
-              defeats, General Cornwallis, the British commander, retired
-              to Yorktown, awaiting relief from the British fleet. American
-              and French forces converged on him, however, and he was forced
-              to surrender. The surrender at Yorktown marked the last major
-              campaign of the war. [16]
+19 Oct 1781 Seige of Yorktown ends. [2] [4] Cornwallis surrounded on
+              land and sea by Americans and French; [4] Cornwallis (and
+              7000 of his men) surrenders, Yorktown, VA. [4] [20] After
+              a long period of inactivity, the British decided to pursue
+              the Southern strategy. The British were initially successful,
+              but soon found themselves only in a tenuous control of coastal
+              cities. After a number of tactical defeats, General Cornwallis,
+              the British commander, retired to Yorktown, awaiting relief
+              from the British fleet. American and French forces converged
+              on him, however, and he was forced to surrender. The surrender
+              at Yorktown marked the last major campaign of the war. [16]
 27 Oct 1781 News of the British surrender at Yorktown on 19 Oct reached
               Trenton, where it was celebrated "with every mark of joy
               and festivity ... in the evening the whole village was
