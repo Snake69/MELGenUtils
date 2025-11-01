@@ -1748,7 +1748,7 @@ function getParentID (ged, irec, which) {
 
 /* return either Father's name or Mother's name in a Gedcom */
 function getParentName (ged, irec, which) {
-    var famsect, retitems, id, pirec, name;
+    var famsect, retitems, Gretitems, Lretitems, id, pirec, name;
 
     famsect = findFam (ged, irec, "FAMC");
     if (famsect == -1 || !famsect)
@@ -1763,11 +1763,21 @@ function getParentName (ged, irec, which) {
     /* get INDI record for requested parent */
     retitems = extract0Rec (ged, id, "INDI", 0);
     pirec = retitems.str;
-    retitems = extractField (pirec, 2, "GIVN", 0);
-    name = retitems.str.trim();
-    retitems = extractField (pirec, 2, "SURN", 0);
-    name += " " + retitems.str.trim();
-    return name;
+    Gretitems = extractField (pirec, 2, "GIVN", 0);
+    if (Gretitems.str.trim() == '')
+        name = "------";
+    else
+        name = Gretitems.str.trim();
+    Lretitems = extractField (pirec, 2, "SURN", 0);
+    if (Lretitems.str.trim() == '')
+        name += " " + "------";
+    else
+        name += " " + Lretitems.str.trim();
+
+    if (Gretitems.str.trim() == '' && Lretitems.str.trim() == '')
+        return "name unknown";
+    else
+        return name;
 }
 
 /* get FAMC or FAMS record for an individual in a Gedcom */
@@ -1790,7 +1800,7 @@ function findFam (ged, irec, label) {
 
 /* in a Gedcom, check if an INDI has children */
 function Check4Children (ged, irec) {
-    var b, e, f, famid, famsect, retirems;
+    var b, e, f, famid, famsect, retitems;
 
     /* get FAM ID */
     retitems = extractField (irec, 1, "FAMS", 0);
@@ -1819,6 +1829,30 @@ function extractSect (rec, level, label) {
         if (rec[e] == "\n" && parseInt(rec[e + 1]) <= parseInt(level) && rec[e + 2] == " ")
             break;
     return rec.substring(b, e + 1);
+}
+
+/* given an ID, return full name */
+function GetFullNameFromID (ged, id) {
+    var irec, Gretitems, Lretitems;
+
+    /* get INDI record for requested ID */
+    retitems = extract0Rec (ged, "@" + id + "@", "INDI", 0);
+    irec = retitems.str;
+    Gretitems = extractField (irec, 2, "GIVN", 0);
+    if (Gretitems.str == '')
+        name = "------";
+    else
+        name = Gretitems.str.trim();
+    Lretitems = extractField (irec, 2, "SURN", 0);
+    if (Lretitems.str == '')
+        name += " " + "------";
+    else
+        name += " " + Lretitems.str.trim();
+
+    if (Gretitems.str == '' && Lretitems.str == '')
+        return "name unknown";
+    else
+        return name;
 }
 
 /* check permissions of files */
@@ -2121,5 +2155,5 @@ async function checkLinkFetch(FID, url) {
 module.exports = { ProcessDBSysInfo, UpdateDBSysInfo, TimelineEvents, ReadFamilyDB, ReadIndex, DetermineSection, Look4Match, ChildrenMatch,
                    DBInfo, dirExist, OTDEvents, TOC, Logging, createDBinfo, yyyymmdd, extract0Rec, extractField, romanize, getParentID,
                    getParentName, findFam, Check4Children, extractSect, GoThruDirectory, PreSetFocusID, DoSetFocusID, loadFamDB, DBIndex,
-                   ChkLinks };
+                   ChkLinks, GetFullNameFromID };
 

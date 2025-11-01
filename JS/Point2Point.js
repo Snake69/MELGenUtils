@@ -173,7 +173,7 @@ async function processPoint2Point(pd) {
                 loc = famgroup.indexOf(Pname + " born ");
                 if (loc != -1) {
                     loc = famgroup.indexOf(" born ", loc) + 5;
-                    var necessaryStuff = famgroup.substring(loc, famgroup.indexOf("\n", loc));
+                    var necessaryStuff = famgroup.substring(loc, famgroup.indexOf("\n", loc)), previousLocation;
                     necessaryStuff = necessaryStuff.replace(' in ', ' ');
                     necessaryStuff = necessaryStuff.replace(' at ', ' ');
                     necessaryStuff = necessaryStuff.replace(' home, ', ' ');
@@ -182,8 +182,17 @@ async function processPoint2Point(pd) {
                         necessaryStuff = necessaryStuff.replace(' Township', ' Twp');
                         necessaryStuff = necessaryStuff.replace(' County', ' Co');
                         z = necessaryStuff.lastIndexOf(",", necessaryStuff.length - 1);
+                        if (necessaryStuff.substring(z + 2).toLowerCase() == 'usa' || necessaryStuff.substring(z + 2).toLowerCase() == 'canada') {
+                            /* if usa or canada go to the previous location string which should be a state or province/territoriy */
+                            z = necessaryStuff.lastIndexOf(",", z - 1);
+                            previousLocation = 1;
+                        } else
+                            previousLocation = 0;
                         if (z != -1) {
-                            var abbrev = regionNameToAbbreviation (necessaryStuff.substring(z + 2));
+                            if (previousLocation)
+                                var abbrev = regionNameToAbbreviation (necessaryStuff.substring((z + 2), necessaryStuff.indexOf(',', z + 2)));
+                            else
+                                var abbrev = regionNameToAbbreviation (necessaryStuff.substring(z + 2));
                             if (abbrev != null)
                                 necessaryStuff = necessaryStuff.replace(necessaryStuff.substring(z + 2), abbrev);
                         }
@@ -224,7 +233,7 @@ async function processPoint2Point(pd) {
                 loc = famgroup.indexOf(Pname + " died ");
                 if (loc != -1) {
                     loc = famgroup.indexOf(" died ", loc) + 5;
-                    var necessaryStuff = famgroup.substring(loc, famgroup.indexOf("\n", loc));
+                    var necessaryStuff = famgroup.substring(loc, famgroup.indexOf("\n", loc), previousLocation);
                     necessaryStuff = necessaryStuff.replace(' in ', ' ');
                     necessaryStuff = necessaryStuff.replace(' at ', ' ');
                     necessaryStuff = necessaryStuff.replace(' home, ', ' ');
@@ -233,8 +242,17 @@ async function processPoint2Point(pd) {
                         necessaryStuff = necessaryStuff.replace(' Township', ' Twp');
                         necessaryStuff = necessaryStuff.replace(' County', ' Co');
                         z = necessaryStuff.lastIndexOf(",", necessaryStuff.length - 1);
+                        if (necessaryStuff.substring(z + 2).toLowerCase() == 'usa' || necessaryStuff.substring(z + 2).toLowerCase() == 'canada') {
+                            /* if usa or canada go to the previous location string which should be a state or province/territoriy */
+                            z = necessaryStuff.lastIndexOf(",", z - 1);
+                            previousLocation = 1;
+                        } else
+                            previousLocation = 0;
                         if (z != -1) {
-                            var abbrev = regionNameToAbbreviation (necessaryStuff.substring(z + 2));
+                            if (previousLocation)
+                                var abbrev = regionNameToAbbreviation (necessaryStuff.substring((z + 2), necessaryStuff.indexOf(',', z + 2)));
+                            else
+                                var abbrev = regionNameToAbbreviation (necessaryStuff.substring(z + 2));
                             if (abbrev != null)
                                 necessaryStuff = necessaryStuff.replace(necessaryStuff.substring(z + 2), abbrev);
                         }

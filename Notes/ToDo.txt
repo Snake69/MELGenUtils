@@ -13,16 +13,30 @@ Main Menu (top level menu)
   if no DB active, in the Main Menu do not show "Focus ID Within Active DB =" line and "Active DB Status =" line
 
 Import, Create or Remove a Family DataBase -> Import a Family DataBase from a GEDCOM
+  for SOUR citations/references, it can be followed by '3' level recs to further cite the event/data
   if the Gedcom file is a zip file, unzip it before importing
+  add option to create the DB containing only direct ancestry from starting individual
   function incomplete; add all possible items
+    need to process (add) from INDI record:
+      EVEN: Generic event.          
+            (TYPE: Add a TYPE tag immediately after EVEN to define the specific event. For example, TYPE Purchased Residence.)
+            The generic event entry in a GEDCOM file follows this structure:
+            1 EVEN
+            2 TYPE <EVENT_DESCRIPTOR>
+            2 DATE <DATE>              (optional)
+            2 PLAC <PLACE>             (optional)
+            2 NOTE <NOTE>              (optional)
+            2 SOUR <REF>
+      WILL: Will.  
+      PROP: Possessions and property.  
   need to be able to handle importing Gedcom files larger than 200MB
   allow for a "Combo Import" so that a GEDCOM is imported along with files that belong in the Other directory, index, etc
-  allow data to be created and not imported
+  allow data to be created and not imported (for user review)
   option to start and stop at certain points
-  for starting/ending point give user option to:
-    enter name - use exact match (verify first), if multiple exact matches send user list to choose from, if no exact matches send user
-      list of near matches, if no near matches send user list of all individuals
-    start with first individual in GEDCOM
+    for starting/ending point give user option to:
+      enter name - use exact match (verify first), if multiple exact matches send user list to choose from, if no exact matches send user
+        list of near matches, if no near matches send user list of all individuals
+      start with first individual in GEDCOM
   as part of final result, produce a report
     list all records/lines/tags which were disregarded/ignored & the reason they were disregarded/ignored
     one reason is no associated source/citation
@@ -34,6 +48,7 @@ Import, Create or Remove a Family DataBase -> Import a Family DataBase from a GE
     "Check Here to Choose from a List of Individuals" is checked by user then text in box should auto-erase
   handle 0 @.....@ OBJE records; if 1 FILE link-to-file record present, download file
   remove multiple identical Citation references on same Note line
+  indent children (if necessary) so that roman numerals line up
 
 Import, Create or Remove a Family DataBase -> Import a Family DataBase from User Created Files
   if a zip file, unzip it before importing
@@ -74,6 +89,7 @@ Import, Create or Remove a Family DataBase -> Create HTML Version of Family Data
       result should be in layers (e.g., a link to a city maps to the city itself, the user can back out to the township, the county,
         the state, the country, the world); see more notes elsewhere here
       if there is an associated date or time frame then the map MUST be pertinent to that time (Newberry maps)
+      https://www.openhistoricalmap.org
       https://geographic.org/geographic_names/index.html
       http://gov.genealogy.net/search/index
     add a MAP icon to locations in the book, bring up maps.google.com when clicked
@@ -553,6 +569,9 @@ Reports -> Point to Point Ancestral Line
   for spouse, pick up "married", "born" or "died" only in Timeline or Notes sections
   pick up dates only in Timeline Section
   when "died" not present in Timeline Section, use year associated with "inventory made" or "will proved" and add a 'c' for circa
+  when abbreviations checked, not picking up States/Provinces/Territories to be abbreviated when it's not last in the location string or
+    preceded by a comma
+    to fix, isolate each segment of the location string and check each isolated piece separately
 
 Reports -> Produce Phylogenetic Tree
   check out https://github.com/veg/phylotree.js/
@@ -1041,6 +1060,7 @@ Miscellaneous Functions -> Produce PDF
   ironpdf may have more options (security (login), searchable, clickable links, etc)
 
 Miscellaneous Functions -> Slideshow
+  add an image gallery option
   after clicking Start Slideshow, first image should come up right away (i.e., no delay showing first image)
   filter additional file types for showing
   need to know immediately when/if user closes window showing images
@@ -1420,6 +1440,8 @@ functions to add
     define steps for accessing and using resources
   colorize photo
   calculate a person's height and weight from a photo (AI can do this)
+  show relationship similar to https://www.the-stenzels.com/genealogy/cousinfinder/cousin_finder.htm
+    (based up Include/Misc/RelationshipChart1.jpg and/or Include/Misc/RelationshipChart2.jpg)
   translate
     text
     digital image
@@ -2203,6 +2225,7 @@ general/other
 
   maps
     http://gis.co.hunterdon.nj.us/HistoricBoundaries/
+    https://www.openhistoricalmap.org
 
   allow directory structure to be anything
     preserve directory structure when importing DB
@@ -2410,7 +2433,7 @@ general/other
     change system alert to dialog
 
   do globals like they should be done (export/import) or, better yet, remove all globals
-    the following functions use global variables; get rid of these global variables:  errors, info, warnings, msgs, rdata
+    the following functions use global variables; get rid of these global variables:  errors, info, warnings, msgs, rdata (and others)
       On This Day Report
       Recurring On This Day Report
 
@@ -2418,13 +2441,7 @@ general/other
     when formatting the printout (breaking long lines), if the area to print is too big (more than 1000 characters) it takes too much time to
       do the reformat if looking for a space in each line to do the break; currently breaking at the line width specified by user whether there's
       a space or character in that position; fix it so line always breaks at space
-
-  rename project? possible names:
-    GenSavant or Genealogy Savant
-    GenSage or Genealogy Sage
-    GenBrain or Genealogy Brain
-    GenMaster or Genealogy Master
-    GenGuru or Genealogy Guru (guru has religious significance)
-    GenSwami or Genealogy Swami (swami has religious significance)
-    GenSeer or Genealogy Seer (seer has religious significance)
+    try using CSS (see Notes/PrintingFix)
+    one fix (the only fix?) seems to be to send the buffer to node & use a node-worker (see Notes/PrintingFix)
+    can't use worker on browser side because of security - already tried
 

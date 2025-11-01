@@ -1,5 +1,5 @@
 # Deaths of Notable People
-# v20251018
+# v20251031
 # any line with the # character in column 1 is considered a comment line
 # comment lines are not included in MELGenKey Reports
       - 961 David died and his throne is replaced by his son Solomon [3]
@@ -16712,7 +16712,8 @@
               paleontologist (b. 1817) [8]
 25 Oct 1902 Frank Norris died, American journalist and novelist (b. 1870)
               [8]
-26 Oct 1902 Elizabeth Cady Stanton died, American activist (b. 1815) [8]
+26 Oct 1902 Elizabeth Cady Stanton died, American activist [8] [19] (b. 1815)
+              [8]
 12 Nov 1902 William Henry Barlow died, English engineer (b. 1812) [8]
 15 Nov 1902 Leopold II, King of Belgium almost assassinated by Italian
               anarchist [6]
@@ -19346,7 +19347,7 @@
               (b. 1855) [8]
 27 Oct 1926 Warren Wood died, American golfer and soldier (b. 1887) [8]
 31 Oct 1926 Harry Houdini, magician and escape artist, died [2] [8] [18]
-              in Detroit [2] [18] (b. 1874) [8] [18] from an infection
+              [19] in Detroit [2] [18] (b. 1874) [8] [18] from an infection
               after having had an appendectomy [18]
  3 Nov 1926 Annie Oakley died, American entertainer and target shooter
               (b. 1860) [8]
@@ -22045,8 +22046,8 @@
               polo player (b. 1911) [8]
  5 Jan 1943 George Washington Carver died, American botanist, educator,
               and inventor (b. 1864) [8]
- 7 Jan 1943 Nikola Tesla died, Serbian-American physicist and engineer
-              (b. 1856) [8]
+ 7 Jan 1943 Nikola Tesla died in New York City, Serbian-American physicist
+              and engineer (b. 1856) [8]
  8 Jan 1943 Richard Hillary died, Australian pilot and author (b. 1919) [8]
             Andres Larka died, Estonian general and politician, 1st Estonian
               Minister of War (b. 1879) [8]
@@ -23933,7 +23934,8 @@
               (b. 1871) [8]
 22 Oct 1952 Ernst Rudin died, Swiss psychiatrist, geneticist, and eugenicist
               (b. 1874) [8]
-26 Oct 1952 Hattie McDaniel died, American actress and singer (b. 1895) [8]
+26 Oct 1952 Hattie McDaniel died, [8] [19] American actress and singer,
+              (b. 1895) [8] first Black Academy Award winner [19]
 28 Oct 1952 Billy Hughes died, English-Australian politician, 7th Prime
               Minister of Australia (b. 1862) [8]
 31 Oct 1952 Chit Hlaing died, Burmese lawyer and politician (b. 1879) [8]
@@ -26231,8 +26233,8 @@
             Nettie Palmer died, Australian poet and critic (b. 1885) [8]
             Christopher Vane died, 10th Baron Barnard, English soldier
               and politician, Lord Lieutenant of Durham (b. 1888) [8]
-20 Oct 1964 Herbert Hoover died, American engineer and politician, 31st
-              President of the United States (b. 1874) [8]
+20 Oct 1964 Herbert Hoover died, [8] [19] American engineer and politician,
+              31st President of the United States (b. 1874) [8]
 23 Oct 1964 Frank Luther Mott died, American historian and journalist
               (b. 1886) [8]
 24 Oct 1964 Toni Kinshofer died, German mountaineer (b. 1931) [8]
@@ -27535,8 +27537,8 @@
               (b. 1914) [8]
             August Sang died, Estonian poet and translator (b. 1914) [8]
 19 Oct 1969 Lacey Hearn died, American sprinter (b. 1881) [8]
-21 Oct 1969 Jack Kerouac died, [2] [8] American novelist and poet (b. 1922)
-              [8]
+21 Oct 1969 Jack Kerouac died, [2] [8] [19] American novelist and poet
+              (b. 1922) [8]
             Waclaw Sierpinski died, Polish mathematician and academic
               (b. 1882) [8]
 22 Oct 1969 Tommy Edwards died, American singer-songwriter (b. 1922) [8]
@@ -28339,9 +28341,9 @@
 20 Oct 1972 Harlow Shapley died, American astronomer and academic (b. 1885)
               [8]
 22 Oct 1972 James K. Baxter died, New Zealand poet, writer, theologian,
-              and social commentator. (b. 1926) [8]
-24 Oct 1972 Jackie Robinson died, American baseball player and sportscaster
-              (b. 1919) [8]
+              and social commentator (b. 1926) [8]
+24 Oct 1972 Jackie Robinson died, [8] [19] American baseball player and
+              sportscaster (b. 1919) [8]
             Claire Windsor died, American actress (b. 1897) [8]
 25 Oct 1972 Johnny Mantz died, American racing driver (b. 1918) [8]
 26 Oct 1972 Igor Sikorsky died, Ukrainian-American engineer and academic,
@@ -32067,13 +32069,13 @@
               Amritsar, which had resulted in the deaths of over 1,000 Sikh
               separatists. Hindu rioting after the assassination killed more
               than 2,000 Sikhs. [13]
-31 Oct 1984 Indian Prime Minister Indira Gandhi is assassinated by two
-              Sikh security guards. Riots break out in New Delhi and other
-              cities and around 3,000 Sikhs are killed. [8]
+31 Oct 1984 Indian Prime Minister Indira Gandhi is assassinated [8] [19]
+              by two Sikh security guards. Riots break out in New Delhi
+              and other cities and around 3,000 Sikhs are killed. [8]
+              Gandhi first female prime minister of India, [19] 3rd Prime
+              Minister of India (b. 1917) [8]
             Eduardo De Filippo died, Italian actor, director, and
               screenwriter (b. 1900) [8]
-            Indira Gandhi died, Indian politician, 3rd Prime Minister of
-              India (b. 1917) [8]
  1 Nov 1984 Norman Krasna died, American director, producer, and screenwriter
               (b. 1909) [8]
  2 Nov 1984 Capital punishment: Velma Barfield becomes the first woman
@@ -38375,7 +38377,6 @@
 25 Oct 1999 golfer Payne Stewart and five others were killed when their
               Learjet flew uncontrolled for four hours before crashing in
               South Dakota; Stewart was 42 [4]
-            Payne Stewart died, American golfer (b. 1957) [8]
 26 Oct 1999 Hoyt Axton died, American singer-songwriter, guitarist, and
               actor (b. 1938) [8]
             Eknath Easwaran died, Indian-American author and educator
@@ -42249,7 +42250,7 @@
             Mokarrameh Ghanbari died, Iranian painter (b. 1928) [8]
             Immanuel C. Y. Hsu died, Chinese sinologist and scholar (b. 1923)
               [8]
-            Rosa Parks died, American activist (b. 1913) [8]
+            Rosa Parks died, [8] [19] American activist (b. 1913) [8]
             Robert Sloman died, English actor and screenwriter (b. 1926) [8]
 26 Oct 2005 Keith Parkinson died, American illustrator (b. 1958) [8]
             George Swindin died, English footballer and manager (b. 1914)
@@ -46900,12 +46901,10 @@
 16 Oct 2011 Dan Wheldon died, English racing driver (b. 1978) [8]
 17 Oct 2011 Carl Lindner died, Jr., American businessman (b. 1919) [8]
 19 Oct 2011 Kakkanadan died, Indian author (b. 1935) [8]
-20 Oct 2011 Libyan Dictator Moammar Gadhafi is killed [5]
-            Libyan Civil War: Rebel forces capture Libyan dictator Muammar
-              Gaddafi in his hometown of Sirte and kill him shortly
-              thereafter. [8]
-            Muammar Gaddafi died, Libyan colonel and politician, Prime
-              Minister of Libya (b. 1942) [8]
+20 Oct 2011 Libyan Civil War: Rebel forces capture Libyan dictator Muammar
+              Gaddafi in his hometown of Sirte [8] and kill him shortly
+              thereafter. [5] [8] [19] Gaddafi Libyan colonel and politician,
+              Prime Minister of Libya (b. 1942) [8]
             Mutassim Gaddafi died, Libyan colonel (b. 1977) [8]
             Abu-Bakr Yunis Jabr died, Libyan politician (b. 1942) [8]
 21 Oct 2011 Hikmet Bila died, Turkish journalist and author (b. 1954) [8]
@@ -57616,21 +57615,22 @@
               the Stream," and "Lucille," Rogers died peacefully at home of
               natural causes. [15]
  9 May 2020 Little Richard died, rock legend [19]
-17 Jul 2020 Politician and civil rights leader John Lewis died [19]
+17 Jul 2020 politician and civil rights leader John Lewis died [19]
 28 Aug 2020 actor Chadwick Boseman died [19]
 31 Aug 2020 baseball great Tom Seaver died [19]
 18 Sep 2020 Supreme Court Justice Ruth Bader Ginsburg died [19]
 13 Nov 2020 Paul Hornung, Green Bay Packers legend, died [16]
-18 Oct 2021 Former Secretary of State Colin Powell died [19]
+18 Oct 2021 former Secretary of State Colin Powell died [19]
  8 Jul 2022 former Japanese Prime Minister Shinzo Abe assassinated [19]
 31 Jul 2022 basketball legend Bill Russell died [19]
  8 Aug 2022 Olivia Newton-John died [19]
  8 Sep 2022 Elizabeth II, [8] [19] the longest-reigning British monarch in
               history, [8] died, [8] [19] aged 96, after a reign of 70 years
               [8]
-28 Sep 2022 Rapper Coolio died [19]
+28 Sep 2022 rapper Coolio died [19]
 26 Jul 2023 Sinead O'Connor died [19]
-26 Aug 2023 Television host Bob Barker died [19]
+26 Aug 2023 television host Bob Barker died [19]
+28 Oct 2023 actor Matthew Perry died [19]
 18 Jun 2024 Willie Mays, baseball great, died [19]
  9 Sep 2024 actor James Earl Jones died [19]
 27 Sep 2024 Maggie Smith, actress, died [19]

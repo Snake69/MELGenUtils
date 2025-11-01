@@ -3,7 +3,8 @@ const path = require("path");
 const os = require("os");
 const misc = require("./misc.js");
 
-var citations = [[]], citationsFamGrp = [[]], indiIDs = [[]], notes = [], timeline = [], only1citation, numcites, noSour, DBdata;
+var citations = [[]], citationsFamGrp = [[]], indiIDs = [[]], notes = [], timeline = [], only1citation, numcites, noSour, DBdata, ged;
+var SPECSW = 0;
 
 async function GedChecks (postdata) {
     var swtob = 0, fpath, abs2read, x, y, Gerror = '', Gmsg = '';
@@ -87,11 +88,11 @@ async function GedChecks (postdata) {
                         }
                     }
                     if (y <= 0)
-                        Gerror += "There are no SOUR records (source, citation) in the Gedcom";
+                        Gerror += "There are no SOUR records (sources) in the Gedcom";
                     if (!y)
                         Gerror += " (other than in the HEAD section which indicates where the Gedcom itself came from)";
                     if (y <= 0)
-                        Gerror += ".<br><br>A source/citation for any data to be imported is required by MELGenKey.<br><br>";
+                        Gerror += ".<br><br>A source for any data to be imported is required by MELGenKey.<br><br>";
                     /* make sure at least one family in gedcom has children */
                     x = ged.indexOf('FAMC');
                     if (x == -1)
@@ -333,8 +334,7 @@ function ParseGedcom (postdata, directive, who) {
 }
 
 function createFiles (pd, id) {
-    var x, y, z, b, e, idp, id2, retitems, lastanc, family, generation, sequence = 0, DBinfo, indirec, nextid, indx, gen,
-        sourrec, tocpt, toctl, dirin, target;
+    var x, y, z, b, e, idp, id2, retitems, family, generation, DBinfo, indirec, nextid, indx, gen, sourrec, tocpt, toctl, dirin, target;
 
     if (id == "none")
         /* user did not select a starting ID */
@@ -446,31 +446,28 @@ function createFiles (pd, id) {
     }
 
     /* extract info from GEDCOM */
-    for (x = y = 0; x <= indiIDs.length; x++) {
+    for (x = y = 0; x < indiIDs.length; x++) {
         if (indiIDs[x][0] == -1)
-            break;
+            continue;
         retitems = misc.extract0Rec (ged, '@' + indiIDs[x][0] + '@ ', "INDI", 0);
         indirec = retitems.str;
         /* if INDI has children then do Family Group */
         var chld = misc.Check4Children (ged, indirec);
         if (chld != 0) {
-            /* extract FAM record for indirec */
+            /* extract FAMS record for indirec */
             family = misc.findFam (ged, indirec, "FAMS");
             if (!family)
                 misc.Logging("***** FAMS record for " + indirec + " does not exist in Gedcom! This should never happen. *****");
             if (family != 0 && family != -1) {
                 idp = misc.getParentID (ged, indirec, "HUSB");
-                if (idp) {
+                if (idp)
                     y++
-                    lastanc = 0;
-                } else
-                    lastanc = 1;
                 if (!x)
                     id2 = -1;
                 else
                     id2 = indiIDs[x + 1][0];
                 if (typeof retitems.str != "undefined" && retitems.str != "undefined") {
-                    z = buildFamGroup (ged, family, indiIDs[x][0], indiIDs[x][1], id2, 0, lastanc);
+                    z = buildFamGroup (ged, family, indiIDs[x][0], indiIDs[x][1], id2, 0);
                     if (x)
                         x++;                // without this the spouse would get done a second time
                     if (z && z != -1)
@@ -566,11 +563,19 @@ function createFiles (pd, id) {
     }
 }
 
-function buildFamGroup (gedcom, family, id, gen, id2, suffix, lastanc) {
-    var x, y, i = 0, j, b, e, rdata = "", numch = 0, irec, irecsp, father, mother, children = "", edate, eplace,
+function buildFamGroup (gedcom, family, id, gen, id2, suffix) {
+    var x, y, i = 0, j, b, e, rdata = "", numch = 0, irec, irecsp, father, mother, children = "", edate, eplace, sequence,
         retitems, idt, iName, i2Name, chName, fName, mName, sect, chFamsw;
 
-    timeline.length = notes.length = 0;
+/*
+  follow line for spouses in HOF (there can be more than 1)
+  if parents
+    for every child of parents (except direct line child)
+      check whether or not to do a Family Group for that child
+      for every child with its own Family Group, add 1 to sequence
+*/
+
+    timeline.length = notes.length = sequence = 0;
 
     /* extract INDI for ID */
     retitems = misc.extract0Rec (gedcom, "@" + id + "@", "INDI", 0);
@@ -580,7 +585,7 @@ function buildFamGroup (gedcom, family, id, gen, id2, suffix, lastanc) {
         return -1;
     }
     /* check if this individual has children */
-    x = misc.Check4Children (ged, irec);
+    x = misc.Check4Children (gedcom, irec);
     if (!x)
         /* if this individual has no children don't create a Family Group */
         return 0;
@@ -593,15 +598,21 @@ function buildFamGroup (gedcom, family, id, gen, id2, suffix, lastanc) {
     /* family group header */
     rdata += gen + "." + suffix + "  ";
     retitems = misc.extractField (irec, "2", "GIVN", 0);
-    iName = retitems.str;
-    rdata += retitems.str;                        // HOF given name
+    if (retitems.str.trim() == '') {
+        iName = "------";
+        rdata += "------";                               // HOF given name
+    } else {
+        iName = retitems.str.trim();
+        rdata += retitems.str.trim();                    // HOF given name
+    }
     retitems = misc.extractField (irec, "2", "SURN", 0);
-    iName += retitems.str;                        // iName contains full name of INDI
-    rdata += retitems.str + os.EOL;               // HOF surname
+    iName += " " + retitems.str.trim();                  // iName contains full name of INDI
+    rdata += " " + retitems.str.trim() + os.EOL;         // HOF surname
 
     /* Father & Mother lines */
     rdata += "Father - ";
-    if (lastanc)
+    var idph = misc.getParentID (gedcom, irec, "HUSB");
+    if (idph == '')
         rdata += "name unknown";
     else {
         /* get Father's name & MELGenKey ID */
@@ -613,7 +624,7 @@ function buildFamGroup (gedcom, family, id, gen, id2, suffix, lastanc) {
             if (idp) {
                 for (x = 0; ; x++)
                     if (indiIDs[x][0] == -1)
-                        break;
+                        continue;
                     else
                         if (idp.substring(1, idp.indexOf('@', 1)) == indiIDs[x][0]) {
                             rdata += indiIDs[x][1] + ".0  ";
@@ -625,7 +636,8 @@ function buildFamGroup (gedcom, family, id, gen, id2, suffix, lastanc) {
     }
     rdata += os.EOL;
     rdata += "Mother - ";
-    if (lastanc)
+    var idpw = misc.getParentID (gedcom, irec, "WIFE");
+    if (idpw == '')
         rdata += "name unknown";
     else {
         /* get Mother's name & MELGenKey ID */
@@ -637,7 +649,7 @@ function buildFamGroup (gedcom, family, id, gen, id2, suffix, lastanc) {
             if (idp) {
                 for (x = 0; ; x++)
                     if (indiIDs[x][0] == -1)
-                        break;
+                        continue;
                     else
                         if (idp.substring(1, idp.indexOf('@', 1)) == indiIDs[x][0]) {
                             rdata += indiIDs[x][1] + ".0  ";
@@ -653,22 +665,33 @@ function buildFamGroup (gedcom, family, id, gen, id2, suffix, lastanc) {
         /* include spouse in Family Group Header Section */
         rdata += os.EOL;
         retitems = misc.extract0Rec (gedcom, "@" + id2 + "@", "INDI", 0);
-        irecsp = retitems.str;
+        irecsp = retitems.str.trim();
         if (irecsp == "") {
             misc.Logging("***** INDI record for " + id2 + " does not exist in Gedcom! This should never happen. *****");
             return -1;
         }
         rdata += (gen + 1) + "." + suffix + "  ";
         retitems = misc.extractField (irecsp, "2", "GIVN", 0);
-        i2Name = retitems.str;
-        rdata += retitems.str;                        // HOF given name
+        if (retitems.str.trim() == '') {
+            i2Name = "------";
+            rdata += "------";                               // HOF given name
+        } else {
+            i2Name = retitems.str.trim();
+            rdata += retitems.str.trim();                    // HOF given name
+        }
         retitems = misc.extractField (irecsp, "2", "SURN", 0);
-        i2Name += retitems.str;                       // i2Name contains full name of INDI
-        rdata += retitems.str + os.EOL;               // HOF surname
+        if (retitems.str.trim() == '') {
+            i2Name += " ------";
+            rdata += " ------" + os.EOL;                    // HOF given name
+        } else {
+            i2Name += " " + retitems.str.trim();            // i2Name contains full name of INDI
+            rdata += " " + retitems.str.trim() + os.EOL;    // HOF given name
+        }
 
         /* Father & Mother lines */
         rdata += "Father - ";
-        if (lastanc)
+        var idpsph = misc.getParentID (gedcom, irecsp, "HUSB");
+        if (idpsph == '')
             rdata += "name unknown";
         else {
             /* get Father's name & MELGenKey ID */
@@ -680,7 +703,7 @@ function buildFamGroup (gedcom, family, id, gen, id2, suffix, lastanc) {
                 if (idp) {
                     for (x = 0; ; x++)
                         if (indiIDs[x][0] == -1)
-                            break;
+                            continue;
                         else
                             if (idp.substring(1, idp.indexOf('@', 1)) == indiIDs[x][0]) {
                                 rdata += indiIDs[x][1] + ".0  ";
@@ -692,7 +715,8 @@ function buildFamGroup (gedcom, family, id, gen, id2, suffix, lastanc) {
         }
         rdata += os.EOL;
         rdata += "Mother - ";
-        if (lastanc)
+        var idpspw = misc.getParentID (gedcom, irecsp, "WIFE");
+        if (idpspw == '')
             rdata += "name unknown";
         else {
             /* get Mother's name & MELGenKey ID */
@@ -704,7 +728,7 @@ function buildFamGroup (gedcom, family, id, gen, id2, suffix, lastanc) {
                 if (idp) {
                     for (x = 0; ; x++)
                         if (indiIDs[x][0] == -1)
-                            break;
+                            continue;
                         else
                             if (idp.substring(1, idp.indexOf('@', 1)) == indiIDs[x][0]) {
                                 rdata += indiIDs[x][1] + ".0  ";
@@ -735,8 +759,13 @@ function buildFamGroup (gedcom, family, id, gen, id2, suffix, lastanc) {
     i = prepProcessDate (i, "OCCU", "worked as a", irec, "1", iName, "", notes, 0, 0);
     i = prepProcessDate (i, "ADOP", "adopted", irec, "1", iName, "", notes, 0, 0);
     i = prepProcessDate (i, "NICK", "known as", irec, "1", iName, "", notes, 0, 0);
+    i = prepProcessDate (i, "ALIA", "known as", irec, "1", iName, "", notes, 0, 0);
     i = prepProcessDate (i, "RELI", "a", irec, "1", iName, "", notes, 0, 0);
     i = prepProcessDate (i, "CREM", "cremated", irec, "1", iName, "", notes, 0, 0);
+    i = prepProcessDate (i, "RETI", "retired", irec, "1", iName, "", notes, 0, 0);
+    i = prepProcessDate (i, "NATU", "naturalized", irec, "1", iName, "", notes, 0, 0);
+    i = prepProcessDate (i, "EMIG", "emigrated", irec, "1", iName, "", notes, 0, 0);
+    i = prepProcessDate (i, "IMMI", "immigrated", irec, "1", iName, "", notes, 0, 0);
     i = prepProcessDate (i, "EDUC", "attended", irec, "1", iName, "", notes, 0, 0);
     i = prepProcessDate (i, "GRAD", "graduated from", irec, "1", iName, "", notes, 0, 0);
     i = prepProcessDate (i, "DSCR", "described as", irec, "1", iName, "", notes, 0, 0);
@@ -780,8 +809,13 @@ function buildFamGroup (gedcom, family, id, gen, id2, suffix, lastanc) {
             i = prepProcessDate (i, "OCCU", "worked as a", irec, "1", i2Name, "", notes, 0, 1);
             i = prepProcessDate (i, "ADOP", "adopted", irec, "1", i2Name, "", notes, 0, 1);
             i = prepProcessDate (i, "NICK", "known as", irec, "1", i2Name, "", notes, 0, 1);
+            i = prepProcessDate (i, "ALIA", "known as", irec, "1", i2Name, "", notes, 0, 1);
             i = prepProcessDate (i, "RELI", "a", irec, "1", i2Name, "", notes, 0, 1);
             i = prepProcessDate (i, "CREM", "cremated", irec, "1", i2Name, "", notes, 0, 1);
+            i = prepProcessDate (i, "RETI", "retired", irec, "1", i2Name, "", notes, 0, 1);
+            i = prepProcessDate (i, "NATU", "naturalized", irec, "1", i2Name, "", notes, 0, 1);
+            i = prepProcessDate (i, "EMIG", "emigrated", irec, "1", i2Name, "", notes, 0, 1);
+            i = prepProcessDate (i, "IMMI", "immigrated", irec, "1", i2Name, "", notes, 0, 1);
             i = prepProcessDate (i, "EDUC", "attended", irec, "1", i2Name, "", notes, 0, 1);
             i = prepProcessDate (i, "GRAD", "graduated from", irec, "1", i2Name, "", notes, 0, 1);
             i = prepProcessDate (i, "DSCR", "described as", irec, "1", i2Name, "", notes, 0, 1);
@@ -824,25 +858,31 @@ function buildFamGroup (gedcom, family, id, gen, id2, suffix, lastanc) {
         else {
             retitems = misc.extract0Rec (gedcom, idt + " ", "INDI", 0);
             irec = retitems.str;
-            retitems = misc.extractField (irec, "2", "SOUR", 0);
-            if (typeof retitems.str == "undefined" || retitems.str == "undefined") {
-               noSour++;
-               continue;        // if no SOUR, don't add child
+            var childrec = misc.findFam (gedcom, irec, "FAMS");
+            if (childrec != 0 && childrec != -1) {
+                retitems = misc.extractField (childrec, "1", "CHIL", 0);
+                if (typeof retitems.str != "undefined" && retitems.str != "undefined") {
+                    retitems = misc.extractField (childrec, "2", "SOUR", 0);
+                    if (typeof retitems.str == "undefined" || retitems.str == "undefined") {
+                       noSour++;
+                       continue;        // if no SOUR, don't add child
+                    }
+                }
             }
             retitems = misc.extractField (irec, "2", "GIVN", 0);
-            chName = retitems.str;
+            chName = retitems.str.trim();
             i = prepProcessDate (i, "BIRT", "born", irec, "1", chName, "", notes, numch + 1, numch + 2);
 
             /* Children Section */
             if (!numch)
                 children = "Children:" + os.EOL + os.EOL;
 
-            for (chFamsw = y = 0; ; y++)
+            for (chFamsw = y = 0; y < indiIDs.length; y++)
                 if (indiIDs[y][0] == -1)
-                    break;
+                    continue;
                 else
-                    if (idt.substring(1, idt.indexOf('@', 1)) == indiIDs[y][0] &&
-                               DBdata.indexOf("\n" + indiIDs[y][1] + ".0  ") != -1) {      // ensure child's Family Group was indeed added
+                    // ensure child's Family Group was indeed added
+                    if (idt.substring(1, idt.indexOf('@', 1)) == indiIDs[y][0] && DBdata.indexOf("\n" + indiIDs[y][1] + ".0  ") != -1) {
                         children += indiIDs[y][1] + ".0  ";
                         chFamsw = 1;
                         break;
@@ -887,13 +927,18 @@ function buildFamGroup (gedcom, family, id, gen, id2, suffix, lastanc) {
                 i = prepProcessDate (i, "OCCU", "worked as a", irec, "1", chName, "", notes, numch + 1, numch + 2);
                 i = prepProcessDate (i, "ADOP", "adopted", irec, "1", chName, "", notes, numch + 1, numch + 2);
                 i = prepProcessDate (i, "NICK", "known as", irec, "1", chName, "", notes, numch + 1, numch + 2);
+                i = prepProcessDate (i, "ALIA", "known as", irec, "1", chName, "", notes, numch + 1, numch + 2);
                 i = prepProcessDate (i, "RELI", "a", irec, "1", chName, "", notes, numch + 1, numch + 2);
                 i = prepProcessDate (i, "CREM", "cremated", irec, "1", chName, "", notes, numch + 1, numch + 2);
+                i = prepProcessDate (i, "RETI", "retired", irec, "1", chName, "", notes, numch + 1, numch + 2);
+                i = prepProcessDate (i, "NATU", "naturalized", irec, "1", chName, "", notes, numch + 1, numch + 2);
+                i = prepProcessDate (i, "EMIG", "emigrated", irec, "1", chName, "", notes, numch + 1, numch + 2);
+                i = prepProcessDate (i, "IMMI", "immigrated", irec, "1", chName, "", notes, numch + 1, numch + 2);
                 i = prepProcessDate (i, "EDUC", "attended", irec, "1", chName, "", notes, numch + 1, numch + 2);
                 i = prepProcessDate (i, "GRAD", "graduated from", irec, "1", chName, "", notes, numch + 1, numch + 2);
                 i = prepProcessDate (i, "DSCR", "described as", irec, "1", chName, "", notes, numch + 1, numch + 2);
                 /* get child's spouse if he/she married */
-                var childfamily = misc.findFam (ged, irec, "FAMS");
+                var childfamily = misc.findFam (gedcom, irec, "FAMS");
                 if (childfamily != 0 && childfamily != -1) {
                     retitems = misc.extractField (childfamily, "1", "MARR", 0);
                     if (typeof retitems.str != "undefined" && retitems.str != "undefined") {
@@ -902,9 +947,9 @@ function buildFamGroup (gedcom, family, id, gen, id2, suffix, lastanc) {
                             /* get ID for spouse */
                             retitems = misc.extractField (childfamily, "1", "HUSB", 0);
                             var idts = retitems.str.trim();
-                            if (idts.substring(1, idts.length - 1) == idt) {
+                            if (idts == idt) {
                                 retitems = misc.extractField (childfamily, "1", "WIFE", 0);
-                                idts = retitems.str;
+                                idts = retitems.str.trim();
                             }
                             /* extract INDI for ID */
                             retitems = misc.extract0Rec (gedcom, idts, "INDI", 0);
@@ -914,31 +959,37 @@ function buildFamGroup (gedcom, family, id, gen, id2, suffix, lastanc) {
                                 return -1;
                             }
                             retitems = misc.extractField (irecsp, "2", "GIVN", 0);
-                            var i2Namesp = retitems.str;
+                            var i2Namesp = retitems.str.trim();
                             retitems = misc.extractField (irecsp, "2", "SURN", 0);
-                            i2Namesp += retitems.str;                        // i2Namesp contains full name of INDI
+                            i2Namesp += " " + retitems.str.trim();                        // i2Namesp contains full name of INDI
 
-                            i = prepProcessDate (i, "MARR", "married", irec, "1", chName, i2Namesp, notes, numch + 1, numch + 2);
+                            i = prepProcessDate (i, "MARR", "married", childfamily, "1", chName, i2Namesp, notes, numch + 1, numch + 2);
                             /* add child's spouse's events */
+                            i = prepProcessDate (i, "BIRT", "born", irecsp, "1", i2Namesp, "", notes, 0, 0);
                             sect = misc.extractSect (irecsp, "1", "BAPM");
                             if (sect != "")
-                                i = prepProcessDate (i, "BAPM", "baptized", irecsp, "1", i2Namesp, "", notes, numch + 1, numch + 2);
+                                i = prepProcessDate (i, "BAPM", "baptized", irecsp, "1", i2Namesp, "", notes, 0, 0);
                             else
-                                i = prepProcessDate (i, "CHR", "baptized", irecsp, "1", i2Namesp, "", notes, numch + 1, numch + 2);
-                            i = prepProcessDate (i, "DEAT", "died", irecsp, "1", i2Namesp, "", notes, numch + 1, numch + 2);
-                            i = prepProcessDate (i, "BURI", "buried", irecsp, "1", i2Namesp, "", notes, numch + 1, numch + 2);
-                            i = prepProcessDate (i, "SSN", "SSN", irecsp, "1", i2Namesp, "", notes, numch + 1, numch + 2);
-                            i = prepProcessDate (i, "EMAIL", "email address", irecsp, "1", i2Namesp, "", notes, numch + 1, numch + 2);
-                            i = prepProcessDate (i, "ADDR", "living at", irecsp, "1", i2Namesp, "", notes, numch + 1, numch + 2);
-                            i = prepProcessDate (i, "RESI", "living at", irecsp, "1", i2Namesp, "", notes, numch + 1, numch + 2);
-                            i = prepProcessDate (i, "OCCU", "worked as a", irecsp, "1", i2Namesp, "", notes, numch + 1, numch + 2);
-                            i = prepProcessDate (i, "ADOP", "adopted", irecsp, "1", i2Namesp, "", notes, numch + 1, numch + 2);
-                            i = prepProcessDate (i, "NICK", "known as", irecsp, "1", i2Namesp, "", notes, numch + 1, numch + 2);
-                            i = prepProcessDate (i, "RELI", "a", irecsp, "1", i2Namesp, "", notes, numch + 1, numch + 2);
-                            i = prepProcessDate (i, "CREM", "cremated", irecsp, "1", i2Namesp, "", notes, numch + 1, numch + 2);
-                            i = prepProcessDate (i, "EDUC", "attended", irecsp, "1", i2Namesp, "", notes, numch + 1, numch + 2);
-                            i = prepProcessDate (i, "GRAD", "graduated from", irecsp, "1", i2Namesp, "", notes, numch + 1, numch + 2);
-                            i = prepProcessDate (i, "DSCR", "described as", irecsp, "1", i2Namesp, "", notes, numch + 1, numch + 2);
+                                i = prepProcessDate (i, "CHR", "baptized", irecsp, "1", i2Namesp, "", notes, 0, 0);
+                            i = prepProcessDate (i, "DEAT", "died", irecsp, "1", i2Namesp, "", notes, 0, 0);
+                            i = prepProcessDate (i, "BURI", "buried", irecsp, "1", i2Namesp, "", notes, 0, 0);
+                            i = prepProcessDate (i, "SSN", "SSN", irecsp, "1", i2Namesp, "", notes, 0, 0);
+                            i = prepProcessDate (i, "EMAIL", "email address", irecsp, "1", i2Namesp, "", notes, 0, 0);
+                            i = prepProcessDate (i, "ADDR", "living at", irecsp, "1", i2Namesp, "", notes, 0, 0);
+                            i = prepProcessDate (i, "RESI", "living at", irecsp, "1", i2Namesp, "", notes, 0, 0);
+                            i = prepProcessDate (i, "OCCU", "worked as a", irecsp, "1", i2Namesp, "", notes, 0, 0);
+                            i = prepProcessDate (i, "ADOP", "adopted", irecsp, "1", i2Namesp, "", notes, 0, 0);
+                            i = prepProcessDate (i, "NICK", "known as", irecsp, "1", i2Namesp, "", notes, 0, 0);
+                            i = prepProcessDate (i, "ALIA", "known as", irecsp, "1", i2Namesp, "", notes, 0, 0);
+                            i = prepProcessDate (i, "RELI", "a", irecsp, "1", i2Namesp, "", notes, 0, 0);
+                            i = prepProcessDate (i, "CREM", "cremated", irecsp, "1", i2Namesp, "", notes, 0, 0);
+                            i = prepProcessDate (i, "RETI", "retired", irecsp, "1", i2Namesp, "", notes, 0, 0);
+                            i = prepProcessDate (i, "NATU", "naturalized", irecsp, "1", i2Namesp, "", notes, 0, 0);
+                            i = prepProcessDate (i, "EMIG", "emigrated", irecsp, "1", i2Namesp, "", notes, 0, 0);
+                            i = prepProcessDate (i, "IMMI", "immigrated", irecsp, "1", i2Namesp, "", notes, 0, 0);
+                            i = prepProcessDate (i, "EDUC", "attended", irecsp, "1", i2Namesp, "", notes, 0, 0);
+                            i = prepProcessDate (i, "GRAD", "graduated from", irecsp, "1", i2Namesp, "", notes, 0, 0);
+                            i = prepProcessDate (i, "DSCR", "described as", irecsp, "1", i2Namesp, "", notes, 0, 0);
                         } else
                             noSour++;
                     }

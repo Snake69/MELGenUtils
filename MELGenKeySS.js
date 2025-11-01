@@ -53,7 +53,6 @@ global.USGeo;
 global.WorldGeo;
 global.CanadaGeo;
 global.MLB;
-global.ged;
 global.sseClients;
 
 log = "";
