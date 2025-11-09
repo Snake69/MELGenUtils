@@ -1,5 +1,5 @@
 # Deaths of Notable People
-# v20251031
+# v20251108
 # any line with the # character in column 1 is considered a comment line
 # comment lines are not included in MELGenKey Reports
       - 961 David died and his throne is replaced by his son Solomon [3]
@@ -19349,8 +19349,8 @@
 31 Oct 1926 Harry Houdini, magician and escape artist, died [2] [8] [18]
               [19] in Detroit [2] [18] (b. 1874) [8] [18] from an infection
               after having had an appendectomy [18]
- 3 Nov 1926 Annie Oakley died, American entertainer and target shooter
-              (b. 1860) [8]
+ 3 Nov 1926 Annie Oakley died, [8] [19] American entertainer and target
+              shooter (b. 1860) [8]
 17 Nov 1926 George Sterling (d.1926), California poet and critic, committed
               suicide by swallowed cyanide in the locker room of the Bohemian
               Club on Taylor Street in SF. His wife had committed suicide
@@ -23595,8 +23595,8 @@
 23 Oct 1950 Al Jolson died, [2] [8] Lithuanian-American actor and singer
               (b. 1886) [8]
 29 Oct 1950 Gustaf V of Sweden died (b. 1858) [8]
- 2 Nov 1950 George Bernard Shaw died, Irish author, playwright, and critic,
-              Nobel Prize laureate (b. 1856) [8]
+ 2 Nov 1950 George Bernard Shaw died, [8] [19] Irish author, playwright,
+              and critic, Nobel Prize laureate (b. 1856) [8]
  4 Nov 1950 Grover Cleveland Alexander died, American baseball player and
               coach (b. 1887) [8]
 11 Nov 1950 Alexandros Diomidis died, Greek banker and politician, 145th
@@ -25814,8 +25814,9 @@
               [8]
  1 Nov 1962 Ricardo Rodriguez died, Mexican race car driver (b. 1942) [8]
  3 Nov 1962 L. O. Wenckebach died, Dutch sculptor and painter (b. 1895) [8]
- 7 Nov 1962 Eleanor Roosevelt died, [2] [8] American humanitarian and
-              politician, 39th First Lady of the United States (b. 1884) [8]
+ 7 Nov 1962 Eleanor Roosevelt died, [2] [8] [19] American humanitarian and
+              politician, [8] 39th First Lady of the United States [8] [19]
+              (b. 1884) [8]
  9 Nov 1962 Dhondo Keshav Karve died, Indian activist and academic (b. 1858)
               [8]
 10 Nov 1962 Julius Lenhart died, Austrian gymnast and engineer (b. 1875) [8]
@@ -26032,12 +26033,9 @@
 30 Oct 1963 U. Muthuramalingam Thevar died, Indian lawyer and politician
               (b. 1908) [8]
 31 Oct 1963 Mesut Cemil died, Turkish cellist and composer (b. 1902) [8]
- 2 Nov 1963 Ngo Dinh Diem assassinated in South Vietnam [5]
-            South Vietnamese President Ngo Dinh Diem (1st President of the
-              Republic of Vietnam, b. 1901) is assassinated following a
-              military coup. [8]
-            Ngo Dinh Nhu died, Vietnamese activist, archivist, politician
-              and tactical strategist (b. 1910) [8]
+ 2 Nov 1963 South Vietnamese President Ngo Dinh Diem (1st President of the
+              Republic of Vietnam, b. 1901) is assassinated [8] [19] in
+              South Vietnam [5] following a military coup. [8] (b. 1910) [8]
  5 Nov 1963 Luis Cernuda died, Spanish poet and critic (b. 1902) [8]
 10 Nov 1963 Klara Dan von Neumann died, Hungarian-American computer scientist
               (b. 1911) [8]
@@ -34733,7 +34731,7 @@
               politician (b. 1923) [8]
             Fred MacMurray died, American actor and businessman (b. 1908)
               [8]
- 6 Nov 1991 Gene Tierney died, American actress (b. 1920) [8]
+ 6 Nov 1991 Gene Tierney died, [8] [19] American actress (b. 1920) [8]
  7 Nov 1991 Tom of Finland died, Finnish illustrator (b. 1920) [8]
  9 Nov 1991 Yves Montand died, Italian-French actor (b. 1921) [8]
 10 Nov 1991 William Afflis died, American football player and wrestler
@@ -38389,8 +38387,8 @@
 30 Oct 1999 Maigonis Valdmanis died, Latvian basketball player (b. 1933) [8]
 31 Oct 1999 Greg Moore died, Canadian race car driver (b. 1975) [8]
  1 Nov 1999 Theodore Hall died, American physicist and spy (b. 1925) [8]
-            Walter Payton died, American football player and race car driver
-              (b. 1954) [8]
+            Walter Payton died, [8] [19] American football player and race
+              car driver (b. 1954) [8]
  3 Nov 1999 Ian Bannen died, Scottish actor (b. 1928) [8]
  4 Nov 1999 Malcolm Marshall died, Barbadian cricketer and coach (b. 1958)
               [8]
@@ -57619,6 +57617,7 @@
 28 Aug 2020 actor Chadwick Boseman died [19]
 31 Aug 2020 baseball great Tom Seaver died [19]
 18 Sep 2020 Supreme Court Justice Ruth Bader Ginsburg died [19]
+ 8 Nov 2020 "Jeopardy!" host Alex Trebek died [19]
 13 Nov 2020 Paul Hornung, Green Bay Packers legend, died [16]
 18 Oct 2021 former Secretary of State Colin Powell died [19]
  8 Jul 2022 former Japanese Prime Minister Shinzo Abe assassinated [19]

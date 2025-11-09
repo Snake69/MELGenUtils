@@ -278,9 +278,22 @@ function DBInfo () {
 
 /* create an index of proper names for the active Family DB */
 function DBIndex (pdirectives) {
+    var x;
     const directives = JSON.parse(pdirectives);
     const index = {};
-    const fData = familydata.substring(3);   // familydata starts with three newlines
+
+    /* find first character not a space nor newline */
+    for (x = 0; x < familydata.length; x++)
+        if (familydata[x] == ' ' || familydata[x] == '\n' || familydata[x] == '\r')
+            continue;
+        else
+            break;
+    if (x == familydata.length) {
+        Logging("Create Index - There doesn't seem to be any data to index!  Index file not created.");
+        return "Creating new index for " + ProcessDBSysInfo("DBName") + " FAILED. There doesn't seem to be any data to index.";
+    }
+
+    const fData = familydata.substring(x);
     const familyGroups = fData.split(os.EOL + os.EOL + os.EOL + os.EOL);
 
     familyGroups.forEach(group => {
@@ -457,6 +470,8 @@ function DBIndex (pdirectives) {
                                     nameAfterBy = nameAfterBy.substring(21);
                                 if (nameAfterBy.startsWith("Justice ") || nameAfterBy.startsWith("Brother "))
                                     nameAfterBy = nameAfterBy.substring(8);
+                                if (nameAfterBy.startsWith("JP "))
+                                    nameAfterBy = nameAfterBy.substring(3);
 
                                 const nameParts = findProperName(nameAfterBy);
                                 // Join the collected name parts and perform final cleanup (remove citation references) 
@@ -569,6 +584,8 @@ function DBIndex (pdirectives) {
                                         nameAfterBy = nameAfterBy.substring(21);
                                     if (nameAfterBy.startsWith("Justice ") || nameAfterBy.startsWith("Brother "))
                                         nameAfterBy = nameAfterBy.substring(8);
+                                    if (nameAfterBy.startsWith("JP "))
+                                        nameAfterBy = nameAfterBy.substring(3);
 
                                     const nameParts = findProperName(nameAfterBy);
                                     // Join the collected name parts and perform final cleanup (remove citation references) 

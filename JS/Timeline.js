@@ -321,62 +321,62 @@ async function Timeline (postdata) {
     }
     if (postdata.USGeo == "USGeo") {
         if (USGeo == "") {
-            if (!fs.existsSync(path.normalize("./Include/Timelines/USAGeographicalTimeline.txt"))) {
-                TLwarnings += "The United States Geography file does not exist and cannot be included in the Timeline Report." + os.EOL + os.EOL;
+            if (!fs.existsSync(path.normalize("./Include/Timelines/USAGeopoliticalTimeline.txt"))) {
+                TLwarnings += "The United States Geopolitical file does not exist and cannot be included in the Timeline Report." + os.EOL + os.EOL;
             }
             else {
                 try {
-                    USGeo = fs.readFileSync(path.normalize("./Include/Timelines/USAGeographicalTimeline.txt"), 'utf8');
+                    USGeo = fs.readFileSync(path.normalize("./Include/Timelines/USAGeopoliticalTimeline.txt"), 'utf8');
                     USGeo = USGeo.replace(/\r\n/g, '\n');
-                    nonfamdbinfo += "United States Geography" + os.EOL;
+                    nonfamdbinfo += "United States Geopolitical" + os.EOL;
                 }
                 catch (err) {
-                    misc.Logging(err + "; problem reading " + path.normalize('./Include/Timelines/USAGeographicalTimeline.txt') + ".");
+                    misc.Logging(err + "; problem reading " + path.normalize('./Include/Timelines/USAGeopoliticalTimeline.txt') + ".");
                 }
             }
         }
         else {
-            nonfamdbinfo += "United States Geography" + os.EOL;
+            nonfamdbinfo += "United States Geopolitical" + os.EOL;
         }
     }
     if (postdata.WorldGeo == "WorldGeo") {
         if (WorldGeo == "") {
-            if (!fs.existsSync(path.normalize("./Include/Timelines/WorldGeographicalTimeline.txt"))) {
-                TLwarnings += "The World Geography file does not exist and cannot be included in the Timeline Report." + os.EOL + os.EOL;
+            if (!fs.existsSync(path.normalize("./Include/Timelines/WorldGeopoliticalTimeline.txt"))) {
+                TLwarnings += "The World Geopolitical file does not exist and cannot be included in the Timeline Report." + os.EOL + os.EOL;
             }
             else {
                 try {
-                    WorldGeo = fs.readFileSync(path.normalize("./Include/Timelines/WorldGeographicalTimeline.txt"), 'utf8');
+                    WorldGeo = fs.readFileSync(path.normalize("./Include/Timelines/WorldGeopoliticalTimeline.txt"), 'utf8');
                     WorldGeo = WorldGeo.replace(/\r\n/g, '\n');
-                    nonfamdbinfo += "World Geography" + os.EOL;
+                    nonfamdbinfo += "World Geopolitical" + os.EOL;
                 }
                 catch (err) {
-                    misc.Logging(err + "; problem reading " + path.normalize('./Include/Timelines/WorldGeographicalTimeline.txt') + ".");
+                    misc.Logging(err + "; problem reading " + path.normalize('./Include/Timelines/WorldGeopoliticalTimeline.txt') + ".");
                 }
             }
         }
         else {
-            nonfamdbinfo += "World Geography" + os.EOL;
+            nonfamdbinfo += "World Geopolitical" + os.EOL;
         }
     }
     if (postdata.CanadaGeo == "CanadaGeo") {
         if (CanadaGeo == "") {
-            if (!fs.existsSync(path.normalize("./Include/Timelines/CanadaGeographicalTimeline.txt"))) {
-                TLwarnings += "The Canada Geography file does not exist and cannot be included in the Timeline Report." + os.EOL + os.EOL;
+            if (!fs.existsSync(path.normalize("./Include/Timelines/CanadaGeopoliticalTimeline.txt"))) {
+                TLwarnings += "The Canada Geopolitical file does not exist and cannot be included in the Timeline Report." + os.EOL + os.EOL;
             }
             else {
                 try {
-                    CanadaGeo = fs.readFileSync(path.normalize("./Include/Timelines/CanadaGeographicalTimeline.txt"), 'utf8');
+                    CanadaGeo = fs.readFileSync(path.normalize("./Include/Timelines/CanadaGeopoliticalTimeline.txt"), 'utf8');
                     CanadaGeo = General.replace(/\r\n/g, '\n');
-                    nonfamdbinfo += "Canada Geography" + os.EOL;
+                    nonfamdbinfo += "Canada Geopolitical" + os.EOL;
                 }
                 catch (err) {
-                    misc.Logging(err + "; problem reading " + path.normalize('./Include/Timelines/CanadaGeographicalTimeline.txt') + ".");
+                    misc.Logging(err + "; problem reading " + path.normalize('./Include/Timelines/CanadaGeopoliticalTimeline.txt') + ".");
                 }
             }
         }
         else {
-            nonfamdbinfo += "Canada Geography" + os.EOL;
+            nonfamdbinfo += "Canada Geopolitical" + os.EOL;
         }
     }
     if (postdata.MLB == "MLB") {
@@ -555,13 +555,13 @@ async function DoTimeline (directives, indpos, fampos) {
         /* European colonization of US */
         misc.TimelineEvents(0, sdate, edate, directives, 0, EuroNA, 0);
     if (directives.hasOwnProperty('USGeo') && USGeo != '')
-        /* USA geography */
+        /* USA Geopolitical */
         misc.TimelineEvents(0, sdate, edate, directives, 0, USGeo, 0);
     if (directives.hasOwnProperty('WorldGeo') && WorldGeo != '')
-        /* world geography */
+        /* world Geopolitical */
         misc.TimelineEvents(0, sdate, edate, directives, 0, WorldGeo, 0);
     if (directives.hasOwnProperty('CanadaGeo') && CanadaGeo != '')
-        /* Canada Geography */
+        /* Canada Geopolitical */
         misc.TimelineEvents(0, sdate, edate, directives, 0, CanadaGeo, 0);
     if (directives.hasOwnProperty('MLB') && MLB != '')
         /* Major League Baseball */

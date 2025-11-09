@@ -496,21 +496,17 @@ Reports -> Produce Bio
     or to use a <textarea> to display the bio making it editable
     see Notes/UserUsingGemini.txt 
     see https://github.com/karpathy/nanoGPT
+    ollama
+      https://developers.redhat.com/blog/2024/09/10/quick-look-tool-usefunction-calling-nodejs-and-ollama#
+      https://jws.news/2024/how-to-write-a-javascript-app-that-uses-ollama/
+      https://dev.to/koolkamalkishor/running-and-creating-your-own-llms-locally-with-nodejs-api-using-ollama-97f
+      https://levelup.gitconnected.com/calling-the-ollama-api-in-a-local-browser-using-javascript-2c6832b05bc0
+      https://javascript.plainenglish.io/how-to-run-a-local-llm-with-ollama-and-node-js-for-beginners-a4d13e49737c
+      https://www.i-programmer.info/news/105-artificial-intelligence/17232-get-started-with-ollamas-python-a-javascript-libraries.html
   option to abbreviate Township, County, state name (see AncestralLine.html)
   option to use full date or just year 
   option to show full date in different formats (dd mmm yyyy, dd fullmonthname yyyy, fullmonthname dd, yyyy, mm/dd/yyyy, etc)
   enhance bio using Questions, Notes, Extras
-  for using AI, see:
-    https://naturalnode.github.io/natural/
-      https://www.youtube.com/watch?v=nEPyGX-VXdw
-    https://github.com/axa-group/nlp.js
-    https://github.com/spencermountain/compromise/          (English only)
-    https://github.com/winkjs/wink-nlp-utils
-    https://github.com/wooorm/franc
-    https://medium.com/analytics-vidhya/nlp-libraries-for-node-js-and-javascript-bdb605bb803c
-    check out https://www.semrush.com/goodcontent/ai-text-generator/
-    https://www.writecream.com/personal-biography-generator/
-    google:  biography ai
 
 Reports -> Calendar of Evenets
   line text output
@@ -1503,6 +1499,17 @@ functions to add
   function to create/edit/remove files in the Other directory
   function for user to edit/delete/add entries in Include/SiteList.txt
     backup original before changing/saving new
+  historical geopolitical timeline of places (this timing logic should also be applied at Verify time; also hovering over (or clicking on) a
+      place name in the HTML version of the DB should show the timeline) - see Include/Timelines/USA-Geography
+    anywhere in the world
+    states
+    counties
+    townships
+    cities, towns, etc
+    https://chronas.org
+    https://native-land.ca/
+    https://timemaps.com/
+    https://www.thoughtco.com/historical-map-overlays-for-google-1422162
 
 general/other
   much of the documentation needs to be expanded upon, or content added/edited
@@ -1517,17 +1524,14 @@ general/other
   make MELGenKey easily accessible from a mobile device
     https://stackoverflow.com/questions/68624631/access-nodejs-express-server-from-android-phone
     https://www.geeksforgeeks.org/how-to-run-node-js-with-express-on-mobile-devices/
-  do historical township timelines for all counties (geopolitical creation and changes)
-    townships for all NJ counties are historically described in
-      Include/Timelines/USA-Geography/NJCivilBoundaries.pdf
   en.wikipedia.org for municipalities in all states
     use for error checking
   re-use HTML
     https://medium.com/front-end-weekly/how-to-build-reusable-html-components-without-component-based-frameworks-2f7747f4c5db
   reading large files
     https://betterprogramming.pub/a-memory-friendly-way-of-reading-files-in-node-js-a45ad0cc7bb6
-    optimal maximum file size for loads seems to be 200K (this may only matter for the HTML files)
-    reading large Family DataBase files
+    optimal file size for loads seems to be 200K (this may only matter for the HTML files)
+    reading large Family DataBase files (> 200MB)
         var fs = require('fs');
         app.get('/api/csv/:filename', function (req, res) {
             var filepath = "public/uploads/"+req.params.filename
@@ -1670,8 +1674,8 @@ general/other
   see https://genopro.com/family-tree-software/
 
   allow user to manually add sites to check (MELGenKey should save sites that are added for next time)
-  emplement a research IQ/rating/score regarding the user
-  emplement a research rating/score regarding the DB and/or for each Family Group
+  emplement a research/confidence IQ/rating/score regarding the user
+  emplement a research/confidence rating/score regarding the DB and/or for each Family Group
 
   add a check for obits
     user supplies specific site(s)
@@ -2444,4 +2448,6 @@ general/other
     try using CSS (see Notes/PrintingFix)
     one fix (the only fix?) seems to be to send the buffer to node & use a node-worker (see Notes/PrintingFix)
     can't use worker on browser side because of security - already tried
+
+  delete Include/Timelines/*Geographical* files from Github
 

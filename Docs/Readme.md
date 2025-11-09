@@ -10,7 +10,7 @@ Project Title
 
 \
 MEL Genealogy Key (or MELGenKey)\
-v20250926\
+v20251106\
 An aid for genealogists. A \"full stack\" application written in
 JavaScript, HTML and CSS.\
 \
@@ -21,12 +21,12 @@ Project Description
 -------------------
 
 \
-MELGenKey is a menu-based application offering many functions useful to
-a genealogist including database management, creation of HTML versions
-of a DataBase & Web sites, search aid (records and data),
+MELGenKey is a menu-based application offering many functions and utilities
+useful to a genealogist including database management, creation of HTML
+versions of a DataBase & Web sites, search aid (records and data),
 verify/inspect/analyze data, reports, auto-updating of MELGenKey Family
 DataBases and various on-line DataBases/Trees, and many other
-functions.\
+functions/utilities.\
 \
 MELGenKey should run on Microsoft Windows, MacOS and/or Linux as is.\
 \
@@ -64,7 +64,7 @@ Project Objectives
 
 \
 1. Run as is on Linux, Apple or Windows.\
-2. Provide all functions useful to genealogists in one place, all on a personal computer under the user's control.\
+2. Bring together all functions and utilities useful to genealogists in one place, all on a personal computer under the user's control.\
 3. Ability to sync trees on host machine, any other host machines
 running MELGenSys and utilizing the same tree, and any public tree sites
 (e.g., WikiTree.com, Ancestry.com, FamilySearch.org, etc).\

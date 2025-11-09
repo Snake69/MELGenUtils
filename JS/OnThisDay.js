@@ -258,13 +258,13 @@ function DoOnThisDay (directives, nfdbi, warni, RECUR, FamDBName) {
         /* European Colonization of NA */
         misc.OTDEvents(ddmm, directives, EuroNA, 0);
     if (directives.hasOwnProperty('USGeo') && USGeo != '')
-        /* USA geography */
+        /* USA Geopolitical */
         misc.OTDEvents(ddmm, directives, USGeo, 0);
     if (directives.hasOwnProperty('WorldGeo') && WorldGeo != '')
-        /* world geography */
+        /* world Geopolitical */
         misc.OTDEvents(ddmm, directives, WorldGeo, 0);
     if (directives.hasOwnProperty('CanadaGeo') && CanadaGeo != '')
-        /* Canada Geography */
+        /* Canada Geopolitical */
         misc.OTDEvents(ddmm, directives, CanadaGeo, 0);
     if (directives.hasOwnProperty('MLB') && MLB != '')
         /* Major League Baseball */
@@ -741,24 +741,24 @@ function processInclusions(inc) {
             resinc += ',';
         resinc += '"USGeo":"USGeo"';
         if (USGeo == "") {
-            if (!fs.existsSync("./Include/Timelines/USAGeographicalTimeline.txt")) {
-                reswarn += "The USA Geography Timeline file does not exist and cannot be included in the On This Day Report." + os.EOL + os.EOL;
+            if (!fs.existsSync("./Include/Timelines/USAGeopoliticalTimeline.txt")) {
+                reswarn += "The USA Geopolitical Timeline file does not exist and cannot be included in the On This Day Report." + os.EOL + os.EOL;
             }
             else {
                 try {
-                    USGeo = fs.readFileSync("./Include/Timelines/USAGeographicalTimeline.txt", 'utf8');
+                    USGeo = fs.readFileSync("./Include/Timelines/USAGeopoliticalTimeline.txt", 'utf8');
                     USGeo = USGeo.replace(/\r\n/g, '\n');
-                    resnfi += "USA Geography" + os.EOL;
+                    resnfi += "USA Geopolitical" + os.EOL;
                 }
                 catch (err) {
-                    misc.Logging(err + "; problem reading './Include/Timelines/USAGeographicalTimeline.txt'.");
-                    reswarn += "Problem reading the USA Geography Timeline file and cannot include it in the On This Day Report." +
+                    misc.Logging(err + "; problem reading './Include/Timelines/USAGeopoliticalTimeline.txt'.");
+                    reswarn += "Problem reading the USA Geopolitical Timeline file and cannot include it in the On This Day Report." +
                                 os.EOL + os.EOL;
                 }
             }
         }
         else {
-            resnfi += "USA Geography" + os.EOL;
+            resnfi += "USA Geopolitical" + os.EOL;
         }
     }
 
@@ -767,24 +767,24 @@ function processInclusions(inc) {
             resinc += ',';
         resinc += '"WorldGeo":"WorldGeo"';
         if (WorldGeo == "") {
-            if (!fs.existsSync("./Include/Timelines/WorldGeographicalTimeline.txt")) {
-                reswarn += "The World Geography Timeline file does not exist and cannot be included in the On This Day Report." + os.EOL + os.EOL;
+            if (!fs.existsSync("./Include/Timelines/WorldGeopoliticalTimeline.txt")) {
+                reswarn += "The World Geopolitical Timeline file does not exist and cannot be included in the On This Day Report." + os.EOL + os.EOL;
             }
             else {
                 try {
-                    WorldGeo = fs.readFileSync("./Include/Timelines/WorldGeographicalTimeline.txt", 'utf8');
+                    WorldGeo = fs.readFileSync("./Include/Timelines/WorldGeopoliticalTimeline.txt", 'utf8');
                     WorldGeo = WorldGeo.replace(/\r\n/g, '\n');
-                    resnfi += "World Geography" + os.EOL;
+                    resnfi += "World Geopolitical" + os.EOL;
                 }
                 catch (err) {
-                    misc.Logging(err + "; problem reading './Include/Timelines/WorldGeographicalTimeline.txt'.");
-                    reswarn += "Problem reading the World Geography Timeline file and cannot include it in the On This Day Report." +
+                    misc.Logging(err + "; problem reading './Include/Timelines/WorldGeopoliticalTimeline.txt'.");
+                    reswarn += "Problem reading the World Geopolitical Timeline file and cannot include it in the On This Day Report." +
                                 os.EOL + os.EOL;
                 }
             }
         }
         else {
-            resnfi += "World Geography" + os.EOL;
+            resnfi += "World Geopolitical" + os.EOL;
         }
     }
 
@@ -793,24 +793,24 @@ function processInclusions(inc) {
             resinc += ',';
         resinc += '"CanadaGeo":"CanadaGeo"';
         if (CanadaGeo == "") {
-            if (!fs.existsSync("./Include/Timelines/CanadaGeographicalTimeline.txt")) {
-                reswarn += "The Canada Geography Timeline file does not exist and cannot be included in the On This Day Report." + os.EOL + os.EOL;
+            if (!fs.existsSync("./Include/Timelines/CanadaGeopoliticalTimeline.txt")) {
+                reswarn += "The Canada Geopolitical Timeline file does not exist and cannot be included in the On This Day Report." + os.EOL + os.EOL;
             }
             else {
                 try {
-                    CanadaGeo = fs.readFileSync("./Include/Timelines/CanadaGeographicalTimeline.txt", 'utf8');
+                    CanadaGeo = fs.readFileSync("./Include/Timelines/CanadaGeopoliticalTimeline.txt", 'utf8');
                     CanadaGeo = CanadaGeo.replace(/\r\n/g, '\n');
-                    resnfi += "Canada Geography" + os.EOL;
+                    resnfi += "Canada Geopolitical" + os.EOL;
                 }
                 catch (err) {
-                    misc.Logging(err + "; problem reading './Include/Timelines/CanadaGeographicalTimeline.txt'.");
-                    reswarn += "Problem reading the Canada Geography Timeline file and cannot include it in the On This Day Report." +
+                    misc.Logging(err + "; problem reading './Include/Timelines/CanadaGeopoliticalTimeline.txt'.");
+                    reswarn += "Problem reading the Canada Geopolitical Timeline file and cannot include it in the On This Day Report." +
                                 os.EOL + os.EOL;
                 }
             }
         }
         else {
-            resnfi += "Canada Geography" + os.EOL;
+            resnfi += "Canada Geopolitical" + os.EOL;
         }
     }
 

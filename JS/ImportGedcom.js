@@ -3,8 +3,8 @@ const path = require("path");
 const os = require("os");
 const misc = require("./misc.js");
 
-var citations = [[]], citationsFamGrp = [[]], indiIDs = [[]], notes = [], timeline = [], only1citation, numcites, noSour, DBdata, ged;
-var SPECSW = 0;
+var citations = [[]], citationsFamGrp = [[]], notes = [], timeline = [], alreadyDone = [[]], only1citation, numcites, noSour, DBdata, ged,
+    SPECSW = 0;
 
 async function GedChecks (postdata) {
     var swtob = 0, fpath, abs2read, x, y, Gerror = '', Gmsg = '';
@@ -227,30 +227,30 @@ function ParseGedcom (postdata, directive, who) {
                 tosend += '<div "class="container"> <div id="divid" class="first">' + who + '</div><div class="second">';
                 /* Given Name */
                 retitems = misc.extractField (indirec, "2", "GIVN", 0);
-                tosend += retitems.str;
+                tosend += retitems.str.trim();
                 /* Surname */
                 retitems = misc.extractField (indirec, "2", "SURN", 0);
-                tosend += retitems.str;
+                tosend += retitems.str.trim();
                 /* extract BIRT section */
                 sect = misc.extractSect (indirec, "1", "BIRT");
                 /* Birth Date */
                 tosend += '</div><div class="third">';
                 retitems = misc.extractField (sect, "2", "DATE", 0);
-                tosend += retitems.str;
+                tosend += retitems.str.trim();
                 /* Birth Place */
                 tosend += '</div><div class="fourth">';
                 retitems = misc.extractField (sect, "2", "PLAC", 0);
-                tosend += retitems.str;
+                tosend += retitems.str.trim();
                 /* extract DEAT section */
                 sect = misc.extractSect (indirec, "1", "DEAT");
                 /* Death Date */
                 tosend += '</div><div class="fifth">';
                 retitems = misc.extractField (sect, "2", "DATE", 0);
-                tosend += retitems.str;
+                tosend += retitems.str.trim();
                 /* Death Place */
                 tosend += '</div><div class="sixth">';
                 retitems = misc.extractField (sect, "2", "PLAC", 0);
-                tosend += retitems.str;
+                tosend += retitems.str.trim();
                 tosend += '</div></div>' + os.EOL;
             } else {
                 tosend += os.EOL + os.EOL + "Individual ID '" + who +
@@ -298,32 +298,32 @@ function ParseGedcom (postdata, directive, who) {
                           indirec.substring(3, indirec.indexOf('@', 3)) + '</div><div class="second">';
                 /* Given Name */
                 retitems = misc.extractField (indirec, "2", "GIVN", 0);
-                tosend += retitems.str;
+                tosend += retitems.str.trim();
                 /* Surname */
                 retitems = misc.extractField (indirec, "2", "SURN", 0);
-                tosend += retitems.str;
+                tosend += retitems.str.trim();
 
                 /* extract BIRT section */
                 sect = misc.extractSect (indirec, "1", "BIRT");
                 /* Birth Date */
                 tosend += '</div><div class="third">';
                 retitems = misc.extractField (sect, "2", "DATE", 0);
-                tosend += retitems.str;
+                tosend += retitems.str.trim();
                 /* Birth Place */
                 tosend += '</div><div class="fourth">';
                 retitems = misc.extractField (sect, "2", "PLAC", 0);
-                tosend += retitems.str;
+                tosend += retitems.str.trim();
 
                 /* extract DEAT section */
                 sect = misc.extractSect (indirec, "1", "DEAT");
                 /* Death Date */
                 tosend += '</div><div class="fifth">';
                 retitems = misc.extractField (sect, "2", "DATE", 0);
-                tosend += retitems.str;
+                tosend += retitems.str.trim();
                 /* Death Place */
                 tosend += '</div><div class="sixth">';
                 retitems = misc.extractField (sect, "2", "PLAC", 0);
-                tosend += retitems.str;
+                tosend += retitems.str.trim();
                 tosend += '</div></div>' + os.EOL;
             }
         }
@@ -343,6 +343,7 @@ function createFiles (pd, id) {
     noSour = 0;
     DBdata = os.EOL;
     DBinfo = misc.createDBinfo(ged, pd.db_name.trim());
+    alreadyDone.length = 0;
 
     /* save SOUR recs */
     citations.length = 0;
@@ -412,70 +413,199 @@ function createFiles (pd, id) {
         only1citation = 0;
 
     /*
-       make two passes through GEDCOM
-       pass 1 - build array, the contents of which will identify for which individuals to build Family Groups
-       pass 2 - build Family Groups
-    */
+     * parse raw GEDCOM text into an array of nested record objects; this is a basic implementation focused on INDI and FAM structure
+     */
+    function parseGedcom(content) {
+        const records = [];
+        let currentRecord = null;
+        let currentLevelStack = [];
 
-    indiIDs.length = 0;
-    generation = 1;
-    indx = 0;
-    gen = 1;
+        const lines = content.split(/\r?\n/).filter(line => line.trim() !== '');
 
-    while (1) {
-        for (x = 0; x < generation / 2; x++)
-            if (generation == 1) {
-                indiIDs.push([id,gen,,]);
-                addParents();
-                gen++;
+        for (const line of lines) {
+            const match = line.match(/^(\d+)\s+(@[\w]+@)?\s*(\w+)\s*(.*)$/);
+
+            if (!match)
+                continue;
+
+            const level = parseInt(match[1].trim(), 10);
+            const xrefId = match[2] ? match[2].trim() : null;
+            const tag = match[3].trim();
+            const value = match[4].trim();
+
+            if (level === 0) {
+                if (currentRecord)
+                    records.push(currentRecord);
+
+                currentRecord = { level, tag, id: xrefId, value, children: [] };
+                currentLevelStack = [currentRecord];
             } else {
-                indiIDs.push([indiIDs[indx][2],gen,,]);
-                addParents();
-                indiIDs.push([indiIDs[indx][3],gen + 1,,]);
-                addParents();
-                indx++;
-                gen += 2;
-            }
-        for (x = indiIDs.length - generation; x < indiIDs.length; x++)
-            if (indiIDs[x][0] != -1)
-                break;
-        if (x == indiIDs.length)
-            /* no more generations to process; end of array */
-            break;
-        generation *= 2;
-    }
+                if (!currentRecord)
+                    continue;
 
-    /* extract info from GEDCOM */
-    for (x = y = 0; x < indiIDs.length; x++) {
-        if (indiIDs[x][0] == -1)
-            continue;
-        retitems = misc.extract0Rec (ged, '@' + indiIDs[x][0] + '@ ', "INDI", 0);
-        indirec = retitems.str;
-        /* if INDI has children then do Family Group */
-        var chld = misc.Check4Children (ged, indirec);
-        if (chld != 0) {
-            /* extract FAMS record for indirec */
-            family = misc.findFam (ged, indirec, "FAMS");
-            if (!family)
-                misc.Logging("***** FAMS record for " + indirec + " does not exist in Gedcom! This should never happen. *****");
-            if (family != 0 && family != -1) {
-                idp = misc.getParentID (ged, indirec, "HUSB");
-                if (idp)
-                    y++
-                if (!x)
-                    id2 = -1;
-                else
-                    id2 = indiIDs[x + 1][0];
-                if (typeof retitems.str != "undefined" && retitems.str != "undefined") {
-                    z = buildFamGroup (ged, family, indiIDs[x][0], indiIDs[x][1], id2, 0);
-                    if (x)
-                        x++;                // without this the spouse would get done a second time
-                    if (z && z != -1)
-                        DBdata += z;
+                const newChild = { level, tag, value, children: [] };
+
+                let parent = currentLevelStack[currentLevelStack.length - 1];
+                while (parent && parent.level >= level) {
+                    currentLevelStack.pop();
+                    parent = currentLevelStack[currentLevelStack.length - 1];
+                }
+
+                if (parent) {
+                    parent.children.push(newChild);
+                    currentLevelStack.push(newChild);
                 }
             }
         }
+
+        // process the final record in the file
+        if (currentRecord)
+            records.push(currentRecord);
+
+        return records;
     }
+
+    /*
+     * transform the raw records into two indexed objects (individuals, families) for fast lookup by ID, simplifying the ancestor traversal logic
+     */
+    function indexGedcomRecords(rawRecords) {
+        const individuals = {};
+        const families = {};
+
+        const extractEventDetails = (children, tag) => {
+            const eventNode = children.find(c => c.tag === tag);
+            if (!eventNode)
+                return null;
+
+            const dateNode = eventNode.children.find(c => c.tag === 'DATE');
+            const placeNode = eventNode.children.find(c => c.tag === 'PLAC');
+
+            return {
+                date: dateNode ? dateNode.value : 'Unknown Date',
+                place: placeNode ? placeNode.value : 'Unknown Place',
+            };
+        };
+
+        for (const record of rawRecords) {
+            if (!record.id)
+                continue;
+
+            if (record.tag === 'INDI') {
+                const indi = {
+                    id: record.id,
+                    name: record.children.find(c => c.tag === 'NAME')?.value || 'Unknown Name',
+                    famc: record.children.find(c => c.tag === 'FAMC')?.value,                          // family as Child ID
+                    birth: extractEventDetails(record.children, 'BIRT') || { date: 'Unknown', place: 'Unknown' },
+                    baptism: extractEventDetails(record.children, 'BAPM') || { date: 'Unknown', place: 'Unknown' },
+                    death: extractEventDetails(record.children, 'DEAT') || { date: 'Unknown', place: 'Unknown' },
+                    burial: extractEventDetails(record.children, 'BURI') || { date: 'Unknown', place: 'Unknown' },
+                };
+                individuals[record.id] = indi;
+
+            } else
+                if (record.tag === 'FAM') {
+                    const fam = {
+                        id: record.id,
+                        husb: record.children.find(c => c.tag === 'HUSB')?.value,
+                        wife: record.children.find(c => c.tag === 'WIFE')?.value,
+                        chil: record.children.filter(c => c.tag === 'CHIL').map(c => c.value),
+                    };
+                    families[record.id] = fam;
+                }
+        }
+        return { individuals, families };
+    }
+
+    /*
+     * recursively traverse the family tree to collect direct ancestors
+     * @param {object} gedcomData - indexed GEDCOM data (individuals & families)
+     * @param {string} startIndiId - the INDI ID to start the search from
+     * @returns {object} a map of ancestor IDs to their vital information
+     */
+    function extractAncestorInfo(gedcomData, startIndiId) {
+        const ancestors = {};
+        const processedIds = new Set();
+        const { individuals, families } = gedcomData;
+
+        function getAncestors(indiId, generation) {
+            if (processedIds.has(indiId) || !individuals[indiId])
+                return;
+        
+            processedIds.add(indiId);
+
+            const indi = individuals[indiId];
+
+            // Assign the passed generation value to the current individual
+            ancestors[indiId] = {
+                id: indiId,
+                generation: generation,
+                name: indi.name,
+                birth: indi.birth,
+                baptism: indi.baptism,
+                death: indi.death,
+                burial: indi.burial
+            };
+
+            const famcId = indi.famc;
+
+            if (famcId && families[famcId]) {
+                const famc = families[famcId];
+            
+                const nextFatherGen = generation * 2;
+                const nextMotherGen = generation * 2 + 1;
+
+                if (famc.husb)
+                    getAncestors(famc.husb, nextFatherGen);
+
+                if (famc.wife && generation)
+                    getAncestors(famc.wife, nextMotherGen);
+            }
+        }
+    
+        getAncestors(startIndiId, 1);
+    
+        const startIndi = individuals[startIndiId];
+        const famsId = startIndi.fams;
+        let spouseId = null;
+    
+        if (famsId && families[famsId]) {
+            const fams = families[famsId];
+            if (fams.husb === startIndiId)
+                spouseId = fams.wife;
+            else
+                if (fams.wife === startIndiId)
+                    spouseId = fams.husb;
+        }
+
+        if (spouseId && ancestors[spouseId])
+            delete ancestors[spouseId];
+    
+        return ancestors;
+    }
+
+    // parse the Gedcom
+    const rawRecords = parseGedcom(ged);
+    // index the records for easy lookup
+    const gedcomData = indexGedcomRecords(rawRecords);
+    // extract the direct ancestor data
+    const ancestorTree = extractAncestorInfo(gedcomData, "@" + id + "@");
+    // convert to an array for easier viewing/sorting
+    const ancestorList = Object.values(ancestorTree).sort((a, b) => a.generation - b.generation);
+
+    ancestorList.forEach(indi => {
+        const irec = misc.extract0Rec (ged, indi.id, "INDI", 0);
+        const irecR = irec.str.trim();
+        const family = misc.findFam (ged, irecR, "FAMS");
+        if (family != -1) {
+            var retitems = misc.extractField (family, "1", "HUSB", 0);
+            var id2 = retitems.str.trim();
+            if (id2 == indi.id) {
+                retitems = misc.extractField (family, "1", "WIFE", 0);
+                id2 = retitems.str.trim();
+            }
+            DBdata += buildFamGroup (ged, family, indi.id, indi.generation, id2, 0, ancestorList);
+        }
+    })
 
     /* some final clean-up */
     /* if the Family Group pointed to by a "Father - " or "Mother - " line did not get created (usually because of a lack of sources) then
@@ -563,8 +693,8 @@ function createFiles (pd, id) {
     }
 }
 
-function buildFamGroup (gedcom, family, id, gen, id2, suffix) {
-    var x, y, i = 0, j, b, e, rdata = "", numch = 0, irec, irecsp, father, mother, children = "", edate, eplace, sequence,
+function buildFamGroup (gedcom, family, id, gen, id2, suffix, ancestorList) {
+    var x, y, i = 0, j, b, e, rdata, numch = 0, irec, irecsp, father, mother, children = "", edate, eplace, sequence,
         retitems, idt, iName, i2Name, chName, fName, mName, sect, chFamsw;
 
 /*
@@ -576,27 +706,33 @@ function buildFamGroup (gedcom, family, id, gen, id2, suffix) {
 */
 
     timeline.length = notes.length = sequence = 0;
+    id = id.substring(1, id.indexOf('@', 1));
+    id2 = id2.substring(1, id2.indexOf('@', 1));
+    for (x = 0; x < alreadyDone.length; x++)
+        if (alreadyDone[x][0] == id)
+            return '';
+    alreadyDone.push([id,gen + ".0"]);
 
     /* extract INDI for ID */
     retitems = misc.extract0Rec (gedcom, "@" + id + "@", "INDI", 0);
-    irec = retitems.str;
+    irec = retitems.str.trim();
     if (irec == "") {
         misc.Logging("***** INDI record for " + id + " does not exist in Gedcom! This should never happen. *****");
-        return -1;
+        return '';
     }
     /* check if this individual has children */
     x = misc.Check4Children (gedcom, irec);
     if (!x)
         /* if this individual has no children don't create a Family Group */
-        return 0;
+        return '';
 
     /* build array for sources used by this family */
     if (buildFamGrpCites (irec) == -1)
         /* no sources for this Family Group */
-        return -1;
+        return '';
 
     /* family group header */
-    rdata += gen + "." + suffix + "  ";
+    rdata = gen + "." + suffix + "  ";
     retitems = misc.extractField (irec, "2", "GIVN", 0);
     if (retitems.str.trim() == '') {
         iName = "------";
@@ -622,14 +758,11 @@ function buildFamGroup (gedcom, family, id, gen, id2, suffix) {
         else {
             idp = misc.getParentID (gedcom, irec, "HUSB");
             if (idp) {
-                for (x = 0; ; x++)
-                    if (indiIDs[x][0] == -1)
-                        continue;
-                    else
-                        if (idp.substring(1, idp.indexOf('@', 1)) == indiIDs[x][0]) {
-                            rdata += indiIDs[x][1] + ".0  ";
-                            break;
-                        }
+                for (x = 0; x < Object.keys(ancestorList).length; x++)
+                    if (idp.trim() == ancestorList[x].id) {
+                        rdata += ancestorList[x].generation + "." + suffix + "  ";
+                        break;
+                    }
             }
             rdata += fName;
         }
@@ -647,28 +780,30 @@ function buildFamGroup (gedcom, family, id, gen, id2, suffix) {
         else {
             idp = misc.getParentID (gedcom, irec, "WIFE");
             if (idp) {
-                for (x = 0; ; x++)
-                    if (indiIDs[x][0] == -1)
-                        continue;
-                    else
-                        if (idp.substring(1, idp.indexOf('@', 1)) == indiIDs[x][0]) {
-                            rdata += indiIDs[x][1] + ".0  ";
-                            break;
-                        }
+                for (x = 0; x < Object.keys(ancestorList).length; x++)
+                    if (idp.trim() == ancestorList[x].id) {
+                        rdata += ancestorList[x].generation + "." + suffix + "  ";
+                        break;
+                    }
             }
             rdata += mName;
         }
     }
     rdata += os.EOL;
 
-    if (id2 != -1) {
+    if (id2 != -1 && gen != 1) {                // don't do an HOF line for spouse of starting individual
+        for (x = 0; x < alreadyDone.length; x++)
+            if (alreadyDone[x][0] == id2)
+                return '';
+        alreadyDone.push([id2,(gen + 1) + ".0"] );
+
         /* include spouse in Family Group Header Section */
         rdata += os.EOL;
         retitems = misc.extract0Rec (gedcom, "@" + id2 + "@", "INDI", 0);
         irecsp = retitems.str.trim();
         if (irecsp == "") {
             misc.Logging("***** INDI record for " + id2 + " does not exist in Gedcom! This should never happen. *****");
-            return -1;
+            return '';
         }
         rdata += (gen + 1) + "." + suffix + "  ";
         retitems = misc.extractField (irecsp, "2", "GIVN", 0);
@@ -701,14 +836,11 @@ function buildFamGroup (gedcom, family, id, gen, id2, suffix) {
             else {
                 idp = misc.getParentID (gedcom, irecsp, "HUSB");
                 if (idp) {
-                    for (x = 0; ; x++)
-                        if (indiIDs[x][0] == -1)
-                            continue;
-                        else
-                            if (idp.substring(1, idp.indexOf('@', 1)) == indiIDs[x][0]) {
-                                rdata += indiIDs[x][1] + ".0  ";
-                                break;
-                            }
+                    for (x = 0; x < Object.keys(ancestorList).length; x++)
+                        if (idp.trim() == ancestorList[x].id) {
+                            rdata += ancestorList[x].generation + "." + suffix + "  ";
+                            break;
+                        }
                 }
                 rdata += fName;
             }
@@ -726,14 +858,11 @@ function buildFamGroup (gedcom, family, id, gen, id2, suffix) {
             else {
                 idp = misc.getParentID (gedcom, irecsp, "WIFE");
                 if (idp) {
-                    for (x = 0; ; x++)
-                        if (indiIDs[x][0] == -1)
-                            continue;
-                        else
-                            if (idp.substring(1, idp.indexOf('@', 1)) == indiIDs[x][0]) {
-                                rdata += indiIDs[x][1] + ".0  ";
-                                break;
-                            }
+                    for (x = 0; x < Object.keys(ancestorList).length; x++)
+                        if (idp.trim() == ancestorList[x].id) {
+                            rdata += ancestorList[x].generation + "." + suffix + "  ";
+                            break;
+                        }
                 }
                 rdata += mName;
             }
@@ -787,12 +916,18 @@ function buildFamGroup (gedcom, family, id, gen, id2, suffix) {
             irec = retitems.str;
             if (irec == "") {
                 misc.Logging("***** INDI record for " + idt + " does not exist in Gedcom! This should never happen. *****");
-                return -1;
+                return '';
             }
             retitems = misc.extractField (irec, "2", "GIVN", 0);
-            i2Name = retitems.str;
+            if (retitems.str.trim() == '')
+                i2Name = "------";
+            else
+                i2Name = retitems.str.trim();
             retitems = misc.extractField (irec, "2", "SURN", 0);
-            i2Name += retitems.str;                        // i2Name contains full name of INDI
+            if (retitems.str.trim() == '')
+                i2Name += " ------";
+            else
+                i2Name += " " + retitems.str.trim();            // i2Name contains full name of INDI
 
             i = prepProcessDate (i, "BIRT", "born", irec, "1", i2Name, "", notes, 0, 1);
             sect = misc.extractSect (irec, "1", "BAPM");
@@ -848,9 +983,9 @@ function buildFamGroup (gedcom, family, id, gen, id2, suffix) {
         maxsp = 7;
 
     /* do each CHIL */
-    for (x = 0; x < family.length; ) {
-        retitems = misc.extractField (family, "1", "CHIL", x);
-        x = retitems.e;
+    for (var childPtr = 0; childPtr < family.length; ) {
+        retitems = misc.extractField (family, "1", "CHIL", childPtr);
+        childPtr = retitems.e;
         idt = retitems.str.trim();
         if (typeof retitems.str != "undefined" && retitems.str == "undefined")
             /* no more children in FAM */
@@ -877,16 +1012,14 @@ function buildFamGroup (gedcom, family, id, gen, id2, suffix) {
             if (!numch)
                 children = "Children:" + os.EOL + os.EOL;
 
-            for (chFamsw = y = 0; y < indiIDs.length; y++)
-                if (indiIDs[y][0] == -1)
-                    continue;
-                else
-                    // ensure child's Family Group was indeed added
-                    if (idt.substring(1, idt.indexOf('@', 1)) == indiIDs[y][0] && DBdata.indexOf("\n" + indiIDs[y][1] + ".0  ") != -1) {
-                        children += indiIDs[y][1] + ".0  ";
-                        chFamsw = 1;
-                        break;
-                    }
+            for (chFamsw = y = 0; y < Object.keys(alreadyDone).length; y++)
+                // ensure child's Family Group was indeed added
+                if (idt.substring(1,idt.indexOf("@",1)) == alreadyDone[y][0] && DBdata.indexOf("\n" + alreadyDone[y][1] + "  ") != -1) {
+                    children += alreadyDone[y][1] + "  ";
+                    chFamsw = 1;
+                    break;
+                }
+
             var blanks = "          ";
             var trom = misc.romanize(numch + 1);
             children += trom + "." + blanks.substring(0, (maxsp - (trom.length - 1))) + chName.trim();
@@ -956,12 +1089,19 @@ function buildFamGroup (gedcom, family, id, gen, id2, suffix) {
                             var irecsp = retitems.str;
                             if (irecsp == "") {
                                 misc.Logging("***** INDI record for " + idts + " does not exist in Gedcom! This should never happen. *****");
-                                return -1;
+                                return '';
                             }
+                            var i2Namesp;
                             retitems = misc.extractField (irecsp, "2", "GIVN", 0);
-                            var i2Namesp = retitems.str.trim();
+                            if (retitems.str.trim() == '')
+                                i2Namesp = "------";
+                            else
+                                i2Namesp = retitems.str.trim();
                             retitems = misc.extractField (irecsp, "2", "SURN", 0);
-                            i2Namesp += " " + retitems.str.trim();                        // i2Namesp contains full name of INDI
+                            if (retitems.str.trim() == '')
+                                i2Namesp += " ------";
+                            else
+                                i2Namesp += " " + retitems.str.trim();            // i2Name contains full name of INDI
 
                             i = prepProcessDate (i, "MARR", "married", childfamily, "1", chName, i2Namesp, notes, numch + 1, numch + 2);
                             /* add child's spouse's events */
@@ -996,6 +1136,7 @@ function buildFamGroup (gedcom, family, id, gen, id2, suffix) {
                 }
             }
             numch++;
+            chFamsw = 0;
         }
     }
 
@@ -1004,7 +1145,7 @@ function buildFamGroup (gedcom, family, id, gen, id2, suffix) {
     /* sort Timeline items by date */
     for (i = 0; i < tlLength - 1; i++) {
         swapped = false;
-		
+
         for (j = 0; j < tlLength - 1; j++) {
             /* compare the adjacent elements */
             if (timeline[j].yr > timeline[j + 1].yr) {
@@ -1273,31 +1414,6 @@ function ProcessDate (passi, area, passno, namein, namein2, datein, placein, act
         }
 
     return {i: i, tl: tl, no: no};
-}
-
-function addParents () {
-    if (indiIDs[indiIDs.length - 1][2] != -1) {
-        retitems = misc.extract0Rec (ged, '@' + indiIDs[indiIDs.length - 1][0] + '@ ', "INDI", 0);
-        indirec = retitems.str;
-        family = misc.findFam (ged, indirec, "FAMS");
-    } else
-        family = 0;
-    if (family == 0 || family == -1) {
-        indiIDs[indiIDs.length - 1][2] = -1;
-        indiIDs[indiIDs.length - 1][3] = -1;
-    } else {
-        idp = misc.getParentID (ged, indirec, "HUSB");
-        if (idp)
-            indiIDs[indiIDs.length - 1][2] = idp.substring(1, idp.indexOf('@', 1));
-        else
-            indiIDs[indiIDs.length - 1][2] = -1;
-
-        idp = misc.getParentID (ged, indirec, "WIFE");
-        if (idp)
-            indiIDs[indiIDs.length - 1][3] = idp.substring(1, idp.indexOf('@', 1));
-        else
-                indiIDs[indiIDs.length - 1][3] = -1;
-    }
 }
 
 function prepProcessDate (interval, what, lit, irec, level, name, name2, section, who, indx) {
