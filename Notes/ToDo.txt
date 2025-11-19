@@ -573,6 +573,7 @@ Reports -> Produce Phylogenetic Tree
   check out https://github.com/veg/phylotree.js/
 
 Reports -> Produce Family Register
+  see Notes/FamilyRegister.txt
 
 Reports -> Produce Individual Profile
   something like this could be an optional way for the user to see info concerning a particular person:
@@ -2251,8 +2252,6 @@ general/other
   General Notes & Notes for Active DB
     set focus in textarea after Save
 
-  add MELGenKey to heading of any output
-
   when setting up outgoing email (ManageRecurRep.html and OnThisDay.html)
     make Port: a drop-down menu selection containing Port: 587, 465, 2525
       make 587 the default
@@ -2323,7 +2322,7 @@ general/other
 
   how does an outsider access a MELGenKey DB ? will they need to run MELGenKey on their system? (I think yes)
 
-  Info for All DBs
+  Info function(s) for All DBs
     list all:
       imported DBs
       backed up DBs
@@ -2374,14 +2373,13 @@ general/other
       different column width
     Inspect - get errors; don't kill node; use separate terminal to correct errors; rerun Inspect; got same errors even though they're corrected
       force read of familydata every time Inspect executes
-    On This Day Report - event dated 2 Sep 1192 sorting before event dated 2 Sep-  44
+    On This Day Report (& probably Timeline Report) - event dated 2 Sep 1192 sorting before event dated 2 Sep-  44
 
   create batch file for installing a DB (alone) in Windows
 
   in Help/Docs
     have images of the different reports with explanations
     include a HELP button for each page/function which, if clicked, will bring up an image with explanations for that function
-    continue to provide a Help/Docs menu selection which will show explanations but no images
 
   for functions which produce error reports (Verify, Inspect, Analysis)
     make ERROR color red
@@ -2405,15 +2403,16 @@ general/other
     perhaps display a message "loading" or "booting" or "connecting" until something happens
     or do a quicker check - see Notes/QuickServerCheck.txt
 
-  a different type of server (net); maybe better since it's a streaming connection
+  a different type of server (net); may be better since it's a streaming connection
     https://www.knowledgehut.com/tutorials/node-js/socket-services
 
-  tidy up Timeline files (in Include/Timelines) (check for duplicate entries)
+  tidy up Timeline files (in Include/Timelines)
+    check for duplicate entries
+    look for entries in Births which don't contain the word "born"
+    look for entries in Deaths which don't contain the word "died"
   add to appropriate Timeline file
     https://newenglandsociety.org/timeline/
-  add button to each HTML page, if pressed brings up documentation for that page
   check4ActiveDB() in clib.js doesn't seem to be functioning as a promise (see MELGenKey.js & JS/OnThisDay.js)
-  in any html file, any references or pointers (->) should be clickable
   make all checks a "connection" between client and server (this means replacing all the pre-execution routines at the server)
 
   include for user to use:
@@ -2448,6 +2447,4 @@ general/other
     try using CSS (see Notes/PrintingFix)
     one fix (the only fix?) seems to be to send the buffer to node & use a node-worker (see Notes/PrintingFix)
     can't use worker on browser side because of security - already tried
-
-  delete Include/Timelines/*Geographical* files from Github
 

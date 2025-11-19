@@ -59,7 +59,7 @@ async function DoVerify (isw, autodel, disable) {
     VerReport += "<!doctype html> <html> <body id='Body'> <style type='text/css'> @media print { @page { margin-left: 0.5in; margin-right: " +
                  "0.5in; ";
     VerReport += " margin-top: 0; margin-bottom: 0; } #printPB { display: none; } } </style> <pre>";
-    VerReport += os.EOL + "Verify Report" + os.EOL + os.EOL;
+    VerReport += os.EOL + "MELGenKey" + os.EOL + "Verify Report" + os.EOL + os.EOL;
 
     /* point to first character in familydata */
     fdpos = 0;
@@ -283,7 +283,8 @@ async function DoVerify (isw, autodel, disable) {
                 verifyerr++;
             } else {
                 Fline = famgroup.substring(Fline + 9, famgroup.indexOf("\n", Fline + 9));
-                if (Fline.indexOf("name unknown") == -1 && Fline[0] != ' ' && Number(Fline.substring(0, Fline.indexOf("."))) >= Number(disable) && familydata.indexOf("\n\n" + Fline) == -1) {
+                if (Fline.indexOf("name unknown") == -1 && Fline[0] != ' ' &&
+                               Number(Fline.substring(0, Fline.indexOf("."))) >= Number(disable) && familydata.indexOf("\n\n" + Fline) == -1) {
                     VerReport += 'ID ' + ID + ' - Family Group for "' + Fline + '" not found.' + os.EOL;
                     verifyerr++;
                 }
@@ -295,7 +296,8 @@ async function DoVerify (isw, autodel, disable) {
                 break;
             } else {
                 Mline = famgroup.substring(Mlinepos + 9, famgroup.indexOf("\n", Mlinepos + 9));
-                if (Mline.indexOf("name unknown") == -1 && Mline[0] != ' ' && Number(Mline.substring(0, Mline.indexOf("."))) >= Number(disable) && familydata.indexOf("\n\n" + Mline) == -1) {
+                if (Mline.indexOf("name unknown") == -1 && Mline[0] != ' ' &&
+                               Number(Mline.substring(0, Mline.indexOf("."))) >= Number(disable) && familydata.indexOf("\n\n" + Mline) == -1) {
                     VerReport += 'ID ' + ID + ' - Family Group for "' + Mline + '" not found.' + os.EOL;
                     verifyerr++;
                 }

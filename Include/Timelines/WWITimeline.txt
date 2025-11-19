@@ -1,5 +1,5 @@
 # World War I Events
-# v20250628
+# v20251111
 # any line with the # character in column 1 is considered a comment line
 # comment lines are not included in MELGenKey Reports
        1914 -1918, World War I, about 15 million people died [11]
@@ -1900,14 +1900,14 @@
               receives a top-secret coded message from Europe (that would be
               sent to Ottawa and Washington, D.C.) that said on 11 Nov 1918,
               all fighting would cease on land, sea and in the air. [1] [2]
-11 Nov 1918 At the 11th hour on the 11th day of the 11th month of 1918,
-              the Great War ends. [1] At 5 a.m. that morning, Germany, bereft
-              of manpower and supplies and faced with imminent invasion, [5]
-              signed an armistice agreement with the Allies in a railroad
-              car outside Compiegne, France. [1] [5] Five million allies
-              and 3.4 million members of the central powers were killed in
-              the conflict. Of that total, 50,585 Americans were killed in
-              the war. [4]
+11 Nov 1918 At the 11th hour on the 11th day of the 11th month of 1918, the
+              Great War ends. [1] At 5 a.m. that morning, Germany, bereft
+              of manpower and supplies and faced with imminent invasion,
+              [5] signed an armistice agreement with the Allies [1] [5]
+              [12] in a railroad car outside Compiegne, France. [1] [5]
+              Five million allies and 3.4 million members of the central
+              powers were killed in the conflict. Of that total, 50,585
+              Americans were killed in the war. [4]
             Poland proclaimed. [1]
 12 Nov 1918 Austria proclaimed a republic. [1]
 13 Nov 1918 Allied troops occupy Constantinople, the capital of the Ottoman

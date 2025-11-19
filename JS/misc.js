@@ -2109,7 +2109,7 @@ function ChkLinks () {
     /* proceed with checking and create report */
     chkResults += "<!doctype html> <html> <body id='Body'> <style type='text/css'> @media print { @page { margin-left: 0.5in; margin-right:";
     chkResults += " 0.5in; margin-top: 0; margin-bottom: 0; } #printPB { display: none; } } </style> <pre>";
-    chkResults += os.EOL + "Web Links Report" + os.EOL;
+    chkResults += os.EOL + "MELGenKey" + os.EOL + "Web Links Report" + os.EOL;
     chkResults += "Active Family DataBase - " + ProcessDBSysInfo("DBName") + os.EOL + os.EOL;
 
     while (true) {

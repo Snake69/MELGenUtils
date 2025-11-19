@@ -1,5 +1,5 @@
 # American Revolution Events
-# v20251019
+# v20251115
 # any line with the # character in column 1 is considered a comment line
 # comment lines are not included in MELGenKey Reports
        1759 -1768, New England Planters immigrate to Nova Scotia, Canada
@@ -1250,8 +1250,8 @@
  2 Nov 1777 John Paul Jones sets sail. [12]
  3 Nov 1777 Washington learns of Conway cabal. [12]
 15 Nov 1777 After 16 months of debate [2] the Second Continental Congress
-              approved the Articles of Confederation, [2] [10] precursor to
-              the U.S. Constitution. The structure of the Constitution was
+              approved the Articles of Confederation, [2] [10] [20] precursor
+              to the U.S. Constitution. The structure of the Constitution was
               inspired by the Iroquois Confederacy of six major northeastern
               tribes. The matrilineal society of the Iroquois later inspired
               the suffragist movement. [10]

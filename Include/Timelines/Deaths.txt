@@ -1,5 +1,5 @@
 # Deaths of Notable People
-# v20251108
+# v20251116
 # any line with the # character in column 1 is considered a comment line
 # comment lines are not included in MELGenKey Reports
       - 961 David died and his throne is replaced by his son Solomon [3]
@@ -17993,14 +17993,15 @@
               (b. 1828) [8]
 30 Oct 1915 Charles Tupper died, Canadian physician, lawyer, and politician,
               6th Prime Minister of Canada (b. 1821) [8]
-14 Nov 1915 Booker T. Washington (b.1856), Black American educator, died [7]
-              [8] in Tuskegee, Alabama. The former slave later founded the
-              Tuskegee Institute (1881). Booker Taliaferro Washington later
-              became the 1st black on a US postage stamp. His autobiography
-              "Up From Slavery" was listed in 1999 as the 3rd best work
-              of non-fiction in the English language in the 20th century
-              by the Modern Library. In 2009 Robert J. Norrell authored
-              "Up From History: The Life of Booker T. Washington." [7]
+14 Nov 1915 Booker T. Washington (b.1856), [7] [8] [19] Black American
+              educator, [7] [8] died [7] [8] [19] in Tuskegee, Alabama. The
+              former slave later founded the Tuskegee Institute (1881). Booker
+              Taliaferro Washington later became the 1st black on a US
+              postage stamp. His autobiography "Up From Slavery" was listed
+              in 1999 as the 3rd best work of non-fiction in the English
+              language in the 20th century by the Modern Library. In 2009
+              Robert J. Norrell authored "Up From History: The Life of
+              Booker T. Washington." [7]
 19 Nov 1915 Joe Hill [2] [8] (Swedish-born American labor organizer,
               b. 1879) [8] executed in Salt Lake City [2]
 19 Dec 1915 Alois Alzheimer died, German psychiatrist and neuropathologist
@@ -30136,14 +30137,12 @@
  7 Nov 1978 Jivraj Narayan Mehta died, Indian surgeon and politician,
               6th Chief Minister of Gujarat (b. 1887) [8]
             Gene Tunney died, American boxer and actor (b. 1897) [8]
- 8 Nov 1978 Norman Rockwell (b.1894), American artist, died. He had
+ 8 Nov 1978 Norman Rockwell (b.1894), American artist, died. [7] [8] He had
               created nearly 4,000 illustrations that included 321 covers
               for the Saturday Evening Post. In 2013 Deborah Solomon authored
               "American Mirror: The Life and Art of Norman Rockwell." [7]
-            Norman Rockwell died, American painter and illustrator (b. 1894)
-              [8]
-15 Nov 1978 Margaret Mead died, American anthropologist and author (b. 1901)
-              [8]
+15 Nov 1978 Margaret Mead died, American anthropologist [8] [19] and author
+              (b. 1901) [8]
 18 Nov 1978 Jim Jones died, American cult leader, founded Peoples Temple
               (b. 1931) [8]
             Leo Ryan died, American soldier, educator, and politician
@@ -30156,30 +30155,24 @@
 26 Nov 1978 Ford Beebe died, American director and screenwriter (b. 1888)
               [8]
             Frank Rosolino died, American trombonist (b. 1926) [8]
-27 Nov 1978 San Francisco leaders George Moscone and Harvey Milk are murdered
-              [5]
-            In San Francisco, city mayor George Moscone and openly gay city
-              supervisor Harvey Milk are assassinated by former supervisor
-              Dan White. [8]
-            Harvey Milk died, American lieutenant and politician (b. 1930)
-              [8]
-            George Moscone died, American lawyer and politician, 37th
-              Mayor of San Francisco (b. 1929) [8]
+27 Nov 1978 In San Francisco, city mayor George Moscone (lawyer and
+              politician, 37th Mayor of San Francisco, b. 1929) and openly
+              gay city supervisor Harvey Milk (lieutenant, b. 1930) are
+              assassinated by former supervisor Dan White. [8]
 28 Nov 1978 Antonio Vespucio Liberti died, Argentinian businessman (b. 1902)
               [8]
  7 Dec 1978 Alexander Wetmore died, American ornithologist and paleontologist
               (b. 1886) [8]
  8 Dec 1978 Golda Meir died, Ukrainian-Israeli educator and politician,
               4th Prime Minister of Israel (b. 1898) [8]
-10 Dec 1978 Ed Wood (b.1924), credited as the worst filmmaker of all
-              time, died a penniless drunk. His films included "Jail Bait,"
-              "Plan 9 From Outer Space," "Bride of the Monster," "Glen or
-              Glenda?" and "Night of the Ghouls." His 1948 "Crossroads of
-              Loredo" was unreleased. In 1996 a documentary by Brett Thompson
-              was released titled "The Haunted World of Edward D. Wood." In
-              1994 the film "Ed Wood" by Tim Burton was made in homage. [7]
-            Ed Wood died, American director, producer, and screenwriter
-              (b. 1924) [8]
+10 Dec 1978 Ed Wood (b.1924), [7] [8] credited as the worst filmmaker
+              of all time, [7] died [7] [8] a penniless drunk. His films
+              included "Jail Bait," "Plan 9 From Outer Space," "Bride of the
+              Monster," "Glen or Glenda?" and "Night of the Ghouls." His 1948
+              "Crossroads of Loredo" was unreleased. In 1996 a documentary
+              by Brett Thompson was released titled "The Haunted World of
+              Edward D. Wood." In 1994 the film "Ed Wood" by Tim Burton
+              was made in homage. [7]
 11 Dec 1978 Vincent du Vigneaud died, American biochemist and academic,
               Nobel Prize laureate (b. 1901) [8]
             Paul O'Dea died, American baseball player and manager (b. 1920)
@@ -43147,8 +43140,8 @@
 11 Nov 2006 Belinda Emmett died, Australian actress (b. 1974) [8]
 14 Nov 2006 Sumner Shapiro died, American admiral (b. 1926) [8]
 15 Nov 2006 David K. Wyatt died, American historian and author (b. 1937) [8]
-16 Nov 2006 Milton Friedman died, American economist and academic, Nobel
-              Prize laureate (b. 1912) [8]
+16 Nov 2006 Milton Friedman died, [8] [19] American economist and academic,
+              [8] Nobel Prize laureate [8] [19] (b. 1912) [8]
             Yuri Levada died, Russian sociologist and political scientist
               (b. 1930) [8]
 17 Nov 2006 Ruth Brown died, American singer-songwriter and actress (b. 1928)
@@ -57382,8 +57375,8 @@
  2 Nov 2018 Raymond Chow died, Hong Kong film producer (b.1927)  [8]
  4 Nov 2018 Jeremy Heywood died, British Civil Servant (b.1961) [8]
 11 Nov 2018 Douglas Rain died, Canadian actor and narrator (b.1928) [8]
-12 Nov 2018 Stan Lee died, American comic book writer, editor, and publisher
-              (b. 1922) [8]
+12 Nov 2018 Stan Lee died, American comic book writer, [8] [19] editor,
+              and publisher (b. 1922) [8]
 20 Nov 2018 James H. Billington died, 13th Librarian of Congress (b. 1929)
               [8]
 26 Nov 2018 Stephen Hillenburg died, American marine biology teacher,
