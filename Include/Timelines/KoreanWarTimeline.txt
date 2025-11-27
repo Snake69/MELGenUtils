@@ -1,7 +1,7 @@
 # Korean War Events
 # v20250627
 # any line with the # character in column 1 is considered a comment line
-# comment lines are not included in MELGenKey Reports
+# comment lines are not included in MELGenUtils Reports
 14 Aug 1945 Japan surrenders, ending World War II. That night, U.S. Army
               officers Dean Rusk and Charles Bonesteel consult a National
               Geographic map of Asia to determine the postwar dividing line

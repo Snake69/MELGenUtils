@@ -41,7 +41,7 @@ async function ImportDB (postdata) {
             }       
 
             if (postdata.dbin_loc == misc.ProcessDBSysInfo ("SysLocation")) {
-                Terror += "'" + postdata.dbin_loc + "' is the location of the MELGenKey System. ";
+                Terror += "'" + postdata.dbin_loc + "' is the location of the MELGenUtils System. ";
                 Terror += "The location of the data to import needs to be different.<br> <br>";
             } else {
                 var cnt = 0, text = "TEXT", body = "BODY", btarr=[];;  
@@ -473,7 +473,7 @@ function PerformImportDB (dbinfo) {
                             break;
                         case "DBinfo.txt":
                             tob += "DBinfo.txt                     info describing this DataBase (used by" + os.EOL +
-                                   "                               MELGenKey)" + os.EOL;
+                                   "                               MELGenUtils)" + os.EOL;
                             break;
                         case "Dedication.txt":
                             tob += "Dedication.txt                 dedication" + os.EOL;
@@ -601,7 +601,7 @@ function PerformImportDB (dbinfo) {
         }
         if (!i) {
             /* this should never happen */
-            misc.Logging("***** Internal Error - Did not find DBActive string in MELGenKeyInfo.txt when trying to make imported DB active. *****");
+            misc.Logging("***** Internal Error - Did not find DBActive string in MELGenUtilsInfo.txt when trying to make imported DB active. *****");
             process.exit();
         }
     }
@@ -636,14 +636,14 @@ function PerformImportDB (dbinfo) {
             return -1;
         }
     }
-    /* write MELGenKeyInfo.txt */
+    /* write MELGenUtilsInfo.txt */
     try {
-        fs.writeFileSync('MELGenKeyInfo.txt', DBSysInfo);
-        misc.Logging("MELGenKeyInfo.txt updated with new DataBase info.");
-        misc.Logging("MELGenKeyInfo.txt written.");
+        fs.writeFileSync('MELGenUtilsInfo.txt', DBSysInfo);
+        misc.Logging("MELGenUtilsInfo.txt updated with new DataBase info.");
+        misc.Logging("MELGenUtilsInfo.txt written.");
     }
     catch (err) {
-        misc.Logging(err + "; problem writing 'MELGenKeyInfo.txt'.");
+        misc.Logging(err + "; problem writing 'MELGenUtilsInfo.txt'.");
         return -1;
     }
 

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"/>
 <link rel="shortcut icon" href="Include/favicon.ico">
-<title>MELGenKey Overview (& Installation)</title>
+<title>MELGenUtils Overview (& Installation)</title>
 
 <style>
     #header {
@@ -16,52 +16,51 @@
 
 </head>
 <body>
-<h1 id="header">MELGenKey Overview (& Installation)</h1>
+<h1 id="header">MELGenUtils Overview (& Installation)</h1>
 <hr style="width:50%">
 <br>
 
 <pre>
 
-MEL Genealogy Key (MELGenKey) Overview
-v20250926
+MEL Genealogy Utilities (MELGenUtils) Overview
+v20251201
 
-(NOTE - MELGenKey is a work-in-progress. This Overview is written with the idea in mind of how MELGenKey will look when completed. Not all
-the capabilities of MELGenKey are currently available.)
+(NOTE - MELGenUtils is a work-in-progress. This Overview is written with the idea in mind of how MELGenUtils will look when completed. Not all
+the capabilities of MELGenUtils are currently available.)
 
-MELGenKey, a Genealogist Assistant Program, is a "Full Stack" application meaning that there is both a client-side (front end, browser)
-and a server-side (back end, data storage and modification). There's no need to understand "Full Stack"; just understand that both the
-client-side and the server-side (i.e., the entire application) will reside on the same computer. MELGenKey is written in HTML, CSS and
+MELGenUtils, a Genealogist Assistant Program, is a "Full Stack" application meaning that there is both a client-side (AKA front end or browser)
+and a server-side (AKA back end or data storage and modification). There's no need to understand "Full Stack"; just understand that both the
+client-side and the server-side (i.e., the entire application) will reside on the same computer. MELGenUtils is written in HTML, CSS and
 JavaScript. It should execute fine as is on most all platforms/environments.
 
-In general, MELGenKey allows the user to organize data, verify data, manipulate data, utilize data in various ways, and unlock new data.
+In general, MELGenUtils allows the user to organize data, verify data, manipulate data, utilize data in various ways, and unlock new data.
 
-One of the main objectives of MELGenKey is to bring together in one place all functions and utilities which can aid a genealogist in his
+One of the main objectives of MELGenUtils is to bring together in one place all functions and utilities which can aid a genealogist in his
 or her quest.
 
-MELGenKey relies upon a specific format for the genealogical data. (See the menu item "Help/Info/Docs -&gt; Data Format and Notes" for
-an explanation of the format of the data.) This format makes the data human-readable and at the same time computer-processable. A
-disadvantage is that the data may be more difficult to maintain by hand. The ability to automatically translate data from Gedcom format
-to MELGenKey format alleviates much of the difficulty. (See
+MELGenUtils relies upon one of two specific formats for the genealogical data: a proprietory format or the Gedcom format. (See the menu item
+"Help/Info/Docs -&gt; Data Format and Notes" for an explanation of the proprietory format of the data.) The proprietory format makes the data
+more human-readable and somewhat computer-processable. The Gedcom format is less human-readable and more computer-processable. (See
 "Import, Create or Remove a Family DataBase -> Import a Family DataBase from a GEDCOM".)
 
-There's no need to access the Internet to make use of MELGenKey, but you can. This means that MELGenKey can be used either on-line or
-off-line. During on-line usage MELGenKey has the ability to access Web sites extending it's capability. For example, sites such as
-Ancestry, FamilySearch, Wikitree, MyHeritage, gedmatch, findagrave, etc may be accessed by MELGenKey (your login and password for each
+There's no need to access the Internet to make use of MELGenUtils, but you can. This means that MELGenUtils can be used either on-line or
+off-line. During on-line usage MELGenUtils has the ability to access Web sites extending it's capability. For example, sites such as
+Ancestry, FamilySearch, Wikitree, MyHeritage, gedmatch, findagrave, etc may be accessed by MELGenUtils (your login and password for each
 may be needed in some cases; e.g., when modifying data) searching for additional info to aid your research.
 
-MELGenKey does NOT need to be in an area accessible to your Web server, if you are running a Web server, unless you want to allow remote
+MELGenUtils does NOT need to be in an area accessible to your Web server, if you are running a Web server, unless you want to allow remote
 users access to your data.
 
-A browser is needed to run MELGenKey. Some browsers are:
+A browser is needed to run MELGenUtils. Some browsers are:
   Firefox ( https://www.mozilla.org/en-US/firefox/new/ )
   Opera ( https://www.opera.com/ )
   Chrome ( https://www.google.com/chrome/ )
   Vivaldi ( https://vivaldi.com/ )
   et al
 
-  Note - Internet Explorer has not been maintained for a while and probably won't work correctly with MELGenKey.
+  Note - Internet Explorer has not been maintained for a while and probably won't work correctly with MELGenUtils.
 
-nodejs (AKA, node.js, node) is needed to make full use of MELGenKey. nodejs may come installed by default on your system. To check if
+nodejs (AKA, node.js, node) is needed to make full use of MELGenUtils. nodejs may come installed by default on your system. To check if
 nodejs is installed, open the command-line program for your OS (Command Prompt or PowerShell on Windows, or Terminal on both MacOS and Linux).
 Type "node -v" (without the quotes), and press RETURN. This will display your nodejs version if it is installed. If not, follow these
 installation instructions:
@@ -80,15 +79,15 @@ for Microsoft Windows:
     (download the correct version ... 32 bit or 64 bit ... depending upon your system)
   run the Windows Installer
 
-Several nodejs external libraries are needed to run MELGenKey. They are installed during the MELGenKey installation process.
+Several nodejs external libraries are needed to run MELGenUtils. They are installed during the MELGenUtils installation process.
 
 
 
-MEL Genealogy Key (MELGenKey) Installation
-v20250926
+MEL Genealogy Utilities (MELGenUtils) Installation
+v20251201
 
 General Notes:
-These instructions are for Windows, macOS or Linux. MELGenKey should run on all three platforms.
+These instructions are for Windows, macOS or Linux. MELGenUtils should run on all three platforms.
 
 The words node, node.js and nodejs are used interchangeably to refer to the JavaScript runtime environment (usually referred to as nodejs).
 
@@ -128,13 +127,13 @@ You should have a basic understanding of using a command prompt/terminal.
       3c.  Type "npm install npm --global" (without the quotes) and press RETURN.
       3d.  Type "node -v" (without the quotes) and press RETURN. If nodejs is installed you will see the version number on the screen.
 
-4.  Create the folder/directory where MELGenKey will reside. This might be a folder/directory within your home folder/directory. (MELGenKey
+4.  Create the folder/directory where MELGenUtils will reside. This might be a folder/directory within your home folder/directory. (MELGenUtils
     does NOT need to be in an area accessible to your Web server, if you are running a Web server.)
 
-5.  Download the MELGenKey zip file, and unzip the contents into the folder/directory created in Step 4. After unzipping is completed, and
-    if you like, remove the MELGenKey zip file.
+5.  Download the MELGenUtils zip file, and unzip the contents into the folder/directory created in Step 4. After unzipping is completed, and
+    if you like, remove the MELGenUtils zip file.
 
-8.  While still in the MELGenKey root directory created in Step 4, type "npm install" (without the quotes) and press RETURN.
+8.  While still in the MELGenUtils root directory created in Step 4, type "npm install" (without the quotes) and press RETURN.
 
 
 At this point everything should be installed.
@@ -142,43 +141,43 @@ At this point everything should be installed.
 
 To run:
 
-1.  While still in the MELGenKey root directory created in Step 4 above, type "node MELGenKeySS.js" (without the quotes) and press RETURN.
+1.  While still in the MELGenUtils root directory created in Step 4 above, type "node MELGenUtilsSS.js" (without the quotes) and press RETURN.
 
-2.  From your desktop, double-click on the icon labeled "MELGenKey.html" (without the quotes).
-
-    OR
-
-    From your desktop, right-click on the icon labeled "MELGenKey.html" (without the quotes), then left click on Open.
+2.  From your desktop, double-click on the icon labeled "MELGenUtils.html" (without the quotes).
 
     OR
 
-    In the address line in your browser of choice enter the proper address to access MELGenKey.html in the MELGenKey root directory.
+    From your desktop, right-click on the icon labeled "MELGenUtils.html" (without the quotes), then left click on Open.
+
+    OR
+
+    In the address line in your browser of choice enter the proper address to access MELGenUtils.html in the MELGenUtils root directory.
 
 
 
 Additional notes:
 
-    Security: If you are running a Web server and MELGenKey is in an area accessible by the Web server, turn off outside access to the
+    Security: If you are running a Web server and MELGenUtils is in an area accessible by the Web server, turn off outside access to the
               folder/directory created in Step 4 above.
     Troubleshooting: If you have issues installing, email me at MarshallELake@gmail.com
-    Documentation: Documentation for MELGenKey is accessible from within the application itself.
+    Documentation: Documentation for MELGenUtils is accessible from within the application itself.
 
-If nothing happens when clicking an enabled menu button in MELGenKey it is probably because of an ad-blocker or because pop-ups are blocked
-in your browser settings. (NOTE - There are no ads in MELGenKey, but there are pop-ups which an ad-blocker might block.)
+If nothing happens when clicking an enabled menu button in MELGenUtils it is probably because of an ad-blocker or because pop-ups are blocked
+in your browser settings. (NOTE - There are no ads in MELGenUtils, but there are pop-ups which an ad-blocker might block.)
 
 If the node/server is not recognized, not connected or doesn't seem to be running (even though you know it is), it may be because of an
-ad-blocker. (NOTE - There are no ads in MELGenKey, but there are pop-ups which an ad-blocker might block.) Ad-Blockers are built into some
+ad-blocker. (NOTE - There are no ads in MELGenUtils, but there are pop-ups which an ad-blocker might block.) Ad-Blockers are built into some
 browsers. For example, if you are using the Brave browser, go to Settings -> Shields and disable "Trackers & ads blocking" to turn off
 ad-blocking.
 
 Node may be left running in the background if you like, and, in fact, you may want to do this if using functions to monitor changes in Web
 sites or running recurring reports, both of which use cron jobs in their processing. For Windows, MacOS, or Linux, to run the server in the
-background, using a command-line program while in the MELGenKey root folder/directory created in Step 4 above, type "node MELGenKeySS.js &"
+background, using a command-line program while in the MELGenUtils root folder/directory created in Step 4 above, type "node MELGenUtilsSS.js &"
 (without the quotes) and press RETURN.
 
 Node is the part of this application which accesses files and performs other functions which the browser is not able to do.
 
-The browser side (MELGenKey.html) may be run without node running but functionality will be limited.
+The browser side (MELGenUtils.html) may be run without node running but functionality will be limited.
 
 </pre>
 

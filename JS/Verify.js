@@ -59,7 +59,7 @@ async function DoVerify (isw, autodel, disable) {
     VerReport += "<!doctype html> <html> <body id='Body'> <style type='text/css'> @media print { @page { margin-left: 0.5in; margin-right: " +
                  "0.5in; ";
     VerReport += " margin-top: 0; margin-bottom: 0; } #printPB { display: none; } } </style> <pre>";
-    VerReport += os.EOL + "MELGenKey" + os.EOL + "Verify Report" + os.EOL + os.EOL;
+    VerReport += os.EOL + "MELGenUtils" + os.EOL + "Verify Report" + os.EOL + os.EOL;
 
     /* point to first character in familydata */
     fdpos = 0;
@@ -552,7 +552,7 @@ async function DoVerify (isw, autodel, disable) {
                         }
                     fgpos += ValidateTimelineSectionContents (ID, famgroup.substring(TL, famgroup.indexOf("\n\n", TL) + 1), isw);
                 } else
-                    misc.Logging("***** INTERNAL ERROR. No match on TL. Please report this to MELGenKey maintainer. *****");
+                    misc.Logging("***** INTERNAL ERROR. No match on TL. Please report this to MELGenUtils maintainer. *****");
             }
         }
 
@@ -1141,12 +1141,12 @@ async function DoVerify (isw, autodel, disable) {
         if (dbStatusNow != 4) {
             misc.UpdateDBSysInfo ("DBStatus", 4);     /* update DBStatus for active Family DataBase to 4 (failed verification) */
             try {
-                /* write MELGenKeyInfo.txt */
-                fs.writeFileSync('MELGenKeyInfo.txt', DBSysInfo);
-                misc.Logging("Change in active DB status to unverified, MELGenKeyInfo.txt written.");
+                /* write MELGenUtilsInfo.txt */
+                fs.writeFileSync('MELGenUtilsInfo.txt', DBSysInfo);
+                misc.Logging("Change in active DB status to unverified, MELGenUtilsInfo.txt written.");
             }
             catch (err) {
-                misc.Logging(err + "; problem writing 'MELGenKeyInfo.txt'.");
+                misc.Logging(err + "; problem writing 'MELGenUtilsInfo.txt'.");
             }
         }
     } else {
@@ -1166,12 +1166,12 @@ async function DoVerify (isw, autodel, disable) {
             else
                 misc.UpdateDBSysInfo ("DBStatus", 1);     /* update DBStatus for active Family DataBase to 1 (verified) */
             try {
-                /* write MELGenKeyInfo.txt */
-                fs.writeFileSync('MELGenKeyInfo.txt', DBSysInfo);
-                misc.Logging("Change in active DB status to verified, MELGenKeyInfo.txt written.");
+                /* write MELGenUtilsInfo.txt */
+                fs.writeFileSync('MELGenUtilsInfo.txt', DBSysInfo);
+                misc.Logging("Change in active DB status to verified, MELGenUtilsInfo.txt written.");
             }
             catch (err) {
-                misc.Logging(err + "; problem writing 'MELGenKeyInfo.txt'.");
+                misc.Logging(err + "; problem writing 'MELGenUtilsInfo.txt'.");
             }
         }
     }

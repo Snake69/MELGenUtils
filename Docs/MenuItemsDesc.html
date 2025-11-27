@@ -42,8 +42,8 @@ a directory/folder (which contains the GEDCOM file). Other files (all optional) 
 optional files must be located in the same directory/folder as the GEDCOM file. See "Help/Info/Docs -&gt; Data Format and Notes" for a
 description of the layout of the contents of the import directory/folder and other notes pertaining to the optional files.<br>
 <br>
-If the path is relative, it should be relative to the location of MELGenKey. The location of MELGenKey can be noted via
-"Miscellaneous Functions -> Display Info for MELGenKey".<br>
+If the path is relative, it should be relative to the location of MELGenUtils. The location of MELGenUtils can be noted via
+"Miscellaneous Functions -> Display Info for MELGenUtils".<br>
 <br>
 Enter a name to assign to the Family DataBase. This is a required entry. Enter something which is meaningful. The name must be unique meaning it
 cannot be used by a Family DataBase which is already imported.<br>
@@ -60,18 +60,18 @@ GEDCOM or get a list of all eligible individuals in the GEDCOM and select from t
 after clicking the "Import GEDCOM" button.) It is advisable, but not required, to select an individual from the most recent generation in
 the GEDCOM (oftentimes this might be yourself).<br>
 <br>
-Note that the individual identified as starting the MELGenKey Family DataBase is not [necessarily] the same as the Focus ID. After importing
+Note that the individual identified as starting the MELGenUtils Family DataBase is not [necessarily] the same as the Focus ID. After importing
 the Gedcom, set the Focus ID via "Miscellaneous Functions -&gt; Set Focus ID for Active DataBase".<br>
 <br>
-The individual starting the MELGenKey Family DataBase will be assigned the ID of 1.0, the smallest ID appearing in any MELGenKey Family
+The individual starting the MELGenUtils Family DataBase will be assigned the ID of 1.0, the smallest ID appearing in any MELGenUtils Family
 DataBase. (However, if the selected starting individual is not imported for whatever reason ... usually because of the lack of sources ...
-then the next generation will start the MELGenKey Family DataBase with an ID other than 1.0.) This means that if the individual starting the
-MELGenKey Family DataBase has children who have their own families, their family groups will not appear in the MELGenKey Family DataBase. If
-this is not what is intended, instead select a child (who has his or her own family) as the individual starting the MELGenKey Family DataBase.<br>
+then the next generation will start the MELGenUtils Family DataBase with an ID other than 1.0.) This means that if the individual starting the
+MELGenUtils Family DataBase has children who have their own families, their family groups will not appear in the MELGenUtils Family DataBase. If
+this is not what is intended, instead select a child (who has his or her own family) as the individual starting the MELGenUtils Family DataBase.<br>
 <br>
-Also note that only the ancestors and their families of the starting individual will be included in the MELGenKey DataBase. If the Gedcom
+Also note that only the ancestors and their families of the starting individual will be included in the MELGenUtils DataBase. If the Gedcom
 contains separate unconnected family lines, you may import the same Gedcom again while using an individual from another unconnected family
-line as the starting individual. This will create another MELGenKey Family DataBase.<br>
+line as the starting individual. This will create another MELGenUtils Family DataBase.<br>
 <br>
 Check if the import directory/folder (identified at the top of the form) should be removed (along with all it's contents) after the import.
 This will happen only if the import is successful.<br>
@@ -80,12 +80,12 @@ After entering all the form data, click "Import GEDCOM". You will be alerted if 
 being imported. If everything is okay, there will be an opportunity to continue or not.<br>
 <br>
 Note that different programs produce GEDCOMs differently. Some programs produce GEDCOMs which contain records that do not adhere to the
-GEDCOM guidelines. And some programs produce records which have their own proprietory extensions. MELGenKey will not pick up data that does
+GEDCOM guidelines. And some programs produce records which have their own proprietory extensions. MELGenUtils will not pick up data that does
 not adhere to the official GEDCOM specifications.<br>
 <br>
-Also, MELGenKey will not pick up events or items which are not sourced.<br>
+Also, MELGenUtils will not pick up events or items which are not sourced.<br>
 <br>
-NOTE - In this version of MELGenKey, non-simple Gedcoms may not be processed as you would expect (i.e., the Gedcom import function is not
+NOTE - In this version of MELGenUtils, non-simple Gedcoms may not be processed as you would expect (i.e., the Gedcom import function is not
 totally completed).<br>
 <br>
 <hr style="width:50%">
@@ -95,15 +95,15 @@ Select this menu item if user created files (not a Gedcom) are to be imported as
 See "Help/Info/Docs -&gt; Data Format and Notes" for formatting guidelines, a description of the layout of the contents of the import
 directory/folder, and other notes pertaining to the user created files. It may be wondered why anyone would ever create data by hand to be
 imported when it might be easier just to create a GEDCOM and import that. For one, I think there are people who don't use GEDCOMs for whatever
-reason. But, I think the most likely example might be a person wants to use functions provided by MELGenKey on just one family. It's a
+reason. But, I think the most likely example might be a person wants to use functions provided by MELGenUtils on just one family. It's a
 simple process to create the files by hand for one family as opposed to creating a GEDCOM for that one family.<br>
 <br>
 In the form enter the location of the files to import. This is a required entry, and the location must be a directory/folder (which
 contains all the files to import). The location may be a full path or a relative path, or, if a name is entered without any path criteria
 then the location will be assumed to be within the user's home directory.<br>
 <br>
-If the path is relative, it should be relative to the location of MELGenKey. The location of MELGenKey can be seen via
-"Miscellaneous Functions -> Display Info for MELGenKey".<br>
+If the path is relative, it should be relative to the location of MELGenUtils. The location of MELGenUtils can be seen via
+"Miscellaneous Functions -> Display Info for MELGenUtils".<br>
 <br>
 Enter a name to assign to the Family DataBase. This is a required entry. Enter something which is meaningful. The name must be unique meaning
 it cannot be used by a Family DataBase which is already imported.<br>
@@ -167,9 +167,9 @@ Note - This function is not yet available.<br>
 <hr style="width:50%">
 <br>
 <a id="item2.1">"Verify Family Data"</a> -<br>
-Use this function to verify a Family DataBase. Formatting and data integrity (so that it meets MELGenKey's specifications) will be verified.<br>
+Use this function to verify a Family DataBase. Formatting and data integrity (so that it meets MELGenUtils's specifications) will be verified.<br>
 <br>
-A Family DataBase must pass verification before it can be fully used by MELGenKey.<br>
+A Family DataBase must pass verification before it can be fully used by MELGenUtils.<br>
 <br>
 Verification is necessary in order to avoid unspecified results in later processing. Many menu items will not be available until the Family
 DataBase passes verification.<br>
@@ -185,7 +185,7 @@ Note - The verification report may also be saved to a PDF file using the browser
 <br>
 Note - "Verify Family Data", "Search/Inspect/Analyze Family Data -&gt; Inspect" and "Search/Inspect/Analyze Family Data -&gt; Analyze"
 are similar functions in that they all validate the data in some regard. "Verify Family Data" verifies the data so that it conforms
-to the format necessary for MELGenKey to perform actions upon it. "Search/Inspect/Analyze Family Data -&gt; Inspect" inspects the data for
+to the format necessary for MELGenUtils to perform actions upon it. "Search/Inspect/Analyze Family Data -&gt; Inspect" inspects the data for
 errors such as a person being married before they were born. "Search/Inspect/Analyze Family Data -&gt; Analyze" analyzes the data in
 a deep manner that may advance research. Examples are analyzing children for naming patterns and looking on-line for helpful info.<br>
 <br>
@@ -194,7 +194,7 @@ a deep manner that may advance research. Examples are analyzing children for nam
 <a id="item3.1">"Family DataBase Activation"</a> -<br>
 Use this menu item to select the Family DataBase to be active. (Only one Family DataBase may be active at any one time.) Also, the
 active DataBase may be deactivated here. The system will remember which Family DataBase was currently active (if any) when quitting
-MELGenKey, and will activate the same DataBase the next time MELGenKey is executed. The "memory" process can be circumvented in
+MELGenUtils, and will activate the same DataBase the next time MELGenUtils is executed. The "memory" process can be circumvented in
 "Miscellaneous Functions -> General User Preferences".<br>
 <br>
 <hr style="width:50%">
@@ -242,7 +242,7 @@ Use the browser Print facility to print a portion of the family data to hard cop
 communication technique may be available for sharing smaller batches of information. Copy text by highlighting it with the mouse pointer,
 and then paste it into another program (e.g., a text editor or the body of an email) that supports the technique.<br>
 <br>
-All MELGenKey Family DataBases will have a plain text version of the family data. All functions in MELGenKey that process family data
+All MELGenUtils Family DataBases will have a plain text version of the family data. All functions in MELGenUtils that process family data
 will use the plain text version as the basis for the processing (except "Display Family Data -&gt; HTML Family Data"). The format of
 the Family Data is fully explained in "Help/Info/Docs -&gt; Data Format and Notes".<br>
 <br>
@@ -475,7 +475,7 @@ Note - This function is not yet available.<br>
 <br>
 Note - "Search/Inspect/Analyze Family Data -&gt; Inspect", "Verify Family Data" and "Search/Inspect/Analyze Family Data -&gt; Analyze"
 are similar functions in that they all validate the data in some regard. "Verify Family Data" verifies the data so that it conforms
-to the format necessary for MELGenKey to perform actions upon it. "Search/Inspect/Analyze Family Data -&gt; Inspect" inspects the data for
+to the format necessary for MELGenUtils to perform actions upon it. "Search/Inspect/Analyze Family Data -&gt; Inspect" inspects the data for
 basic errors such as a person being married before they were born. "Search/Inspect/Analyze Family Data -&gt; Analyze" analyzes the data in a
 deep manner. Examples are analyzing children for naming patterns and looking on-line for helpful info.<br>
 <br>
@@ -486,7 +486,7 @@ Note - This function is not yet available.<br>
 <br>
 Note - "Search/Inspect/Analyze Family Data -&gt; Analyze", "Search/Inspect/Analyze Family Data -&gt; Inspect" and "Verify Family Data"
 are similar functions in that they all validate the data in some regard. "Verify Family Data" verifies the data so that it conforms
-to the format necessary for MELGenKey to perform actions upon it. "Search/Inspect/Analyze Family Data -&gt; Inspect" inspects the data for
+to the format necessary for MELGenUtils to perform actions upon it. "Search/Inspect/Analyze Family Data -&gt; Inspect" inspects the data for
 basic errors such as a person being married before they were born. "Search/Inspect/Analyze Family Data -&gt; Analyze" analyzes the data in a
 deep manner. Examples are analyzing children for naming patterns and looking on-line for helpful info.<br>
 <br>
@@ -534,7 +534,7 @@ If no Family DataBase is active this button will be disabled.<br>
 <br>
 Use this function to set the focus ID within the active Family DataBase. If a Family DataBase is active, the focus ID (if there is one) for
 this Family DataBase will display on the Main Menu page. Oftentimes the focus ID might be yourself, however it can be anyone within the
-active Family DataBase. The focus ID is used as a convenience by some functions in MELGenKey.<br>
+active Family DataBase. The focus ID is used as a convenience by some functions in MELGenUtils.<br>
 <br>
 <hr style="width:50%">
 <br>
@@ -561,8 +561,8 @@ Finally, enter a relative path or a full path to the directory/folder where the 
 path criteria then the location will be assumed to be within the user's home directory. The path must be the location of the directory/folder
 (which will contain all the files after the copy is completed). If the directory/folder does not exist it will be created.<br>
 <br>
-If the path is relative, it should be relative to the location of MELGenKey. The location of MELGenKey can be noted via
-"Miscellaneous Functions -> Display Info for MELGenKey".<br>
+If the path is relative, it should be relative to the location of MELGenUtils. The location of MELGenUtils can be noted via
+"Miscellaneous Functions -> Display Info for MELGenUtils".<br>
 <br>
 Once everything on the form is set, click on the "Proceed" button to continue. There will be a notification of any fatal errors stopping
 the copying from taking place. If there are no fatal errors, there will be informational messages which should be read over before
@@ -782,12 +782,12 @@ After the boundary map is completed it may be printed or saved to a PDF file by 
 <br>
 <hr style="width:50%">
 <br>
-&nbsp; &nbsp; <a id="item8.33">"Send Suggestions/Ideas to Developer of MELGenKey"</a> -<br>
-Selecting this menu item enables an email to be sent to the developer/maintainer of MEL Genealogy Key (MELGenKey).<br>
+&nbsp; &nbsp; <a id="item8.33">"Send Suggestions/Ideas to Developer of MELGenUtils"</a> -<br>
+Selecting this menu item enables an email to be sent to the developer/maintainer of MEL Genealogy Utilities (MELGenUtils).<br>
 <br>
 <hr style="width:50%">
 <br>
-&nbsp; &nbsp; <a id="item8.34">"Access MELGenKey Message Board"</a> -<br>
+&nbsp; &nbsp; <a id="item8.34">"Access MELGenUtils Message Board"</a> -<br>
 <br>
 Note - This function is not yet available.<br>
 <br>
@@ -812,34 +812,34 @@ Note - This function is not yet available.<br>
 <br>
 <hr style="width:50%">
 <br>
-&nbsp; &nbsp; <a id="item8.38">"Display Info for MELGenKey"</a> -<br>
-Selecting this menu item displays basic information for MEL Genealogy Key (MELGenKey).<br>
+&nbsp; &nbsp; <a id="item8.38">"Display Info for MELGenUtils"</a> -<br>
+Selecting this menu item displays basic information for MEL Genealogy Utilities (MELGenUtils).<br>
 <br>
 <hr style="width:50%">
 <br>
 &nbsp; &nbsp; <a id="item8.39">"General User Preferences"</a> -<br>
 Selecting this menu item allows for the setting of preferences for several items including Context-Sensitive Help on or off, Voice/Speech
 on or off, Button Click sounds on or off, Notification Sounds on or off, Background Music on or off, Default Maximum Line Width for
-User-formatted Printing, size and number of Log Files, and Family DataBase to Load and Activate when MELGenKey is executed.<br>
+User-formatted Printing, size and number of Log Files, and Family DataBase to Load and Activate when MELGenUtils is executed.<br>
 <br>
 Note - The setting for Family DataBase to Load and Activate here takes precedence over whatever changes are made in "Family DataBase Activation"
-on the Main Menu. As an example, say Family DB #1 is set here. Then Family DB #1 will be activated initially when MELGenKey is executed. Now,
+on the Main Menu. As an example, say Family DB #1 is set here. Then Family DB #1 will be activated initially when MELGenUtils is executed. Now,
 say it is desired to switch activation to Family DB #2. Use "Family DataBase Activation" on the Main Menu to switch to Family DB #2. Now, say
-MELGenKey is exited. The next time MELGenKey is executed Family DB #1 will be initially activated. If that is not what is desired, use this
+MELGenUtils is exited. The next time MELGenUtils is executed Family DB #1 will be initially activated. If that is not what is desired, use this
 menu item to set Family DataBase to Load and Activate at Boot to "No Action". With that setting, whatever Family DataBase was activated when
-quitting MELGenKey will also be initially activated the next time MELGenKey is executed.<br>
+quitting MELGenUtils will also be initially activated the next time MELGenUtils is executed.<br>
 <br>
 <br>
 <hr style="width:50%">
 <br>
-&nbsp; &nbsp; <a id="item8.40">"Import Add-On for MELGenKey"</a> -<br>
+&nbsp; &nbsp; <a id="item8.40">"Import Add-On for MELGenUtils"</a> -<br>
 <br>
 Note - This function is not yet available.<br>
 <br>
 <hr style="width:50%">
 <br>
-&nbsp; &nbsp; <a id="item8.41">"Chat With Maintainer of MELGenKey"</a> -<br>
-Selecting this menu item attempts to initiate a chat connection with the developer or maintainer of MELGenKey.<br>
+&nbsp; &nbsp; <a id="item8.41">"Chat With Maintainer of MELGenUtils"</a> -<br>
+Selecting this menu item attempts to initiate a chat connection with the developer or maintainer of MELGenUtils.<br>
 <br>
 <hr style="width:50%">
 <br>
@@ -863,10 +863,10 @@ Web Site may fail depending upon how the Web site is configured. Set the desired
 every day if daily, Sunday if weekly, or the first day of the month if monthly). Set the preferred Active setting. When satisfied with all
 the settings, click the button labeled "Click to Complete the Add/Edit". If the settings are valid, the current contents of the Web Address
 will be recorded and this entry will be added to the list of Web Pages/Addresses being Monitored. If the contents of a specified Web Address
-changes, a notification in the form of an alert will be issued to MELGenKey. Currently, if a MELGenKey client is not running at the time the
-notification is sent then the notification will be lost. (This behavior will change in a future release of MELGenKey.) However, a pertinent
+changes, a notification in the form of an alert will be issued to MELGenUtils. Currently, if a MELGenUtils client is not running at the time the
+notification is sent then the notification will be lost. (This behavior will change in a future release of MELGenUtils.) However, a pertinent
 message will always be recorded by node/server logging mechanism. These log messages can be seen via
-"Miscellaneous Functions -> MELGenKey Log Messages".<br>
+"Miscellaneous Functions -> MELGenUtils Log Messages".<br>
 <br>
 If editing an already existing Web Address entry, any changes may be made. When satisfied with the changes click the button labeled
 "Click to Complete the Add/Edit" to complete the edit process. Additionally, when editing an already existing Web Address entry, there is
@@ -903,12 +903,12 @@ Family DataBase must be selected under "Family DataBase to Include:".<br>
 <br>
 <hr style="width:50%">
 <br>
-&nbsp; &nbsp; <a id="item8.45">"MELGenKey Log Messages"</a> -<br>
-Selecting this menu item displays informational log messages produced during the current running of MELGenKey.<br>
+&nbsp; &nbsp; <a id="item8.45">"MELGenUtils Log Messages"</a> -<br>
+Selecting this menu item displays informational log messages produced during the current running of MELGenUtils.<br>
 <br>
 Logging executes only when the node/server is running.<br>
 <br>
-See "Help/Info/Docs -> Contact Developer of MELGenKey via email" for one way this menu item could be used.<br>
+See "Help/Info/Docs -> Contact Developer of MELGenUtils via email" for one way this menu item could be used.<br>
 <br>
 The log messages may be printed either by using the browser built-in print function or by clicking the Print button at the bottom
 of the messages. In the latter case, a maximum line character length may be specified. In the former case any lines longer than the width of
@@ -920,33 +920,33 @@ Note - The log messages may also be saved to a PDF file using the browser built-
 <hr style="width:50%">
 <br>
 <a id="item9.1">"Help/Info/Docs"</a> -<br>
-Selecting this menu item enables viewing of help and documentation for using MELGenKey, and introductory and miscellaneous info associated
+Selecting this menu item enables viewing of help and documentation for using MELGenUtils, and introductory and miscellaneous info associated
 with the active Family DataBase. If no Family DataBase is active the active DataBase-specific buttons will be disabled.<br>
 <br>
 <hr style="width:50%">
 <br>
-&nbsp; &nbsp; <a id="item9.2">"MEL Genealogy Key (MELGenKey) Overview"</a> -<br>
-Selecting this menu item gives an overview of MEL Genealogy Key (MELGenKey).<br>
+&nbsp; &nbsp; <a id="item9.2">"MEL Genealogy Utilities (MELGenUtils) Overview"</a> -<br>
+Selecting this menu item gives an overview of MEL Genealogy Utilities (MELGenUtils).<br>
 <br>
 <hr style="width:50%">
 <br>
-&nbsp; &nbsp; <a id="item9.3">"Using MELGenKey"</a> -<br>
-Selecting this menu item describes how to use MEL Genealogy Key (MELGenKey). Each menu item (or function) is described in full.<br>
+&nbsp; &nbsp; <a id="item9.3">"Using MELGenUtils"</a> -<br>
+Selecting this menu item describes how to use MEL Genealogy Utilities (MELGenUtils). Each menu item (or function) is described in full.<br>
 <br>
 <hr style="width:50%">
 <br>
-&nbsp; &nbsp; <a id="item9.4">"MELGenKey Readme"</a> -<br>
-Selecting this menu item shows some basic information regarding MELGenKey.<br>
+&nbsp; &nbsp; <a id="item9.4">"MELGenUtils Readme"</a> -<br>
+Selecting this menu item shows some basic information regarding MELGenUtils.<br>
 <br>
 <hr style="width:50%">
 <br>
-&nbsp; &nbsp; <a id="item9.5">"MELGenKey Development History"</a> -<br>
-Selecting this menu item shows the development history of MELGenKey.<br>
+&nbsp; &nbsp; <a id="item9.5">"MELGenUtils Development History"</a> -<br>
+Selecting this menu item shows the development history of MELGenUtils.<br>
 <br>
 <hr style="width:50%">
 <br>
-&nbsp; &nbsp; <a id="item9.6">"MELGenKey Frequently Asked Questions"</a> -<br>
-Selecting this menu item shows some frequently asked questions and some "quick starts" regarding MELGenKey.<br>
+&nbsp; &nbsp; <a id="item9.6">"MELGenUtils Frequently Asked Questions"</a> -<br>
+Selecting this menu item shows some frequently asked questions and some "quick starts" regarding MELGenUtils.<br>
 <br>
 <hr style="width:50%">
 <br>
@@ -956,17 +956,17 @@ Family DataBase from scratch by hand, or editing an already existing Family Data
 <br>
 <hr style="width:50%">
 <br>
-&nbsp; &nbsp; <a id="item9.8">"MELGenKey Add-ons"</a> -<br>
-Selecting this menu item will describe how to emplement an "add-on" or an extension for MELGenKey.<br>
+&nbsp; &nbsp; <a id="item9.8">"MELGenUtils Add-ons"</a> -<br>
+Selecting this menu item will describe how to emplement an "add-on" or an extension for MELGenUtils.<br>
 <br>
 <hr style="width:50%">
 <br>
-&nbsp; &nbsp; <a id="item9.9">"Contact Developer of MELGenKey via email"</a> -<br>
-Selecting this menu item enables an email to be sent to the developer/maintainer of MEL Genealogy Key (MELGenKey).<br>
+&nbsp; &nbsp; <a id="item9.9">"Contact Developer of MELGenUtils via email"</a> -<br>
+Selecting this menu item enables an email to be sent to the developer/maintainer of MEL Genealogy Utilities (MELGenUtils).<br>
 <br>
-If you have a question or are reporting a problem with MELGenKey, it may help to include the log messages in the email. To do this, first describe
+If you have a question or are reporting a problem with MELGenUtils, it may help to include the log messages in the email. To do this, first describe
 the problem or ask the question in the body of the email and then, before sending the email, click on the menu item
-"Miscellaneous Functions -> MELGenKey Log Messages", then copy the log messages using the "Cut &amp; Paste" interprocess communication
+"Miscellaneous Functions -> MELGenUtils Log Messages", then copy the log messages using the "Cut &amp; Paste" interprocess communication
 technique by highlighting the appropriate messages with the mouse pointer, and then pasting what was highlighted into the body of this email.
 And finally, send your message.<br>
 <br>

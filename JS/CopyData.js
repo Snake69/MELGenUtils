@@ -38,7 +38,7 @@ async function CopyDB (pd) {
             /* find entered ID or name; if found, show HOF line to user so s/he can verify before proceeding */
             HOF = "";
             if (pd.id[0] >= '0' && pd.id[0] <= '9') {
-                /* if first position of pd.id is numeric then treat it as a MELGenKey ID (if user meant to enter a name, it's an
+                /* if first position of pd.id is numeric then treat it as a MELGenUtils ID (if user meant to enter a name, it's an
                    invalid name and won't match anything in DB) */
                 nameHit = familydata.indexOf("\n\n\n" + pd.id);
                 if (nameHit != -1)

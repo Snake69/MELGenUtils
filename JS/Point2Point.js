@@ -105,7 +105,7 @@ async function processPoint2Point(pd) {
         /* the css will hide the PRINT button and the system header from a hard copy print */
         PPrep += "<!doctype html> <html> <body id='Body'> <style type='text/css'> @media print { @page { margin-left: ";
         PPrep += "0.5in; margin-right: 0.5in; margin-top: 0; margin-bottom: 0; } #printPB { display: none; } } </style> <pre>";
-        PPrep += os.EOL + "MELGenKey" + os.EOL + "Point to Point Ancestral Line Report" + os.EOL +
+        PPrep += os.EOL + "MELGenUtils" + os.EOL + "Point to Point Ancestral Line Report" + os.EOL +
                           "Family DataBase - " + misc.ProcessDBSysInfo("DBName") + os.EOL + os.EOL + os.EOL;
 
         /* get all the steps between Person #1 & Person #2 */

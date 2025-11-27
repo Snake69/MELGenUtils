@@ -1,7 +1,7 @@
 # Canada Geographical Events
 # v20250414
 # any line with the # character in column 1 is considered a comment line
-# comment lines are not included in MELGenKey Reports
+# comment lines are not included in MELGenUtils Reports
       c1003 Norse captain Leif Ericson is believed to have reached the Island
               of Newfoundland circa 1000 AD. They establish a colony in 1003
               at L'Anse aux Meadows. They later abandoned the site. First

@@ -37,7 +37,7 @@ async function GedChecks (postdata) {
             Gerror += "'" + postdata.dbin_loc + "' exists but is not a directory/folder.<br> <br>";
         else {
             if (postdata.dbin_loc == misc.ProcessDBSysInfo ("SysLocation")) {
-                Gerror += "'" + postdata.dbin_loc + "' is the location of the MELGenKey System. ";
+                Gerror += "'" + postdata.dbin_loc + "' is the location of the MELGenUtils System. ";
                 Gerror += "The location of the data to import needs to be different.<br> <br>";
             } else {
                 var cnt = 0, text = "TEXT", body = "BODY", ged = ".GED";
@@ -92,7 +92,7 @@ async function GedChecks (postdata) {
                     if (!y)
                         Gerror += " (other than in the HEAD section which indicates where the Gedcom itself came from)";
                     if (y <= 0)
-                        Gerror += ".<br><br>A source for any data to be imported is required by MELGenKey.<br><br>";
+                        Gerror += ".<br><br>A source for any data to be imported is required by MELGenUtils.<br><br>";
                     /* make sure at least one family in gedcom has children */
                     x = ged.indexOf('FAMC');
                     if (x == -1)
@@ -187,7 +187,7 @@ function ParseGedcom (postdata, directive, who) {
                         misc.Logging("Read '" + Absolute + "'.");
                         /* ensure Gedcom is ASCII */
                         ged = convertToAscii(ged);
-                        misc.Logging("Ensured contents of Gedcom is ASCII. MELGenKey cannot handle non-ASCII characters at this time. " +
+                        misc.Logging("Ensured contents of Gedcom is ASCII. MELGenUtils cannot handle non-ASCII characters at this time. " +
                                      "\(Changed internally only. Did not alter actual Gedcom file.\)");
                         ged = ged.replace(/\r\n/g, "\n");
                         misc.Logging("Removed \"\\r\"'s from Gedcom. \(Changed internally only. Did not alter actual Gedcom file.\)");
@@ -217,7 +217,7 @@ function ParseGedcom (postdata, directive, who) {
         if (indirec == "")
             tosend += os.EOL + os.EOL + "Individual ID '" + who + "' does not exist in the GEDCOM." + os.EOL + os.EOL;
         else {
-            /* check if selected ID has children; having children is required to be the root of a MELGenKey Family DB */
+            /* check if selected ID has children; having children is required to be the root of a MELGenUtils Family DB */
             var chld = misc.Check4Children (ged, indirec);
             if (chld != 0) {
                 tosend += '<div class="container"> <div class="first">ID</div> <div class="second">Name</div> ' +
@@ -288,7 +288,7 @@ function ParseGedcom (postdata, directive, who) {
                 indirec = ged.toString().substring(b, e);
             i = e - 1;
 
-            /* check if INDI rec has children; having children is required to be the root of a MELGenKey Family DB */
+            /* check if INDI rec has children; having children is required to be the root of a MELGenUtils Family DB */
             var chld = misc.Check4Children (ged, indirec);
             if (chld != 0) {
                 lit1 = "but" + j;
@@ -301,7 +301,7 @@ function ParseGedcom (postdata, directive, who) {
                 tosend += retitems.str.trim();
                 /* Surname */
                 retitems = misc.extractField (indirec, "2", "SURN", 0);
-                tosend += retitems.str.trim();
+                tosend += " " + retitems.str.trim();
 
                 /* extract BIRT section */
                 sect = misc.extractSect (indirec, "1", "BIRT");
@@ -645,7 +645,7 @@ function createFiles (pd, id) {
             Lmsg += "item/event";
         else
             Lmsg += "items/events";
-        Lmsg += " NOT added to the MELGenKey Family DataBase because there was no associated source.";
+        Lmsg += " NOT added to the MELGenUtils Family DataBase because there was no associated source.";
 
         misc.Logging(Lmsg);
     }
@@ -698,6 +698,10 @@ function createFiles (pd, id) {
         }
         DBdata = sortFamilyGroups(DBdata);                             // sort
 
+        /* make sure the roman numerals and names for all children in the same Family Group line up */
+        DBdata = lineupChildrenSections(DBdata);
+
+        // write Family Groups
         if (path.isAbsolute(pd.dbin_loc))
             dirin = path.normalize(pd.dbin_loc);                       // absolute path
         else
@@ -796,7 +800,7 @@ function buildFamGroup (gedcom, family, id, gen, id2, suffix, ancestorList) {
     if (idph == '')
         rdata += "name unknown";
     else {
-        /* get Father's name & MELGenKey ID */
+        /* get Father's name & MELGenUtils ID */
         fName = misc.getParentName (gedcom, irec, "HUSB");
         if (fName == "")
             rdata += "name unknown";
@@ -818,7 +822,7 @@ function buildFamGroup (gedcom, family, id, gen, id2, suffix, ancestorList) {
     if (idpw == '')
         rdata += "name unknown";
     else {
-        /* get Mother's name & MELGenKey ID */
+        /* get Mother's name & MELGenUtils ID */
         mName = misc.getParentName (gedcom, irec, "WIFE");
         if (mName == "")
             rdata += "name unknown";
@@ -874,7 +878,7 @@ function buildFamGroup (gedcom, family, id, gen, id2, suffix, ancestorList) {
         if (idpsph == '')
             rdata += "name unknown";
         else {
-            /* get Father's name & MELGenKey ID */
+            /* get Father's name & MELGenUtils ID */
             fName = misc.getParentName (gedcom, irecsp, "HUSB");
             if (fName == "")
                 rdata += "name unknown";
@@ -896,7 +900,7 @@ function buildFamGroup (gedcom, family, id, gen, id2, suffix, ancestorList) {
         if (idpspw == '')
             rdata += "name unknown";
         else {
-            /* get Mother's name & MELGenKey ID */
+            /* get Mother's name & MELGenUtils ID */
             mName = misc.getParentName (gedcom, irecsp, "WIFE");
             if (mName == "")
                 rdata += "name unknown";
@@ -1094,10 +1098,10 @@ function buildFamGroup (gedcom, family, id, gen, id2, suffix, ancestorList) {
                if not, add his or her events (other than birth - already added) to this (parents) Family Group */
             if (chFamsw == 0) {
                 var haveChld = misc.Check4Children (gedcom, irec);
-                if (haveChld != 0) {
+                if (haveChld != 0 && gen != 1) {       // don't add Family Groups for children of starting individual
                     var idChild;
 
-                    // determine MELGenKey ID
+                    // determine MELGenUtils ID
                     idChild = gen / 2;
                     suffix++;     // non-direct-line Family Groups start with a sequence/suffix number of 1
 
@@ -1105,7 +1109,7 @@ function buildFamGroup (gedcom, family, id, gen, id2, suffix, ancestorList) {
                     const retchild = addFamilyGroup4Child (gedcom, irec, idChild, suffix, ancestorList);
                     if (retchild != -1 && retchild.fg != '') {
                         chdata += retchild.fg;
-                        // add MELGenKey ID for child
+                        // add MELGenUtils ID for child
                         const holdT = children.lastIndexOf(os.EOL, children.length - 2) + 1;
                         children = children.substring(0, holdT) + retchild.id + "  " + children.substring(holdT);
                     }
@@ -1582,7 +1586,7 @@ function addFamilyGroup4Child (gedcom, irec, id, suffix, ancestorList) {
     if (idph == '')
         buf += "name unknown";
     else {
-        /* get Father's name & MELGenKey ID */
+        /* get Father's name & MELGenUtils ID */
         fName = misc.getParentName (gedcom, irec, "HUSB");
         if (fName == "")
             buf += "name unknown";
@@ -1604,7 +1608,7 @@ function addFamilyGroup4Child (gedcom, irec, id, suffix, ancestorList) {
     if (idpw == '')
         buf += "name unknown";
     else {
-        /* get Mother's name & MELGenKey ID */
+        /* get Mother's name & MELGenUtils ID */
         mName = misc.getParentName (gedcom, irec, "WIFE");
         if (mName == "")
             buf += "name unknown";
@@ -1889,6 +1893,72 @@ function addFamilyGroup4Child (gedcom, irec, id, suffix, ancestorList) {
     buf += children;
     buf += '\n\n\n';
     return { fg: buf, id: id + '.' + suffix };
+}
+
+/* line up children */
+function lineupChildrenSections(text) {
+    var ptr, ptr2, sptr, children = [], IDlen, sp2add;
+    var familyGroups = text.split('\n\n\n');
+
+    for (var i = 0; i < familyGroups.length; i++) {
+        var fg = familyGroups[i];
+
+        children.length = IDlen = 0;
+        ptr = fg.indexOf ("\nChildren");
+        if (ptr == -1)
+            continue;
+        ptr = fg.indexOf("\n", ptr + 1) + 2;       // ptr = first character of first child line
+        sptr = ptr;
+        /* find longest ID, if any, and figure length of ID field
+           a childline consists of an optional ID followed by a minimum of 2 spaces, followed by the rest of the line
+           3 consecutive newlines ends the Children Section */
+        while (1) {
+            if (fg.substring(ptr, ptr + 3) == "\n\n\n" || ptr >= fg.length)
+                break;
+            if (fg.substring(ptr, ptr + 8) == "Children") {
+                ptr = fg.indexOf("\n\n", ptr) + 2;
+                continue;
+            }
+            // save length of ID for each child
+            if (fg[ptr] == '\n')
+                ptr++;                              // blank line
+            if (Number(fg[ptr]) >= '0' && Number(fg[ptr]) <= '9') {
+                ptr2 = fg.indexOf("  ", ptr);
+                children.push((Number(ptr2) - Number(ptr)));
+            } else
+                children.push(0);
+            ptr = fg.indexOf("\n", ptr) + 1;      // next child
+            if (ptr >= fg.length || !ptr)
+                break;
+        }
+        // find longest ID and add the appropriate number of spaces before the roman numerals to make the roman numerals for each child line up
+        children.forEach(child => {
+            if (Number (child) > IDlen)
+                IDlen = Number (child);
+        })
+        IDlen += 2;      // length of ID field (an ID is always followed by 2 spaces) for each child in order to get roman numerals to line up
+        if (IDlen == 2 || children.length == 1)
+            continue;    // no need to realign the children in this Family Group
+        const spaces = "          ";
+        children.forEach(child => {
+            if (fg.substring(sptr, sptr + 8) == "Children")
+                sptr = fg.indexOf('\n', sptr) + 1;
+            if (fg[sptr] == '\n')
+                sptr++;
+            if (!child)
+                fg = fg.substring(0, sptr) + spaces.substring(0, IDlen) + fg.substring(sptr);
+            else {
+                sp2add = Number (IDlen) - Number (child);
+                for (var firstRN = 0; fg[sptr + firstRN] != 'i' && fg[sptr + firstRN] != 'v' && fg[sptr + firstRN] != 'x'; firstRN++);
+                fg = fg.substring(0, (sptr + Number (child))) + spaces.substring(0, sp2add) + fg.substring((sptr + firstRN));
+            }
+            sptr = fg.indexOf('\n', sptr) + 1;
+        })
+        familyGroups[i] = fg;
+    }
+
+    // return aligned text
+    return familyGroups.join('\n\n\n');
 }
 
 /* from stackoverflow.com */

@@ -24,7 +24,7 @@
 Use these formatting guidelines to create plain text files by hand for importing as a Family DataBase.
 
 
-Format of a MEL Genealogy Key (MELGenKey) Family DataBase
+Format of a MEL Genealogy Utilities (MELGenUtils) Family DataBase
 
 A Family DataBase consists of 1 or more Family Groups. A Family DataBase is in plain text (human readable) format.
 
@@ -251,7 +251,7 @@ Import directory/folder
             normally would contain sub-directories/folders which indicate type (e.g., Birth, Death, Marriage, etc)
 <br>
 The name of the Import directory/folder can be anything allowed by your operating system. Within this directory/folder will reside all the files
-with which the MELGenKey Family DataBase will be built. If importing a GEDCOM, then the GEDCOM file should be in the Import directory/folder. If
+with which the MELGenUtils Family DataBase will be built. If importing a GEDCOM, then the GEDCOM file should be in the Import directory/folder. If
 importing user-created files then "body" and/or "text" file(s) should be in the Import directory/folder as explained next. All other files and
 sub-directories/folders are optional and may exist whether importing a GEDCOM or user-created files.<br>
 <br>
@@ -259,7 +259,7 @@ The "Family Groups" must be in files named "body" or "text" (case insensitive) i
 one "body" and/or "text" file then there must be a sequential number attached to each file name (e.g., body1, text3, body4, etc). That
 portion of the filename called "body" or "text", can be mixed, but each sequential number must be unique (e.g., there cannot be files
 in the directory/folder named "body234" and "text234"). The files should be numbered sequentially in the way the data within the files should
-be added to the MELGenKey Family DataBase. For an explanation of the format of the contents of the "body" and "text" files see elsewhere in
+be added to the MELGenUtils Family DataBase. For an explanation of the format of the contents of the "body" and "text" files see elsewhere in
 this file.<br>
 <br>
 There may also be an "index" file (case insensitive). For an explanation of the format of the contents of the "index" file see elsewhere
@@ -274,11 +274,11 @@ form. "UnsureIfRelated" normally contains files of plain text and/or image infor
 people appearing in the Family DataBase. All the aforementioned sub-directories/folders are optional. Any sub-directory/folder present will
 be imported verbatim.<br>
 <br>
-Any file in the top level of the directory/folder which is unknown to MELGenKey will be imported into the "Other" sub-directory/folder. Some
-files that may exist in the "Other" sub-directory/folder are meaningful to MELGenKey. These include (file names exactly as shown):<br>
+Any file in the top level of the directory/folder which is unknown to MELGenUtils will be imported into the "Other" sub-directory/folder. Some
+files that may exist in the "Other" sub-directory/folder are meaningful to MELGenUtils. These include (file names exactly as shown):<br>
 AdditionalInfoNotIncluded.txt - list of people for whom there is additional info that is not included in this DataBase (e.g., this could be for living people not made public)<br>
 Bibliography.txt - list of reference material used in this DataBase<br>
-DBinfo.txt - info describing this DataBase (used by MELGenKey); this file has a particular format (see elsewhere in this file for a description of the format)<br>
+DBinfo.txt - info describing this DataBase (used by MELGenUtils); this file has a particular format (see elsewhere in this file for a description of the format)<br>
 Dedication.txt - dedication<br>
 DevHistory.txt - development history regarding this DataBase<br>
 FamilyObscurities.txt - obscure info pertaining to some people and/or families appearing in this DataBase<br>
@@ -294,8 +294,8 @@ Statistics.txt - some statistics regarding this DataBase<br>
 SurnameRecap.txt - general notes with regard to some surnames appearing in the DataBase<br>
 UsersGuide.txt - a guide for using this DataBase<br>
 <br>
-If the file DBinfo.txt is not provided, it will be created by MELGenKey. If the file DBinfo.txt is provided, info will be appended to it by
-MELGenKey. A tableofcontents file will be created for the "Other" sub-directory/folder.<br>
+If the file DBinfo.txt is not provided, it will be created by MELGenUtils. If the file DBinfo.txt is provided, info will be appended to it by
+MELGenUtils. A tableofcontents file will be created for the "Other" sub-directory/folder.<br>
 <br>
 <br>
 <br>
@@ -308,9 +308,9 @@ Do not use quotes (") within any field value.<br>
 All field names and values are optional.<br>
 A null field value can be shown as "".<br>
 All field value lengths are unlimited.<br>
-The following are all field names which are meaningful to MELGenKey, some of which are shown with example field values. All field names
+The following are all field names which are meaningful to MELGenUtils, some of which are shown with example field values. All field names
 are optional. Also, if creating your own DBinfo.txt file to be imported, other field names and field values may be added to the file.
-Additional fields will be appended to the file by MELGenKey when it is imported.<br>
+Additional fields will be appended to the file by MELGenUtils when it is imported.<br>
 DBName = "Sands of Time II - KILLE"
 DBVersion = "20231111"
 DBDescription = "Main Surnames: Kille, Deckelmann. Main Geographical Areas: NY, Germany."
@@ -325,18 +325,18 @@ Blog = ""
 <br>
 <br>
 <br>
-Structure of a MELGenKey Family DataBase Directory/Folder ...<br>
+Structure of a MELGenUtils Family DataBase Directory/Folder ...<br>
 <br>
 Family DataBase directory/folder (the name will be the same as the name applied to the Family DataBase at the time of import)
     PlainText
         body (there can be 1 to an unlimited number of body files; each body file will have a sequential number attached beginning at 0)
         index (optional)
-        tableofcontents (if not imported, it will be created at import time by MELGenKey)
+        tableofcontents (if not imported, it will be created at import time by MELGenUtils)
     UnsureIfRelated (directory/folder; optional, will exist if it existed in the Import directory/folder)
     Other (directory/folder; at a minimum contains a file named "DBinfo.txt" (without the quotes))
     Reference (directory/folder; optional, will exist if it existed in the Import directory/folder)
     Images (directory/folder; optional, will exist if it existed in the Import directory/folder)A
-    HTML (directory/folder; optional, will exist if the HTML version of the Family DataBase was created using MELGenKey)
+    HTML (directory/folder; optional, will exist if the HTML version of the Family DataBase was created using MELGenUtils)
 <br>
 <br>
 <br>

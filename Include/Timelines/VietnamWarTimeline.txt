@@ -1,7 +1,7 @@
 # Vietnam War Events
 # v20250811
 # any line with the # character in column 1 is considered a comment line
-# comment lines are not included in MELGenKey Reports
+# comment lines are not included in MELGenUtils Reports
    Aug 1945 Following the defeat of Japan to end World War II, France moves
               to reassert its control over Indochina, which had become a
               French colony in 1887. [3]

@@ -98,7 +98,7 @@ function PrepEmail() {
 function DoEmail () {
     var header, pnt, version;
 
-    email = email.replaceAll(';', ',');   /* replace ; (used by MELGenKey) with , (used by mailer) */
+    email = email.replaceAll(';', ',');   /* replace ; (used by MELGenUtils) with , (used by mailer) */
     header = "mailto:" + email + "?subject=";
     pnt = DBinfo.indexOf("DBName =");
     if (pnt == -1)
@@ -148,7 +148,7 @@ window.addEventListener('message', (e) => {
 
 <script>
 
-/* prepare an email for sending to MELGenKey developer */
+/* prepare an email for sending to MELGenUtils developer */
 function SendEmail(subj) {
     const windowRef = window.open("mailto:MarshallELake@gmail.com?subject=" + subj, '_blank');
 
@@ -332,9 +332,9 @@ onload = function init() {
 <br> <br>
 <input type="button" onclick="window.open('MapDeed.html','_blank')" value="Map Deed Boundaries"/>
 <br> <br>
-<button type="button" id="SendIdea" onclick='SendEmail("MELGenKey (v20250926) Suggestions")'>Send Suggestions/Ideas to Developer of MELGenKey</button>
+<button type="button" id="SendIdea" onclick='SendEmail("MELGenUtils (v20251201) Suggestions")'>Send Suggestions/Ideas to Developer of MELGenUtils</button>
 <br> <br>
-<input type="button" id="MsgBrdMGK" disabled onclick="checkServer('MsgBrdMELGenKey.html')" value="Access MELGenKey Message Board"/>
+<input type="button" id="MsgBrdMGK" disabled onclick="checkServer('MsgBrdMELGenUtils.html')" value="Access MELGenUtils Message Board"/>
 <br> <br>
 <input type="button" id='GenNotes' onclick="checkServer('GenNotes.html')" value="General Notes"/>
 <br> <br>
@@ -342,13 +342,13 @@ onload = function init() {
 <br> <br>
 <input type="button" disabled onclick="checkServer('EditUserInfo.html')" value="Display/Edit Info for User"/>
 <br> <br>
-<button type="button" onclick='MELGenKeyInfo()'>Display Info for MELGenKey</button>
+<button type="button" onclick='MELGenUtilsInfo()'>Display Info for MELGenUtils</button>
 <br> <br>
 <input type="button" id="UserPref" onclick="checkServer('UserPref.html')" value="General User Preferences"/>
 <br> <br>
-<input type="button" id="ImportAddOn" disabled onclick="checkServer('ImportAddOn.html')" value="Import Add-on for MELGenKey"/>
+<input type="button" id="ImportAddOn" disabled onclick="checkServer('ImportAddOn.html')" value="Import Add-on for MELGenUtils"/>
 <br> <br>
-<input type="button" id="ChatMELGenKey" disabled onclick="checkServer('ChatMELGenKey.html')" value="Chat With MELGenKey Maintainer"/>
+<input type="button" id="ChatMELGenUtils" disabled onclick="checkServer('ChatMELGenUtils.html')" value="Chat With MELGenUtils Maintainer"/>
 <br> <br>
 <input type="button" id="TimelineFile" disabled onclick="checkServer('TimelineFile.html')" value="Non-Family DataBase Timeline File"/>
 <br> <br>
@@ -356,23 +356,23 @@ onload = function init() {
 <br> <br>
 <input type="button" id="MngRecur" onclick="checkServer('ManageRecurRep.html')" value="Manage Recurring Reports"/>
 <br> <br>
-<input type="button" id="ViewLog" onclick='ViewLog()' value="MELGenKey Log Messages"/>
+<input type="button" id="ViewLog" onclick='ViewLog()' value="MELGenUtils Log Messages"/>
 <br> <br>
 </fieldset>
 
 <script>
 
-function MELGenKeyInfo() {
+function MELGenUtilsInfo() {
     var info;
 
-    info = "Program Name - MEL Genealogy Key<br>" +
-           "Also Known As - MELGenKey<br>" +
-           "Program Version - v20250926<br>" +
+    info = "Program Name - MEL Genealogy Utilities<br>" +
+           "Also Known As - MELGenUtils<br>" +
+           "Program Version - v20251201<br>" +
            "Program Author - Marshall Lake<br>" +
            "Contact - marshallelake@gmail.com, genealogy@mlake.net<br><br>" +
-           'Program Description - MELGenKey is a helper application for genealogists. MELGenKey is a "Full Stack" application ' +
+           'Program Description - MELGenUtils is a helper application for genealogists. MELGenUtils is a "Full Stack" application ' +
            "written in HTML, CSS and JavaScript. It should run as is on Windows, MacOS or Linux.<br><br>" +
-           "Location of MELGenKey on this computer - ";
+           "Location of MELGenUtils on this computer - ";
 
     const ws = new WebSocket('ws://localhost:3000/');
 
@@ -389,7 +389,7 @@ function MELGenKeyInfo() {
     }
 
     ws.onerror = function () {
-        info += "Unknown.<br>node/server is not running.<br>The server is needed in order to know the location of MELGenKey.<br> <br>";
+        info += "Unknown.<br>node/server is not running.<br>The server is needed in order to know the location of MELGenUtils.<br> <br>";
         var span = document.getElementById("dial1span");
         var msg = info;
         const dialog1 = document.querySelector("#dial1");
@@ -522,7 +522,7 @@ function alertFormat (DBinfo, ActiveDBInfo) {
         else
             fmt += getData(DBinfo, data);
 
-        fmt += "<br><br>Date of Installation of Family DataBase to MELGenKey - ";
+        fmt += "<br><br>Date of Installation of Family DataBase to MELGenUtils - ";
         data = DBinfo.indexOf("DBInstallationDate =");
         if (data == -1)
             fmt += "not specified";
@@ -587,9 +587,9 @@ function alertFormat (DBinfo, ActiveDBInfo) {
 
     data = ActiveDBInfo.indexOf('DBActive = "yes"');
     if (data == -1)
-        fmt += "<br><br>***** INTERNAL ERROR. No match on DBActive in ActiveDBInfo. Please report this to MELGenKey maintainer. *****";
+        fmt += "<br><br>***** INTERNAL ERROR. No match on DBActive in ActiveDBInfo. Please report this to MELGenUtils maintainer. *****";
     else
-        fmt += "<br>This Family DataBase is currently active in MELGenKey.";
+        fmt += "<br>This Family DataBase is currently active in MELGenUtils.";
 
     fmt += "<br>This DataBase is identified with ID# - ";
     data = ActiveDBInfo.indexOf("DBUserID =");

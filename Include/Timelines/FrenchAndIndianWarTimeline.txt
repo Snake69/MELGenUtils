@@ -1,7 +1,7 @@
 # French & Indian War Events
 # v20231013
 # any line with the # character in column 1 is considered a comment line
-# comment lines are not included in MELGenKey Reports
+# comment lines are not included in MELGenUtils Reports
 25 Oct 1743 France signs a treaty known as the Second Family Compact
               with Spain and on 15 March 1744 joins Spain's war against
               England. [2]

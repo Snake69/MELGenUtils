@@ -1,7 +1,7 @@
 # Deaths of Notable People
-# v20251116
+# v20251126
 # any line with the # character in column 1 is considered a comment line
-# comment lines are not included in MELGenKey Reports
+# comment lines are not included in MELGenUtils Reports
       - 961 David died and his throne is replaced by his son Solomon [3]
       - 922 Solomon died and his throne is replaced by his son Rehoboam
               who faces a rebellion soon after his ascension [3]
@@ -15261,7 +15261,7 @@
 13 Nov 1883 J. Marion Sims died, American physician and gynecologist
               (b. 1813) [8]
 19 Nov 1883 Carl Wilhelm Siemens died, German-English engineer (b. 1823) [8]
-26 Nov 1883 Sojourner Truth died, American activist (b. 1797) [8]
+26 Nov 1883 Sojourner Truth died, American activist [8] [19] (b. 1797) [8]
 29 Nov 1883 Hiep Hoa died, Vietnamese emperor (b. 1847) [8]
 13 Dec 1883 Victor de Laprade died, French poet and critic (b. 1812) [8]
  6 Jan 1884 Gregor Mendel died, Czech geneticist and botanist (b. 1822) [8]
@@ -18122,7 +18122,7 @@
             Saki died, British short story writer (b. 1870) [8]
 15 Nov 1916 Henryk Sienkiewicz died, Polish journalist and author, Nobel
               Prize laureate (b. 1846) [8]
-22 Nov 1916 Jack London, American writer, died [7] [8] (b. 1876) [8] in
+22 Nov 1916 Jack London, American writer, died [7] [8] [19] (b. 1876) [8] in
               Glen Ellen, Ca., of a kidney disease, gastrointestinal uremic
               poisoning. An overdose of morphine was also suspected. He
               had written 50 books. London produced 200 short stories,
@@ -26048,19 +26048,18 @@
 21 Nov 1963 Artur Lemba died, Estonian composer and educator (b. 1885) [8]
             Robert Stroud died, American ornithologist and author (b. 1890)
               [8]
-22 Nov 1963 U.S. President John F. Kennedy (b. 1917) is assassinated and
-              Texas Governor John Connally is seriously wounded by Lee Harvey
-              Oswald, who also killed Dallas Police officer J. D. Tippit after
-              fleeing the scene. U.S Vice President Lyndon B. Johnson is sworn
-              in as the 36th President of the United States afterwards. [8]
+22 Nov 1963 U.S. President John F. Kennedy (b. 1917) is assassinated [8]
+              [19] and Texas Governor John Connally is seriously wounded
+              by Lee Harvey Oswald, who also killed Dallas Police officer
+              J. D. Tippit (b. 1924) after fleeing the scene. U.S Vice
+              President Lyndon B. Johnson is sworn in as the 36th President
+              of the United States afterwards. [8]
             Wilhelm Beiglbock died, Austrian-German physician (b. 1905) [8]
             Aldous Huxley died, [2] [8] English novelist and philosopher
               (b. 1894) [8]
-            C. S. Lewis died, British poet and critic (b. 1898) [8]
-            J. D. Tippit died, American police officer (Dallas Police
-              Department) (b. 1924) [8]
+            C. S. Lewis died, [8] [19] British poet and critic (b. 1898) [8]
 24 Nov 1963 Lee Harvey Oswald, (b. 1939) the assassin of President John
-              F. Kennedy, is killed by Jack Ruby. [2] [8]
+              F. Kennedy, is killed [2] [8] [19] by Jack Ruby. [2] [8]
 25 Nov 1963 Alexander Marinesko died, Russian lieutenant (b. 1913) [8]
 26 Nov 1963 Amelita Galli-Curci died, Italian soprano (b. 1882) [8]
  4 Dec 1963 Constance Davey died, Australian psychologist (b. 1882) [8]
@@ -27261,8 +27260,8 @@
 19 Nov 1968 May Hollinworth died, Australian theatre producer and director
               (b. 1895) [8]
 24 Nov 1968 D. A. Levy died, American poet and publisher (b. 1942) [8]
-25 Nov 1968 Upton Sinclair died, American novelist, critic, and essayist
-              (b. 1878) [8]
+25 Nov 1968 Upton Sinclair died, [8] [19] American novelist, critic, and
+              essayist (b. 1878) [8]
             Paul Siple died, American geographer and explorer (b. 1908) [8]
 28 Nov 1968 Enid Blyton died, English author and poet (b. 1897) [8]
  1 Dec 1968 Nicolae Bretan died, Romanian opera singer, composer, and
@@ -34327,17 +34326,16 @@
               Nobel Prize laureate (b. 1915) [8]
 19 Nov 1990 Sun Li-jen died, Chinese general and politician (b. 1900) [8]
 21 Nov 1990 Dean Hart died, Canadian wrestler and referee (b. 1954) [8]
-23 Nov 1990 Roald Dahl died, British novelist, poet, and screenwriter
+23 Nov 1990 Roald Dahl died, [8] [19] British novelist, poet, and screenwriter
               (b. 1916) [8]
             Bo Diaz died, Venezuelan baseball player (b. 1953) [8]
-24 Nov 1990 Juan Manuel Bordeu died, Argentinian race car driver (b. 1934)
-              [8]
+24 Nov 1990 Juan Manuel Bordeu died, Argentinian race car driver (b. 1934) [8]
             Fred Shero died, Canadian ice hockey player and coach (b. 1925)
               [8]
             Dodie Smith died, English author and playwright (b. 1896) [8]
             Marion Post Wolcott died, American photographer (b. 1910) [8]
-            Bulent Arel died, Turkish-American composer and educator
-              (b. 1919) [8]
+            Bulent Arel died, Turkish-American composer and educator (b. 1919)
+              [8]
 25 Nov 1990 Merab Mamardashvili died, Georgian philosopher and academic
               (b. 1930) [8]
 27 Nov 1990 David White died, American actor (b. 1916) [8]
@@ -34740,8 +34738,9 @@
               (b. 1907) [8]
 23 Nov 1991 Klaus Kinski died, German-American actor and director (b. 1926)
               [8]
-24 Nov 1991 Freddie Mercury died, Tanzanian-English singer-songwriter,
-              lead vocalist of Queen, and producer (b. 1946) [8]
+24 Nov 1991 Freddie Mercury died, [8] [19] Tanzanian-English
+              singer-songwriter, [8] lead vocalist of Queen, [8] [19]
+              and producer (b. 1946) [8]
             Eric Carr died, American drummer of KISS (b. 1950) [8]
 25 Nov 1991 Eleanor Audley died, American actress and voice artist (b. 1905)
               [8]
@@ -56550,10 +56549,10 @@
             Joe Esposito died, road manager for Elvis Presley (b. 1938) [8]
 24 Nov 2016 Paul Futcher died, footballer, Luton Town, Barnsley, Grimsby
               Town (b.1956) [8]
-            Florence Henderson died, American actress, singer and television
-              personality (b. 1934) [8]
-25 Nov 2016 Fidel Castro died, Communist leader of Cuba, and revolutionary
-              (b. 1926) [8]
+            Florence Henderson died, American actress, [8] [19] singer and
+              television personality (b. 1934) [8]
+25 Nov 2016 Fidel Castro died, [8] [19] Communist leader of Cuba, and
+              revolutionary (b. 1926) [8]
             Ron Glass died, American actor (b. 1945) [8]
 26 Nov 2016 Fritz Weaver died, American actor (b. 1926) [8]
 27 Nov 2016 Ioannis Grivas died, Greek statesman (b. 1923) [8]
@@ -57623,6 +57622,7 @@
 26 Jul 2023 Sinead O'Connor died [19]
 26 Aug 2023 television host Bob Barker died [19]
 28 Oct 2023 actor Matthew Perry died [19]
+19 Nov 2023 First Lady Rosalynn Carter died [19]
 18 Jun 2024 Willie Mays, baseball great, died [19]
  9 Sep 2024 actor James Earl Jones died [19]
 27 Sep 2024 Maggie Smith, actress, died [19]

@@ -414,7 +414,7 @@ async function DoTimeline (directives, indpos, fampos) {
     /* the css will hide the PRINT button and the system header from a hard copy print */
     TLRep += "<!doctype html> <html> <body id='Body'> <style type='text/css'> @media print { @page { margin-left: 0.5in; margin-right: 0.5in; ";
     TLRep += " margin-top: 0; margin-bottom: 0; } #printPB { display: none; } } </style> <pre>";
-    TLRep += os.EOL + "MELGenKey" + os.EOL + "Timeline Report" + os.EOL + os.EOL;
+    TLRep += os.EOL + "MELGenUtils" + os.EOL + "Timeline Report" + os.EOL + os.EOL;
 
     var sdate = new Date(directives.SDate);
     sdate.setHours(0,0,0,0);         /* want only month, day & year */

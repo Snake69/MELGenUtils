@@ -1,7 +1,7 @@
 # World War II Events
-# v20251013
+# v20251120
 # any line with the # character in column 1 is considered a comment line
-# comment lines are not included in MELGenKey Reports
+# comment lines are not included in MELGenUtils Reports
 29 Oct 1918 Start of the German Revolution. [1]
 11 Nov 1918 The Armistice with Germany marks the end of World War
               I. German troops evacuate occupied territories and Allied
@@ -8795,12 +8795,13 @@
               Day" and organizes the island into Taiwan Province under the
               Republic of China. [1]
 30 Oct 1945 the U.S. government announced the end of shoe rationing [9]
-20 Nov 1945 Nuremberg trials: [1] [7] Trials against 24 Nazi war criminals
-              start at the Palace of Justice at Nuremberg. [1]
+20 Nov 1945 Nuremberg trials: [1] [7] [11] Trials against 24 Nazi war
+              criminals start [1] [11] at the Palace of Justice at
+              Nuremberg. [1]
 21 Nov 1945 US Supreme Court Justice Robert H. Jackson opens for the
               prosecution with a speech lasting several hours, leaving a
               deep impression on both the court and the public. [1]
-23 Nov 1945 most rationing of food in the United States ended [9]
+23 Nov 1945 Most rationing of food in the United States ended. [9]
 26 Nov 1945 The Hossbach Memorandum (of a conference in which Hitler
               explained his war plans) is presented. [1]
 27 Nov 1945 CARE (then the Cooperative for American Remittances to Europe)

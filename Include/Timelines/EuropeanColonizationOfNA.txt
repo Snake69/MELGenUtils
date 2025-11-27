@@ -1,7 +1,7 @@
 # European Colonization of North America
 # v20240408
 # any line with the # character in column 1 is considered a comment line
-# comment lines are not included in MELGenKey Reports
+# comment lines are not included in MELGenUtils Reports
         986 Norsemen settle Greenland and Bjarni Herjolfsson sights coast of
               North America, but doesn't land [1]
       c1000 Norse settle briefly in L'Anse aux Meadows in Newfoundland [1]

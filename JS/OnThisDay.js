@@ -129,7 +129,7 @@ function DoOnThisDay (directives, nfdbi, warni, RECUR, FamDBName) {
         rdata += "<!doctype html> <html> <body id='Body'> <style type='text/css'> @media print { @page { margin-left: 0.5in; ";
         rdata += "margin-right: 0.5in; margin-top: 0; margin-bottom: 0; } #printPB { display: none; } } </style> <pre>";
     }
-    rdata += os.EOL + "MELGenKey" + os.EOL + "On This Day Report" + os.EOL + os.EOL;
+    rdata += os.EOL + "MELGenUtils" + os.EOL + "On This Day Report" + os.EOL + os.EOL;
 
     /* create date (dd mmm) for matching */
     ddmm = directives.Day;

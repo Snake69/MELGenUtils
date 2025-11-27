@@ -1,7 +1,7 @@
 # World War I Events
 # v20251111
 # any line with the # character in column 1 is considered a comment line
-# comment lines are not included in MELGenKey Reports
+# comment lines are not included in MELGenUtils Reports
        1914 -1918, World War I, about 15 million people died [11]
 28 Jun 1914 Prince Archduke Franz Ferdinand, [1] [4] [12] (b. 1863)
               [1] heir to the Austro-Hungarian Empire, [1] [4] and

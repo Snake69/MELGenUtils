@@ -1,7 +1,7 @@
 # American Civil War Events
-# v20250703
+# v20251119
 # any line with the # character in column 1 is considered a comment line
-# comment lines are not included in MELGenKey Reports
+# comment lines are not included in MELGenUtils Reports
 30 Mar 1855 Origins of the American Civil War: "Border Ruffians" from
               Missouri invade Kansas and force election of a pro-slavery
               legislature. [4]
@@ -922,9 +922,9 @@
               General James Longstreet place Knoxville, Tennessee, under
               siege. [4]
 18 Nov 1863 Lincoln travels to Gettysburg. [2]
-19 Nov 1863 U.S. President Abraham Lincoln delivers the Gettysburg Address at
-              the dedication ceremony for the military cemetery at Gettysburg,
-              Pennsylvania. [4] [7]
+19 Nov 1863 U.S. President Abraham Lincoln delivers the Gettysburg Address [4]
+              [7] [11] at the dedication ceremony for the military cemetery
+              at Gettysburg, Pennsylvania. [4] [7]
 23 Nov 1863 The Battle for Chattanooga. Union forces [4] [7] led by
               General Ulysses S. Grant [4] break the Confederate siege
               of the city in successive attacks. The most notable event

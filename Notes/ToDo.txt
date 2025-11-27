@@ -1,61 +1,51 @@
 
-priority - complete importing a Gedcom
+Priority
+add Gender support
+  Gedcoms contain a Gender field (SEX)
+
 
 The task list below is by function (for the most part) and not prioritized.
 
 Main Menu (top level menu)
+  add variable "DataBase Type = " - identify DataBase as user-created plain text or Gedcom
   auto-refresh display whenever any of the variables on the page change, & other times (e.g., change to which DB is active)
     example: node is running and main menu is displayed; kill node - main menu page doesn't change
       perhaps force a refresh every so often OR perform the onload routine every so often
   allow focus ID to be set/changed
   let user know, when a library isn't installed, which functions won't work; disable appropriate function buttons
     https://stackoverflow.com/questions/15302618/node-js-check-if-module-is-installed-without-actually-requiring-it
-  if no DB active, in the Main Menu do not show "Focus ID Within Active DB =" line and "Active DB Status =" line
+  if no DB active, in the Main Menu do not show "Focus ID Within Active DB =" line and "Active DB Status =" line and "DataBase Type ="
 
 Import, Create or Remove a Family DataBase -> Import a Family DataBase from a GEDCOM
-  for SOUR citations/references, it can be followed by '3' level recs to further cite the event/data
+  simply copy the Gedcom in
+    allow for the import of Other, Images and UnsureIfRelated directories
+    allow for import of index file
   if the Gedcom file is a zip file, unzip it before importing
-  add option to create the DB containing only direct ancestry from starting individual
-  function incomplete; add all possible items
-    need to process (add) from INDI record:
-      EVEN: Generic event.          
-            (TYPE: Add a TYPE tag immediately after EVEN to define the specific event. For example, TYPE Purchased Residence.)
-            The generic event entry in a GEDCOM file follows this structure:
-            1 EVEN
-            2 TYPE <EVENT_DESCRIPTOR>
-            2 DATE <DATE>              (optional)
-            2 PLAC <PLACE>             (optional)
-            2 NOTE <NOTE>              (optional)
-            2 SOUR <REF>
-      WILL: Will.  
-      PROP: Possessions and property.  
+  add option to import only part of Gedcom
+    import only that part of Gedcom containing only direct ancestry from starting individual
+    option to start and stop at certain points
+      for starting/ending point give user option to:
+        enter name - use exact match (verify first), if multiple exact matches send user list to choose from, if no exact matches send user
+          list of near matches, if no near matches send user list of all individuals
+        start with first individual in GEDCOM
+    allow data to be created and not imported (for user review)
   need to be able to handle importing Gedcom files larger than 200MB
-  allow for a "Combo Import" so that a GEDCOM is imported along with files that belong in the Other directory, index, etc
-  allow data to be created and not imported (for user review)
-  option to start and stop at certain points
-    for starting/ending point give user option to:
-      enter name - use exact match (verify first), if multiple exact matches send user list to choose from, if no exact matches send user
-        list of near matches, if no near matches send user list of all individuals
-      start with first individual in GEDCOM
   as part of final result, produce a report
-    list all records/lines/tags which were disregarded/ignored & the reason they were disregarded/ignored
-    one reason is no associated source/citation
-  allow for a DATE of (upper or lower case) "FROM 1920 TO 1923" or "1920 TO 1923" or "1920 - 1923" or "1920-1923"
-  certain tags should still show something in family group even if there are no sub-level tags (e.g., if "1 ADOP" is present for an INDI but
-    there are no associated "2 blah" records, then there should still be a note saying individual was adopted)
-  EMAIL tag may contain 1 @ or 2 consecutive @'s; if 2, make 1 
+    exactly what was imported
+    items not sourced
   "Check Here to Choose from a List of Individuals" should auto-uncheck if text is entered in box by user & if
     "Check Here to Choose from a List of Individuals" is checked by user then text in box should auto-erase
   handle 0 @.....@ OBJE records; if 1 FILE link-to-file record present, download file
-  remove multiple identical Citation references on same Note line
-  indent children (if necessary) so that roman numerals line up
 
 Import, Create or Remove a Family DataBase -> Import a Family DataBase from User Created Files
   if a zip file, unzip it before importing
     change instructions for installing TestDB in Readme.html & Readme.md
   allow only "body" or "text" files with a sequential number appended (e.g., text0.0 and bodya are not allowed)
+  option to import as a Gedcom
+  allow data to be created and not imported (for user review)
 
 Import, Create or Remove a Family DataBase -> Create HTML Version of Family DataBase
+  allow to create from plain text files or from a Gedcom
   increase size of font used for Section Headings
   the links to indexes should all be upper case (e.g., indexA.html rather than indexa.html) even if first letter of surname is lower case
   link IDs in DevHistory.txt to Family Groups
@@ -106,7 +96,7 @@ Import, Create or Remove a Family DataBase -> Create HTML Version of Family Data
   add button to Web page tableofcontents.html file "Notify me when Web page updated"; get email address;
     send email to me containing the found email address; issue alert to user
   add buttons for joining surname mailing lists (Lake, Kille, etc)
-  functionality to add to MELGenKey HTML version of DB & to public Web Site
+  functionality to add to MELGenUtils HTML version of DB & to public Web Site
     (this will also apply "Publish Web Site")
     hovering over a $ amount or a Li amount will show conversion to other money in same year and the value for current year
     hovering over a placename will show info for that place
@@ -120,15 +110,18 @@ Import, Create or Remove a Family DataBase -> Create HTML Version of Family Data
     https://www.recoll.org/usermanual/webhelp/docs/RCL.PROGRAM.PYTHONAPI.INTRO.html
 
 Import, Create or Remove a Family DataBase -> Deport a Family DataBase
+  look for plain text files or Gedcom to deport
   back up data
   do anything if it's the active DB ?
   add indicator to backed-up directory name so it is known it was deported
 
 Import, Create or Remove a Family DataBase -> Re-Import a Deported Family DataBase
+  look for plain text files or Gedcom to re-import
 
 Verify Family Data
+  allow for plain text files or Gedcom to verify
   may need to change Docs, Docs/VerificationChecks.html and/or Include/ExampleOfUserCreatedFiles
-  ran into 1 strange issue where the end of the Family Group was EOL, X, EOL, EOL
+  plain text files - ran into 1 strange issue where the end of the Family Group was EOL, X, EOL, EOL
     the X was an undisplayable character (vi didn't even acknowledge the character was there)
     HOW TO HANDLE THIS ?
   check for correctness of locale names (different names at different times, area creation times, etc)
@@ -137,10 +130,10 @@ Verify Family Data
   current US counties:
     https://en.wikipedia.org/wiki/List_of_counties_by_U.S._state
     https://en.wikipedia.org/wiki/Index_of_U.S._counties
-  the names of people at the head of family groups with no parents need to be cited
-  check that all children and HOF Line when not a child in another Family Group have gender indicator
-  like:
-    199.0  Herbert Ryder (M) [1]
+  plain text files - the names of people at the head of family groups with no parents need to be cited
+  plain text files - check that all children and HOF Line when not a child in another Family Group have gender indicator
+    like:
+      199.0  Herbert Ryder (M) [1]
 
     Children:
 
@@ -148,7 +141,7 @@ Verify Family Data
     ii.   Elizabeth. (F) [3]
     iii.  name unknown. (U) [3]
 
-  bug
+  bug (plain text files)
     "Notes -" header missing, Verify did not catch it
       how to catch this?
       what if multiple or all headers are missing?
@@ -158,13 +151,13 @@ Verify Family Data
     ask user before fixing
     do not fix anything
     accept corrected data from user
-  add check for multiple periods in ID
+  plain text files - add check for multiple periods in ID
   when verifying the index
     2 spaces not being after name can be easily auto-fixed
     add names and associated reference ID to index for names not already appearing in index (as in CreateIndex function)
-  add line number (or exact text in error) to errors
+  plain text files - add line number (or exact text in error) to errors
   check for non-ASCII characters
-  when checking Children Section for match on name in index & first name is "------", look for "name unknown"
+  plain text files - when checking Children Section for match on name in index & first name is "------", look for "name unknown"
   speed up sorting references in each line of index
   speed up sorting index - try quicksort algorithm
     see links in "Other Bookmarks" section in Firefox
@@ -193,13 +186,13 @@ Verify Family Data
                   throw new Error('Email does not exist');
           })
       }
-  any header can appear only once per Family Group
-  look for semi-colons separating facts in Notes section (look for semi-colons by keying off on reserved words)
-  when user verifies a DB with HTML version present, the status flag in MELGenKey.txt should be set to unverified & saved at the same time
+  plain text files - any header can appear only once per Family Group
+  plain text files - look for semi-colons separating facts in Notes section (look for semi-colons by keying off on reserved words)
+  when user verifies a DB with HTML version present, the status flag in MELGenUtils.txt should be set to unverified & saved at the same time
     the HTML version is deleted
-  ensure each event has a citation reference (except where there is only 1 citation)
+  plain text files - ensure each event has a citation reference (except where there is only 1 citation)
   enclose Web addresses within <> (so that they will wrap in CreateHTML)
-    go through DB looking for any string (ending in comma, rt paren, space or \n), starting in http:// or https://,
+    go through plain text files looking for any string (ending in comma, rt paren, space or \n), starting in http:// or https://,
       first character cannot be <, last character cannot be >, string must contain at least 1 period, string cannot
         contain ->,@
       precede string with http:// if necessary, enclose within <>, then create anchor (<a>)
@@ -208,23 +201,24 @@ Verify Family Data
   https://www.npmjs.com/package/linkifyjs
   alert displays because HTML version exists & will need to be re-created; click OK; the Continue button does not disable
   need to check for which button is clicked in alert with addEventListener (see CreateHTML.html)
-  look for filename references in Citations section (or anywhere else in Family Group) which are not formatted properly (no ->)
-  validate FullName - only characters allowed are letters, - and '; no prefixes/titles (Dr, Sir, Pvt, Sgt, Col, etc);
+  plain text files - look for filename references in Citations section (or anywhere else in Family Group) which are not formatted properly (no ->)
+  plain text files - validate FullName - only characters allowed are letters, - and '; no prefixes/titles (Dr, Sir, Pvt, Sgt, Col, etc);
                       no suffixes (Jr, Sr, roman numerals, PhD, MD)
-  check for duplicate citation lines in same Family Group
-  ensure each citation line is referenced at least once in Family Group
-  if "Children by FullName and FullName:" then there must be multiple marriages in Family Group
-  if "Children:" then there must NOT be multiple marriages in Family Group
-  ensure "child #X, name" and "Child #X, name" in Family Group matches name and Roman Numeral number in Children Section
-  ensure roman numerals are in sequence with no skips
+  plain text files - check for duplicate citation lines in same Family Group
+  plain text files - ensure each citation line is referenced at least once in Family Group
+  plain text files - if "Children by FullName and FullName:" then there must be multiple marriages in Family Group
+  plain text files - if "Children:" then there must NOT be multiple marriages in Family Group
+  plain text files - ensure "child #X, name" and "Child #X, name" in Family Group matches name and Roman Numeral number in Children Section
+  plain text files - ensure roman numerals are in sequence with no skips
   index
     see ~mlake/Dev/CheckIndex
     ensure first letter of [most] names and initials are upper case
   General options for Verify
   allow option to do a full check (format like what I devised) or skeletel check (check basic format, see docs)
-    a basic check allows user to format family info any way he/she wants
-    things which are checked are headings, family ID line, Father line, Mother line, ensure sourcecitation references, timeline dates
-    content can be formatted as the user wishes but some things which must be a certain way:
+    plain text files - a basic check allows user to format family info any way he/she wants
+    plain text files - things which are checked are headings, family ID line, Father line, Mother line, ensure sourcecitation references,
+                         timeline dates
+    plain text files - content can be formatted as the user wishes but some things which must be a certain way:
       when a timeline event is continued the date field must be blank and the content must be indented 2 positions on the following lines
     display a dialog where user can checkmark each individual validity check he/she wants to perform
     each individual check should be able to be allowed or not by the user
@@ -233,8 +227,8 @@ Verify Family Data
     incorporate spellchecker into validity-check code
   output errors
   output changes made
-  output comments (e.g., when an ID is skipped sequentially ... note it to user
-  "Timeline -"
+  plain text files - output comments (e.g., when an ID is skipped sequentially ... note it to user
+  plain text files - "Timeline -"
     should contain word "living", not "lived"
     should contain word "working", not "worked"
     should contain word "sells", not "sold"
@@ -248,7 +242,7 @@ Verify Family Data
     ensure birthdates & info for children match that in childrens' own family group
     check for two consecutive dates in Timeline which are exactly the same
     check for duplicate entries except for date (e.g., "Margaret Good born" appearing more than once - could be in Timeline and/or Notes sections)
-  "Notes -"
+  plain text files - "Notes -"
     "known as" - name should be enclosed within quotes
     should contain word "lived", not "living"
     should contain word "worked", not "working"
@@ -261,45 +255,45 @@ Verify Family Data
     source/citation reference must exist if there is more than one Source/Citation
     source/citation reference must NOT exist if there is only one Source/Citation
     if multiple source/citation references for a note then they must be sequential
-  "Observations -"
+  plain text files - "Observations -"
     each line must start in column 1
     source/citation reference must exist if there is more than one Source/Citation
     source/citation reference must NOT exist if there is only one Source/Citation
-  "Extras -"
+  plain text files - "Extras -"
     if any of these lines appear they must be preceded by 1 blank line
       must be followed by a non-blank line
     if multiple source/citation references for an item then they must be sequential
-  "Further Research -"
-  "Biography -"
+  plain text files - "Further Research -"
+  plain text files - "Biography -"
   Other checks:
     alert (and allow changes) when locations are incorrect based upon available maps
     spell check
     double dates out of range (1 Jan - 25 Mar, after 1752)
     check for possibly-still-living people - point out to user; optionally remove
-    ensure twins, triplets, etc are noted as such
+    plain text files - ensure twins, triplets, etc are noted as such
     ensure double dates/dual dates are in their proper sequence
-    look for dates which should have a 'd' in column 7 of Timeline
-    ensure the only entry in a family group for a child who has his/her own family group is for birth
-    specify right margin (in Notes use semi-colon for breaking lines, what about other sections?)
-    look for unnecessary Timeline entries for children (when a child has its own entry then the only entry in the parents' entry
+    plain text files - look for dates which should have a 'd' in column 7 of Timeline
+    plain text files - ensure the only entry in a family group for a child who has his/her own family group is for birth
+    plain text files - specify right margin (in Notes use semi-colon for breaking lines, what about other sections?)
+    plain text files - look for unnecessary Timeline entries for children (when a child has its own entry then the only entry in the parents' entry
       should be birthdate)
-    each event should contain at least one key word (allow user to add to list of key words)
-    try to put certain Notes in a certain sequence; e.g., "born" should be first, "buried" should be last,
+    plain text files - each event should contain at least one key word (allow user to add to list of key words)
+    plain text files - try to put certain Notes in a certain sequence; e.g., "born" should be first, "buried" should be last,
       "died" should be next to last (if "buried" present, last if not)
-    check for correct spelling of all reserved words (married, died, born, etc, states, counties, what else?)
-    check if image reference missing in Source/Citation line
-    ensure each Source/Citation item is spelled exactly the same everywhere in the book that it is used
-    ensure all "links" (->) work
+    plain text files - check for correct spelling of all reserved words (married, died, born, etc, states, counties, what else?)
+    plain text files - check if image reference missing in Source/Citation line
+    plain text files - ensure each Source/Citation item is spelled exactly the same everywhere in the book that it is used
+    plain text files - ensure all "links" (->) work
     ensure a numeric actually is a numeric
-    ensure every name in body of book is in index (missing are some Sources/Citations (e.g., Marshall Edward Lake (1.)) and
+    ensure every name in body of work is in index (plain text files - missing are some Sources/Citations (e.g., Marshall Edward Lake (1.)) and
       non-transcribed articles)
-    check for word "married" in each family entry
-    check for missing "living in ..." events (e.g., when parents are shown as "living in ..." during a year after child is born)
+    plain text files - check for word "married" in each family entry
+    plain text files - check for missing "living in ..." events (e.g., when parents are shown as "living in ..." during a year after child is born)
     ensure email addresses are enclosed within <>
       validate email address - https://stackoverflow.com/questions/46155/how-can-i-validate-an-email-address-in-javascript
     ensure Web addresses are enclosed within <> and start with http:// or https://
     check Web addresses to make sure page still exists
-    remove extra spaces used for alignment (i.e., ALWAYS have 2 spaces after IDs & wherever else EXCEPT WITH CHILDREN)
+    plain text files - remove extra spaces used for alignment (i.e., ALWAYS have 2 spaces after IDs & wherever else EXCEPT WITH CHILDREN)
     change 1st to first, 2nd to second, etc
     use geographical timeline as input to do checks and completions (add correct county name for the time, add correct township name
       for the time, ensure correct placename (e.g., certain areas would be territories before a certain time, or colonies before a certain
@@ -309,26 +303,29 @@ Verify Family Data
         names associated with family ID numbers (beginning of family entries, where else?) can be auto-indexed programmically
         for names as the head of family entries add an asterisk to that index entry ?
         check referenced files (plain text or graphical images) for further indexing
-    body - 2 spaces after number & before name
+    plain text files - body - 2 spaces after number & before name
     compare info in new files to old files (dates, what else?)
-    ensure when dashes occur (for a missing name) it's always 6 dashes
-    ensure "transcribed" in files in the Reference directory is noted where appropriate
+    plain text files - ensure when dashes occur (for a missing name) it's always 6 dashes
+    plain text files - ensure "transcribed" in files in the Reference directory is noted where appropriate
   when Auto-Delete Failed References in Index checked, remove any references to files in PlainText files which are removed based upon value of
     "Disable checks below generation:"
   save an indication that DB is verified while disabling checks below a particular generation so this can be made use of in other functions
     such as "Create HTML" where certain IDs are not able to be wrapped because they do not exist & an error msg is generated in log
   add count of various types of messages (errors, warnings, info) to report
-  when encountering [] which does not contain all numerics, note it with an info message rather than error it
-  add option to auto-remove files in Reference directory which are not used in Family DataBase
-  sometimes in Citations a directory is referenced; in this case no file within the directory should be flagged as non-referenced
-  add option to auto-delete any references in index where the associated individual does not appear in the referenced Family Group
+  plain text files - when encountering [] which does not contain all numerics, note it with an info message rather than error it
+  plain text files - add option to auto-remove files in Reference directory which are not used in Family DataBase
+  plain text files - sometimes in Citations a directory is referenced; in this case no file within the directory should be flagged
+                       as non-referenced
+  plain text files - add option to auto-delete any references in index where the associated individual does not appear in the referenced
+                       Family Group
     this may mean just the reference gets deleted or the entire entry gets deleted
     for individuals where the reference check is disabled will NOT be auto-deleted if the disabled option is indicated
-  check that last character in each entry in Account Section and Childrens Section is ] (it may not be if Family Group has only 1 Citation)
+  plain text files - check that last character in each entry in Account Section and Childrens Section is ] (it may not be if Family Group
+                       has only 1 Citation)
   option to check for inactive Web links (Web links must be enclosed within <> ?)
   option to check for inactive email addresses (email addresses must be enclosed within <> ?)
   allow for other files (any imported DB, a DB not yet imported) besides the active DB to be verified
-  add form for options
+  plain text files - add form for options
     fix certain simple things - spelling of reserved words, placement of reserved words
       auto-fix or ask before fixing
       include informational output as well as errors in report
@@ -336,17 +333,18 @@ Verify Family Data
     allow only " - for Section Headers as in "Children -"
     allow either ":" or " -"
     (allowing these options will need to be handled in other functions as well, e.g. searching for "Children:" or "Children -")
-  at times there are encounters which *could* be an error
+  plain text files - at times there are encounters which *could* be an error
     on Timeline Report - Possible error. Is such-and-such correct?
-  there needs to be additional checks in Childrens Section
+  plain text files - there needs to be additional checks in Childrens Section
     birthdate sequence
     Roman Numeral sequence
-  check for the same reference (->) being found or not found just once per Family Group
-  Timeline event should contain "[name] and [name] married", not "[name] married [name]"
+  plain text files - check for the same reference (->) being found or not found just once per Family Group
+  plain text files - Timeline event should contain "[name] and [name] married", not "[name] married [name]"
     the second [name] cannot be the same name as the head of the family; HOF name must be first name
-  certain Timeline events should be in a certain format (e.g., "born" should always be followed by "in" or a CR)
-  Timeline events: check for more than 1 consecutive blank after the date (starting in column 12) (take into account continuation lines)
-  see DataFormat.html
+  plain text files - certain Timeline events should be in a certain format (e.g., "born" should always be followed by "in" or a CR)
+  plain text files - Timeline events: check for more than 1 consecutive blank after the date (starting in column 12) (take into
+                       account continuation lines)
+  plain text files - see DataFormat.html
   verifying index:
     see ~mlake/Dev/CheckIndex
     allow user to select which checks to perform
@@ -357,19 +355,21 @@ Verify Family Data
     verify sort order (str.split(",").sort().join(","))
 
 Family DataBase Activation
+  identify each DataBase as plain text or Gedcom
   rewrite function to use Select/Option
-  when "MELGenKey DataBase Activation" is clicked provide the user with a list of DBs to choose from
+  when "MELGenUtils DataBase Activation" is clicked provide the user with a list of DBs to choose from
   allow DB to be deactivated (? - isn't this already being done by clearing the checkbox and saving)
   NOTE - user can have up to 20 imported DBs at any one time
-  possibly remove MELGenKey DataBase Activation functionality and instead add a DB selection box/area in each function where active DB is used?
+  possibly remove MELGenUtils DataBase Activation functionality and instead add a DB selection box/area in each function where active DB is used?
     or perhaps make it a Preference that the user can set
     or both
 
 Display Family Data -> HTML Family Data
 Display Family Data -> Plain Text Family Data
+  when displaying Gedcom, include a simple conversion to a more human-readable format
 
 Edit Family Data
-  some of these may also apply to Import, Create or Remove a Family DataBase -> Import a Family DataBase from User Created Files
+  display a form which includes all data in separate editable fields whether it be a plain text DB or a Gedcom
   offer various ways for user to edit DB
     allow user to use their favorite system editor (vi, notepad, TextEdit (Mac), etc)
     provide a textarea via HTML (ala NotesActDB.html or GenNotes.html) 
@@ -379,8 +379,11 @@ Edit Family Data
     user can input a specially formatted file which will auto-update a DB
   allow for notification to be sent to data creator and to anyone user has shared data with when DataBase is updated
   any change by user should ripple through database (e.g., ID references), also update index if needed
-  when changes are made to a DB, also alert user to other changes which MELGenKey cannot make (e.g., names or id refs in photos); verification
+  when changes are made to a DB, also alert user to other changes which MELGenUtils cannot make (e.g., names or id refs in photos); verification
     should optionally happen; backup (?) and delete HTML version (if it exists) and alert user it needs to be re-created
+
+Reports
+  all reports will need to be able to handle a plain text DB or a Gedcom
 
 Reports -> Produce Timeline
   take into account a 5-position year in Timeline files (digit in column 12)
@@ -451,6 +454,7 @@ Reports -> Movement Map
   map an individual's movements plus all descendants
 
 Reports -> By Category
+  what exactly is this?
 
 Reports -> On This Day
   sort not right as in partial example:
@@ -652,6 +656,9 @@ Reports -> Design a Report
         Natural, Compromise
     direct line report (one person's direct line going back ... offer short & long versions)
   allow user to change design of already-available report as to where info goes and what info shows
+
+Search/Inspect/Analyze Family Data
+  all functions will need to be able to handle a plain text DB or a Gedcom
 
 Search/Inspect/Analyze Family Data -> Search
   include full text search at familysearch.org in Internet results
@@ -961,6 +968,15 @@ Search/Inspect/Analyze Family Data -> Analyze
     DNA analysis
       https://www.ncbi.nlm.nih.gov/genbank/
       https://www.dnafavorites.com/genetic-genealogy-tools.html
+      https://en.wikipedia.org/wiki/Smith%E2%80%93Waterman_algorithm
+      https://en.wikipedia.org/wiki/Needleman%E2%80%93Wunsch_algorithm
+      https://en.wikipedia.org/wiki/Boyer%E2%80%93Moore_string-search_algorithm
+      https://en.wikipedia.org/wiki/Bitap_algorithm
+      https://en.wikipedia.org/wiki/Naive_Bayes_classifier
+      https://pmc.ncbi.nlm.nih.gov/articles/PMC9477578/
+      google - algorithms for analyzing Autosomal DNA
+      google - algorithms for analyzing Y DNA
+      google - algorithms for analyzing mt DNA
     allow user to create his/her own analysis
       perhaps:
         user clicks on various buttons to form queries (the following examples are from NSB) ...
@@ -1032,6 +1048,7 @@ Search/Inspect/Analyze Family Data -> Analyze
     look for possible duplicate Family Groups
 
 Miscellaneous Functions -> Back Up Active DataBase
+  need to be able to handle a plain text DB or a Gedcom
   set up auto periodic back up
     back up just changes or entire DB
   Save/Transfer portion of data
@@ -1040,6 +1057,7 @@ Miscellaneous Functions -> Back Up Active DataBase
   print portion of data
 
 Miscellaneous Functions -> Produce PDF
+  need to be able to handle a plain text DB or a Gedcom
   window.print() allows user to save to a PDF file
   will have to reformat text: 80 columns max (using code below), indent for continuation lines will be different depending upon the
     Section within the Family Group (Timeline - 14, Notes & Questions & Extras & Explanations - 2,
@@ -1091,8 +1109,10 @@ Miscellaneous Functions -> Slideshow
       add to or subtract from delay period
 
 Miscellaneous Functions -> Active DataBase Stats
+  need to be able to handle a plain text DB or a Gedcom
 
 Miscellaneous Functions -> Set Focus ID for Active DataBase
+  need to be able to handle a plain text DB or a Gedcom
   bug - in a test DB, there was one Family Group; the DB imported successfully (with no focus ID specified), Verified successfully,
           and Inspected successfully
         the begining portion of the Family Group looked like:
@@ -1108,6 +1128,7 @@ Miscellaneous Functions -> Set Focus ID for Active DataBase
           there seemed to be a loop in processing
 
 Miscellaneous Functions -> Copy Active DataBase
+  need to be able to handle a plain text DB or a Gedcom
   add email as an option for output 
   add printing as an option for output
     print only Family Data, Citation material & images of people (let user know)
@@ -1124,7 +1145,7 @@ Miscellaneous Functions -> Copy Active DataBase
       thumb drive
   start and stop at certain points
   copy particular sections only (images, text, HTML, etc)
-  copy DataBase, MELGenKey, or both
+  copy DataBase, MELGenUtils, or both
   option to make copied DB ready for public viewing (which means eliminating reference material below a particular generation specified by user)
 
 Miscellaneous Functions -> Browse Possible Connections to Active DataBase
@@ -1133,17 +1154,24 @@ Miscellaneous Functions -> Additional Research Regarding Active DataBase
 Miscellaneous Functions -> Audio/Video Intro for Active DataBase
 
 Miscellaneous Functions -> Knowledge Tree for Active DataBase
+  need to be able to handle a plain text DB or a Gedcom
   questions & answers
 
 Miscellaneous Functions -> Create a Gedcom from Active DataBase
+  optional Gedcom formats can be offered the user like (1) a Gedcom which contains 100% of the data
+    in NOTE form or (2) a fully structured Gedcom
+  different Gedcom versions can be offered
+  need to be able to create/copy a portion of an already existing Gedcom
   see Notes.txt for GEDCOM specs
   see Notes/CreateGedcom
   start and stop at certain points
-  how will the Others files and the index be included?
+  how will the Others, UnsureIfRelated files and the index be included?
 
 Miscellaneous Functions -> Solve a Problem in Active DataBase
+  need to be able to handle a plain text DB or a Gedcom
 
 Miscellaneous Functions -> Create an Index for Active DataBase
+  need to be able to handle a plain text DB or a Gedcom
   processName() - when omitting, add all states, Canada provinces, et al
     however, some states can be proper names for people (e.g., Montana, York, et al)
   modify code so that all name pickups use function findProperName()
@@ -1167,6 +1195,7 @@ Miscellaneous Functions -> Create an Index for Active DataBase
     will have to break lines after sorting
 
 Miscellaneous Functions -> Renumber Families/People in Active DataBase
+  this function is only applicable to a plain text DB
   body
     remove multiple periods from any IDs
       e.g., make 0.0.10 00.10; make 0.0.0.0.200 0000.200; etc
@@ -1193,16 +1222,19 @@ Miscellaneous Functions -> Access Message Board Regarding Active DataBase
     https://github.com/cfenollosa/bashblog
 
 Miscellaneous Functions -> Ethnicity Percentages for an Individual in Active DataBase
+  need to be able to handle a plain text DB or a Gedcom
   based upon only the contents of the DB
   based upon DNA results
 
 Miscellaneous Functions -> Display Info for Active DataBase
 
 Miscellaneous Functions -> Publish
+  need to be able to handle a plain text DB or a Gedcom
   book of the active DB
   Web page of active DB
 
 Miscellaneous Functions -> Link Checker for Active DataBase
+  need to be able to handle a plain text DB or a Gedcom
   perhaps require Web address to be enclosed within <> as well as beginning with http or https
   add options 
     show all or show just broken
@@ -1246,7 +1278,9 @@ Miscellaneous Functions -> Money Value Conversion
   see Notes/Extras/JS/MoneyConversion
 
 Miscellaneous Functions -> Merge Two Family DataBases Into One
+  need to be able to handle a plain text DB, a Gedcom or a mix of both
 Miscellaneous Functions -> Split One Family DataBase Into Two
+  need to be able to handle a plain text DB or a Gedcom, and perhaps output a different type than is input
 Miscellaneous Functions -> Password Protection for a DataBase
 Miscellaneous Functions -> Write-protection for a DataBase
 
@@ -1276,9 +1310,9 @@ Miscellaneous Functions -> Map Deed Boundaries
       allow for various fonts
       allow for various sizes of text
 
-Miscellaneous Functions -> Send Suggestions/Ideas to Developer of MELGenKey
+Miscellaneous Functions -> Send Suggestions/Ideas to Developer of MELGenUtils
 
-Miscellaneous Functions -> Access MELGenKey Message Board
+Miscellaneous Functions -> Access MELGenUtils Message Board
   perhaps set up a discussion server using:
     Discourse, Lemmy, Discuit, Talkyard, Discord, IRC, NodeBB, Flarum, phpBB, myBB
   browse, post, respond
@@ -1289,7 +1323,7 @@ Miscellaneous Functions -> Access MELGenKey Message Board
 Miscellaneous Functions -> General Notes
 Miscellaneous Functions -> Display Info for All Family DataBases
 Miscellaneous Functions -> Display/Edit Info for User
-Miscellaneous Functions -> Display Info for MELGenKey
+Miscellaneous Functions -> Display Info for MELGenUtils
 
 Miscellaneous Functions -> General User Preferences
   add settings for Emailed Recurring Reports (relay host, login, password, port)
@@ -1304,10 +1338,10 @@ Miscellaneous Functions -> General User Preferences
     Reset/Restart (reset values to what they were before any changes since the last Save (i.e., same as screen refresh))
     Reset Values to Defaults
 
-Miscellaneous Functions -> Import Add-On for MELGenKey
+Miscellaneous Functions -> Import Add-On for MELGenUtils
 
-Miscellaneous Functions -> Chat With MELGenKey Maintainer
-  MELGenKey maintainer chat address in MELGenKey info
+Miscellaneous Functions -> Chat With MELGenUtils Maintainer
+  MELGenUtils maintainer chat address in MELGenUtils info
   see Notes/Extras/JS/WebSocketChatExample
       Notes/Extras/JS/Chat.md
       https://www.skysilk.com/blog/2018/create-real-time-chat-app-nodejs/
@@ -1318,7 +1352,7 @@ Miscellaneous Functions -> Non-Family DataBase Timeline File
     this would necessitate editing the setup page for the Timeline Report
     this would necessitate editing the source code as it is currently
     perhaps creating/adding Timeline file could be a separate function; Timeline Report Form will need to acommodate
-      user-created Timeline files (perhaps this would be a type of add-on To MELGenKey)
+      user-created Timeline files (perhaps this would be a type of add-on To MELGenUtils)
       provide a form which can be filled in to update/create a Timeline
     perhaps allow for additions ahead of time in the source code & setup page for the Timeline Report
     Timeline file would need to be validated before adding
@@ -1385,17 +1419,17 @@ Miscellaneous Functions -> Manage Recurring Reports
   when FamDB not included, set FamDBName to null in OTDRecur object
   validate that FamDBName exists
 
-Miscellaneous Functions -> MELGenKey Log Messages
+Miscellaneous Functions -> MELGenUtils Log Messages
 
-Help/Indo/Docs -> MEL Genealogy Key (MELGenKey) Overview
-Help/Indo/Docs -> Using MELGenKey
-Help/Indo/Docs -> MELGenKey Readme
-Help/Indo/Docs -> MELGenKey Development History
-Help/Indo/Docs -> MELGenKey Frequently Asked Questions
+Help/Indo/Docs -> MEL Genealogy Utilities (MELGenUtils) Overview
+Help/Indo/Docs -> Using MELGenUtils
+Help/Indo/Docs -> MELGenUtils Readme
+Help/Indo/Docs -> MELGenUtils Development History
+Help/Indo/Docs -> MELGenUtils Frequently Asked Questions
 Help/Indo/Docs -> Data Format and Notes
-Help/Indo/Docs -> MELGenKey Add-ons
+Help/Indo/Docs -> MELGenUtils Add-ons
 
-Help/Indo/Docs -> Contact Developer of MELGenKey via email
+Help/Indo/Docs -> Contact Developer of MELGenUtils via email
   allow user to record a question/correction/comment for sending (any of video, audio, text)
   code improvements
   contents of Include directory - changes, additions
@@ -1471,20 +1505,20 @@ functions to add
       base list upon what is needed and in what locale
   A/V intro
     pertaining to data
-    pertaining to MELGenKey
+    pertaining to MELGenUtils
   solve a problem
     look in active DB
     look in all imported DBs
     allow to go to Internet (familysearch.org, geni.com, etc)
   display edit info
     change location of data on computer
-  add a function (perhaps in note form) where the user can suggest an improvement or add a function to MELGenKey
-    when user clicks DONE, the note will be sent to maintainer of MELGenKey
+  add a function (perhaps in note form) where the user can suggest an improvement or add a function to MELGenUtils
+    when user clicks DONE, the note will be sent to maintainer of MELGenUtils
     do the same thing for Active Family DataBase
   function to calculate "degrees away" in genealogy terms
     https://support.ancestry.com/articles/en_US/Support_Site/AncestryDNA-Match-Categories
     wikitree.com has a "degrees away" function 
-  link multiple MELGenKey DBs
+  link multiple MELGenUtils DBs
   provide access to BACKUP directories (list, etc
   DNA function(s)
     see Notes/YDNAMatching.txt and Notes/auDNAMatching.txt
@@ -1515,14 +1549,14 @@ functions to add
 general/other
   much of the documentation needs to be expanded upon, or content added/edited
   add DB Status of "DB no longer available" (DB could be removed by hand)
-    or perhaps delete entry from MELGenKeyInfo.txt
+    or perhaps delete entry from MELGenUtilsInfo.txt
   allow section named "Further Research -" in Family Groups
     text within this section can be free flowing
     citation reference(s) enforced
   https://github.com/goldbergyoni/nodebestpractices/blob/master/README.md
-  emplement user/password in MELGenKey; different users will have access to only their DBs, General Notes, DB Notes,
+  emplement user/password in MELGenUtils; different users will have access to only their DBs, General Notes, DB Notes,
     and any other stuff created by a user
-  make MELGenKey easily accessible from a mobile device
+  make MELGenUtils easily accessible from a mobile device
     https://stackoverflow.com/questions/68624631/access-nodejs-express-server-from-android-phone
     https://www.geeksforgeeks.org/how-to-run-node-js-with-express-on-mobile-devices/
   en.wikipedia.org for municipalities in all states
@@ -1620,7 +1654,7 @@ general/other
       provide a search facility
         search results should be links which user can click on
 
-  MELGenKey Notes
+  MELGenUtils Notes
   http://www.family-historian.co.uk/tour
   https://www.ancestris.org/index.html
   https://gramps-project.org/blog/
@@ -1635,23 +1669,6 @@ general/other
   much prefer it to some of the descendancy reports popularised by the New
   England Historic Genealogical Society (Hist. Gen.).
   
-  I have done mine by hand for over 850 pages (so far) to document my study
-  of the ERNLE family originally of Earnley, Sussex, from earliest times. I
-  am up to 23 indented generations, each one slightly further indented
-  than the last. It may be a bit harder to follow than some formats due to
-  its repetition of numbering between members of the same generation as the
-  family grows and splits over the generations, but that could, presumably be
-  adapted. Personally I didn't opt for that as I don't care for the sometimes
-  long and unwieldy alphanumeric individual prefixes used by some systems
-  as I find them unsightly, but that is a matter of taste (and, of course,
-  ease of navigation).
-
-  The indented narrative pedigree form can be adapted to work backwards in a
-  direct ancestry report that includes siblings and their descendants working
-  with the forward system at the same time. Indeed, my kinsman and godson,
-  L. H. T. "Tam" Large, of Streat, Sussex has developed precisely this sort
-  of report, though it is all done by hand.
-
   Another very useful report is an adjustable tree drawing format that allows
   one to build, see, alter, and print pedigree charts. Most of the ones I have
   seen use even spacing and waste a lot of paper whereas ideally the format
@@ -1660,13 +1677,6 @@ general/other
   space provided. The ability to omit generations or refer one to another
   chart for further elucidation would also be great.
 
-  Richard Carruthers, M.A. (Oxon.)
-  formerly a boarder in Lake's House, Shawnigan Lake School, Vancouver
-  Island, British Columbia, named after the first chairman of the Board of
-  Governors, General Sir Percy Lake and his brother, Sir Richard Lake, sometime
-  lieutenant-governor of Saskatchewan, whose five sons all went to Shawnigan
-  and were in Lake's: scions of the English Lake family of baronetcy fame.
-
   Report example:
   http://www.burkespeerage.com/royalFamily_UnitedKingdom.php
 
@@ -1674,7 +1684,7 @@ general/other
 
   see https://genopro.com/family-tree-software/
 
-  allow user to manually add sites to check (MELGenKey should save sites that are added for next time)
+  allow user to manually add sites to check (MELGenUtils should save sites that are added for next time)
   emplement a research/confidence IQ/rating/score regarding the user
   emplement a research/confidence rating/score regarding the DB and/or for each Family Group
 
@@ -1757,7 +1767,7 @@ general/other
   accept connection - check 'request.origin' to make sure that client is connecting from localhost
   (http://en.wikipedia.org/wiki/Same_origin_policy)
 
-  monitor Family DBs for changes; if changed, modify MELGenKeyInfo.txt & save (force [re]verification); delete HTML version of DB
+  monitor Family DBs for changes; if changed, modify MELGenUtilsInfo.txt & save (force [re]verification); delete HTML version of DB
     it appears the only way to do this with any accuracy is to first check for existing/removed body files and/or index file in PlainText
       directory of a Family DB and then create a hash value for all body files & the index file in the PlainText directory of a Family DB
       (this info would need to be saved in a file (or files) in order to accomplish this across runnings of node)
@@ -1769,19 +1779,19 @@ general/other
 
   save all visited Web pages (+ info (date last visited, reason for visit, etc)) where appropriate
 
-  allow for audio/video feedback with regard to either MELGenKey or DB
+  allow for audio/video feedback with regard to either MELGenUtils or DB
 
   in-line help (with question mark)
   https://tutorialzine.com/2014/07/css-inline-help-tips
 
-  allow comments in file MELGenKeyInfo.txt
-    add comments to MELGenKeyInfo.txt explaining possible values of all the keys
+  allow comments in file MELGenUtilsInfo.txt
+    add comments to MELGenUtilsInfo.txt explaining possible values of all the keys
     add comment that it is an auto-generated file; do not edit directly; edit directly at your own risk
 
   anytime an ID is entered for any function, show some info (e.g., name, birthdate, death date, names of parents, etc) so user can
     confirm it's the correct ID
 
-  allow for on-line DBs (familysearch, ancestry, wikitree, etc) to be updated with data from MELGenKey & vice-versa (with user permission)
+  allow for on-line DBs (familysearch, ancestry, wikitree, etc) to be updated with data from MELGenUtils & vice-versa (with user permission)
 
   when there is a (Sr) or a (I) then all people in that line with same name should be further ID'ed to ensure user identifies proper
     person (i.e, there should be a (Jr))
@@ -1794,7 +1804,7 @@ general/other
     and a fourth for names appearing in photos
   include a place-index or an appendix of places
   add an index/appendix listing all people in book in Civil War, War of 1812, Rev War, WWI, WWII, Spanish-American War, etc
-    (this will be done programically in MELGenKey)
+    (this will be done programically in MELGenUtils)
     make this a function or add it to an already existing function
   write a program to change all surnames to all upper case ? (if all surnames were in upper case it would make auto-creating an index easier)
     write program to create an index - every word (except personal names) which can appear in Timelines, Notes, Questions, etc should appear
@@ -1852,7 +1862,7 @@ general/other
     beginning column for output
     ending column for output
     display/print/both (print to file, hard copy or both ... if file, what format (plain text, HTML, PDF, etc))
-  make a list of "reserved words"
+  plain text DB - make a list of "reserved words"
     twins, triplets, quadruplets, quintuplets
     married
     divorced
@@ -1909,7 +1919,7 @@ general/other
 
     allow for auto-updates initiated by DataBase creator (or maybe have a menu selection where user can check for updates) or both
 
-  allow for auto-updates to MELGenKey (or maybe have a menu selection where user can check for updates) or both
+  allow for auto-updates to MELGenUtils (or maybe have a menu selection where user can check for updates) or both
 
   more possible functions:
   axon.cs.byu.edu/~randy/misc/WishDetails.html
@@ -2043,7 +2053,7 @@ general/other
       Broome Co, NY in 1860); and allow user to input a year in order to change the map and its boundary lines
 
   integrate a CLI and/or email interface capable of performing certain functions like some Reports, some Miscellaneous Functions, etc without
-      having to execute MELGenKey
+      having to execute MELGenUtils
     see https://github.com/pandawing/awesome-nodejs-cross-platform-cli
       https://imsaravananm.medium.com/running-cross-platform-scripts-in-nodejs-2af9f06babf7
       https://deno.com/blog/build-cross-platform-cli
@@ -2066,7 +2076,7 @@ general/other
     might be between two places
 
   search genealogy on youtube
-    perhaps I will find free sites for MELGenKey to use
+    perhaps I will find free sites for MELGenUtils to use
     or other stuff
 
   redesign the display in Help.html to be less busy (perhaps add another layer of menu)
@@ -2134,7 +2144,7 @@ general/other
     https://copyprogramming.com/howto/how-to-create-family-tree-with-d3-js
 
   allow for a tableofcontents file in each directory and sub-directory
-    MELGenKey should always look for a tableofcontents file first when accessing directories and sub-directories
+    MELGenUtils should always look for a tableofcontents file first when accessing directories and sub-directories
 
   in column 7 in Timeline section of DB allow < for before and > for after
 
@@ -2184,11 +2194,11 @@ general/other
         https://stackoverflow.com/questions/34202617/how-can-i-update-all-node-js-modules-automatically
 
   add Family DB version # to HTML pages
-  add "created by MELGenKey vyyyymmmdd" to HTML pages
+  add "created by MELGenUtils vyyyymmmdd" to HTML pages
   add a button (3 buttons?) to HTML version of DB which shows version, development history, contact info
   add "font size" to HTML pages (like https://vedabase.io/en/library/sb/1/ - click "Settings" at top of page)
 
-  at MELGenKey install time:
+  at MELGenUtils install time:
     get info
       user's info
       password protect this file (where user info will be) so others can't change it
@@ -2196,8 +2206,8 @@ general/other
         require outsiders to log-in or not
       install location (must be a writeable directory/folder)
       optionally message me (via nodejs)
-        you will receive alerts when MELGenKey is updated
-    allow to uninstall MELGenKey
+        you will receive alerts when MELGenUtils is updated
+    allow to uninstall MELGenUtils
 
   if pop-ups are blocked by browser, certain windows are not being displayed
 
@@ -2243,7 +2253,7 @@ general/other
   TESTING:
     remove active DB by hand; see what happens when accessed
     remove DBs directory & contents by hand; what happens?
-    edit/delete MELGenKeyInfo.txt; what happens?
+    edit/delete MELGenUtilsInfo.txt; what happens?
     edit Other/DBinfo.txt; what happens?
 
   for possible ideas, see https://genealogysoftware.net/
@@ -2289,7 +2299,7 @@ general/other
 
   expand upon the contents of Docs/MenuItemsDesc.html
 
-  at import, if table of contents file exists in import directory, it is copied to MELGenKey DB area, if it doesn't exist it is created
+  at import, if table of contents file exists in import directory, it is copied to MELGenUtils DB area, if it doesn't exist it is created
     if table of contents file exists, it could contain bad info
     what to do about that?
       one option is to always create the table of contents file but if the user had special info in the file it would be lost
@@ -2320,7 +2330,7 @@ general/other
   anywhere a function is referenced in docs or Other, clicking on reference should bring up function
     in Other, will need to do it when DB is imported
 
-  how does an outsider access a MELGenKey DB ? will they need to run MELGenKey on their system? (I think yes)
+  how does an outsider access a MELGenUtils DB ? will they need to run MELGenUtils on their system? (I think yes)
 
   Info function(s) for All DBs
     list all:
@@ -2333,24 +2343,24 @@ general/other
       verified
       size
 
-  if I provide an update to a DB but not an update to MELGenKey, do I need to provide another file for download which is MELGenKey-ready
+  if I provide an update to a DB but not an update to MELGenUtils, do I need to provide another file for download which is MELGenUtils-ready
     and will replace the DB in the DBs directory when installed?
 
-  look into using a script to start MELGenKey server & client
+  look into using a script to start MELGenUtils server & client
     https://stackoverflow.com/questions/60727510/opening-a-html-file-in-the-browser-from-npm-script
     https://docs.npmjs.com/cli/v10/configuring-npm/package-json
     https://docs.npmjs.com/cli/v10/commands/npm-start
     https://stackoverflow.com/questions/65663207/npm-start-and-npm-run-client-is-not-working-in-node
     https://stackoverflow.com/questions/59137818/how-to-run-node-server-js-and-npm-start-with-one-command
 
-  instructions for installing new version of MELGenKey & retaining DBs
+  instructions for installing new version of MELGenUtils & retaining DBs
 
   use strict in JS modules
 
   change structure of user-created files to be imported to look exactly like the structure after import
     is the only change to have a PlainText directory?
-    this way, a user can copy a DB directly to the MELGenKey DBs directory
-      the MELGenKeyInfo.txt file will need to be created/updated
+    this way, a user can copy a DB directly to the MELGenUtils DBs directory
+      the MELGenUtilsInfo.txt file will need to be created/updated
       the DBinfo.txt file will need to be created/appended
     does a DB even need to be installed?
       instead of installing, a pointer to DB just needs to be set
@@ -2412,7 +2422,7 @@ general/other
     look for entries in Deaths which don't contain the word "died"
   add to appropriate Timeline file
     https://newenglandsociety.org/timeline/
-  check4ActiveDB() in clib.js doesn't seem to be functioning as a promise (see MELGenKey.js & JS/OnThisDay.js)
+  check4ActiveDB() in clib.js doesn't seem to be functioning as a promise (see MELGenUtilsSS.js.js & JS/OnThisDay.js)
   make all checks a "connection" between client and server (this means replacing all the pre-execution routines at the server)
 
   include for user to use:
@@ -2429,7 +2439,7 @@ general/other
       flags - for different countries (where a person was born, where a person served in Armed Forces)
       emblems indicating participation in wars
 
-  think about using the Gedcom format for MELGenKey DBs; everything in MELGenKey would be generated from that
+  think about using the Gedcom format for MELGenUtils DBs; everything in MELGenUtils would be generated from that
     perhaps as an option
 
   sse's
@@ -2447,4 +2457,6 @@ general/other
     try using CSS (see Notes/PrintingFix)
     one fix (the only fix?) seems to be to send the buffer to node & use a node-worker (see Notes/PrintingFix)
     can't use worker on browser side because of security - already tried
+
+  use OBS Studio to provide a video (with audio) demonstrating MELGenUtils on youtube.com
 

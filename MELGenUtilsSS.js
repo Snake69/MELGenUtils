@@ -56,56 +56,56 @@ global.MLB;
 global.sseClients;
 
 log = "";
-misc.Logging("MELGenKey node/server started.");
-if (fs.existsSync(path.normalize("MELGenKeyInfo.txt"))) {
+misc.Logging("MELGenUtils node/server started.");
+if (fs.existsSync(path.normalize("MELGenUtilsInfo.txt"))) {
     try {
-        /* load info regarding MELGenKey; it's a small file & ok to read synchronously */
-        DBSysInfo = fs.readFileSync("MELGenKeyInfo.txt", "utf8");
+        /* load info regarding MELGenUtils; it's a small file & ok to read synchronously */
+        DBSysInfo = fs.readFileSync("MELGenUtilsInfo.txt", "utf8");
         DBSysInfo = DBSysInfo.replace(/\r\n/g, '\n');
-        misc.Logging("Read MELGenKeyInfo.txt \(for managing Family DataBases\) at MELGenKey start-up.");
+        misc.Logging("Read MELGenUtilsInfo.txt \(for managing Family DataBases\) at MELGenUtils start-up.");
         if (misc.ProcessDBSysInfo ("SysLocation") != __dirname) {
-            /* SysLocation has changed; probably because this is the first time running MELGenKey on this system with
+            /* SysLocation has changed; probably because this is the first time running MELGenUtils on this system with
                a Family DB included */
             /* get SysLocation, always located at beginning of file */
             var datapos = DBSysInfo.indexOf("\"", 0);
             if (datapos == -1) {
                 /* this should never happen */
-                fs.rmSync(path.normalize(misc.ProcessDBSysInfo ("SysLocation") + "/MELGenKeyInfo.txt"), { recursive: true, force: true });
-                console.log("There is a SysLocation problem with the current MELGenKeyInfo.txt at MELGenKey start-up. " +
-                            "Deleted the MELGenKeyInfo.txt file. Please restart node.");
+                fs.rmSync(path.normalize(misc.ProcessDBSysInfo ("SysLocation") + "/MELGenUtilsInfo.txt"), { recursive: true, force: true });
+                console.log("There is a SysLocation problem with the current MELGenUtilsInfo.txt at MELGenUtils start-up. " +
+                            "Deleted the MELGenUtilsInfo.txt file. Please restart node.");
                 process.exit();
             }
             datapos++;
             var secondquote = DBSysInfo.indexOf("\"", datapos);
             if (secondquote == -1) {
                 /* this should never happen */
-                fs.rmSync(path.normalize(misc.ProcessDBSysInfo ("SysLocation") + "/MELGenKeyInfo.txt"), { recursive: true, force: true });
-                console.log("There is a SysLocation problem with the current MELGenKeyInfo.txt at MELGenKey start-up. " +
-                            "MELGenKeyInfo.txt file deleted. Please restart node.");
+                fs.rmSync(path.normalize(misc.ProcessDBSysInfo ("SysLocation") + "/MELGenUtilsInfo.txt"), { recursive: true, force: true });
+                console.log("There is a SysLocation problem with the current MELGenUtilsInfo.txt at MELGenUtils start-up. " +
+                            "MELGenUtilsInfo.txt file deleted. Please restart node.");
                 process.exit();
             }
             DBSysInfo = DBSysInfo.substring(0, datapos) + __dirname + DBSysInfo.substring(secondquote);
             try {
-                /* write MELGenKeyInfo.txt */
-                fs.writeFileSync("MELGenKeyInfo.txt", DBSysInfo);
-                misc.Logging("Change in SysLocation, MELGenKeyInfo.txt written.");
+                /* write MELGenUtilsInfo.txt */
+                fs.writeFileSync("MELGenUtilsInfo.txt", DBSysInfo);
+                misc.Logging("Change in SysLocation, MELGenUtilsInfo.txt written.");
             }
             catch (err) {
-                fs.rmSync(path.normalize(misc.ProcessDBSysInfo ("SysLocation") + "/MELGenKeyInfo.txt"), { recursive: true, force: true });
-                console.log(err + "; problem writing new MELGenKeyInfo.txt file after change in SysLocation. " +
-                                  "Deleted the current MELGenKeyInfo.txt file. Please restart node.");
+                fs.rmSync(path.normalize(misc.ProcessDBSysInfo ("SysLocation") + "/MELGenUtilsInfo.txt"), { recursive: true, force: true });
+                console.log(err + "; problem writing new MELGenUtilsInfo.txt file after change in SysLocation. " +
+                                  "Deleted the current MELGenUtilsInfo.txt file. Please restart node.");
                 process.exit();
             }
         }
     }
     catch (err) {
-        fs.rmSync(path.normalize(misc.ProcessDBSysInfo ("SysLocation") + "/MELGenKeyInfo.txt"), { recursive: true, force: true });
-        console.log(err + "; problem reading MELGenKeyInfo.txt at MELGenKey start-up. Deleted the current MELGenKeyInfo.txt file. " +
+        fs.rmSync(path.normalize(misc.ProcessDBSysInfo ("SysLocation") + "/MELGenUtilsInfo.txt"), { recursive: true, force: true });
+        console.log(err + "; problem reading MELGenUtilsInfo.txt at MELGenUtils start-up. Deleted the current MELGenUtilsInfo.txt file. " +
                     "Please restart node.");
         process.exit();
     }
 } else {
-    /* create MELGenKeyInfo.txt file */
+    /* create MELGenUtilsInfo.txt file */
     DBSysInfo = "SysLocation = \"" + __dirname + "\"" + os.EOL;
 
     var DirRef = path.join(misc.ProcessDBSysInfo ("SysLocation"), "DBs");
@@ -117,12 +117,12 @@ if (fs.existsSync(path.normalize("MELGenKeyInfo.txt"))) {
     DBSysInfo += os.EOL;
 
     try {
-        /* write MELGenKeyInfo.txt */
-        fs.writeFileSync("MELGenKeyInfo.txt", DBSysInfo);
-        misc.Logging("Initial MELGenKeyInfo.txt written.");
+        /* write MELGenUtilsInfo.txt */
+        fs.writeFileSync("MELGenUtilsInfo.txt", DBSysInfo);
+        misc.Logging("Initial MELGenUtilsInfo.txt written.");
     }
     catch (err) {
-        console.log(err + "; problem writing initial MELGenKeyInfo.txt file. Try restarting node.");
+        console.log(err + "; problem writing initial MELGenUtilsInfo.txt file. Try restarting node.");
         process.exit();
     }
 }
@@ -132,20 +132,20 @@ try {
     indSitesList = fs.readFileSync(path.join("Include", "SiteList.txt"), "utf8");
     indSitesList = indSitesList.replace(/\r\n/g, ',');
     indSitesList = indSitesList.replace(/\n/g, ',');
-    misc.Logging("Read SiteList.txt \(for searching\) at MELGenKey start-up.");
+    misc.Logging("Read SiteList.txt \(for searching\) at MELGenUtils start-up.");
 }
 catch (err) {
-    misc.Logging("Could not read SiteList.txt file at MELGenKey start-up. \(" + err + "\)");
+    misc.Logging("Could not read SiteList.txt file at MELGenUtils start-up. \(" + err + "\)");
     indSitesList = '';
 }
 
 try {
     /* recurring On This Day Reports */
     OTDRecur = JSON.parse(fs.readFileSync(path.join("UserFiles", "OTDRecur.json"), "utf8"));
-    misc.Logging("Read OTDRecur.json \(for recurring reports\) at MELGenKey start-up.");
+    misc.Logging("Read OTDRecur.json \(for recurring reports\) at MELGenUtils start-up.");
 }
 catch (err) {
-    misc.Logging("Could not read OTDRecur.json at MELGenKey start-up. \(" + err + "\)");
+    misc.Logging("Could not read OTDRecur.json at MELGenUtils start-up. \(" + err + "\)");
     OTDRecur = [{}];
     OTDRecur.length = 0;
 }
@@ -157,10 +157,10 @@ for (var x = 0; x < Object.keys(OTDRecur).length; x++)
 try {
     /* URLs being monitored */
     MonURLs = JSON.parse(fs.readFileSync(path.join("UserFiles", "MonitorURLs.json"), "utf8"));
-    misc.Logging("Read MonitorURLs.json \(for URLs being monitored\) at MELGenKey start-up.");
+    misc.Logging("Read MonitorURLs.json \(for URLs being monitored\) at MELGenUtils start-up.");
 }
 catch (err) {
-    misc.Logging("Could not read MonitorURLs.json at MELGenKey start-up. \(" + err + "\)");
+    misc.Logging("Could not read MonitorURLs.json at MELGenUtils start-up. \(" + err + "\)");
     MonURLs = [{}];
     MonURLs.length = 0;
 }
@@ -172,7 +172,7 @@ for (var x = 0; x < Object.keys(MonURLs).length; x++)
 try {
     /* User Preferences */
     UserPrefs = JSON.parse(fs.readFileSync(path.join("UserFiles", "UserPreferences.json"), "utf8"));
-    misc.Logging("Read UserPreferences.json at MELGenKey start-up.");
+    misc.Logging("Read UserPreferences.json at MELGenUtils start-up.");
     if (UserPrefs.FamDB != "NoAction") {
         /* User Preferences setting takes precedence */
         var TInfo = DBSysInfo;
@@ -194,11 +194,11 @@ try {
         if (TInfo != DBSysInfo) {
             /* DBSysInfo changed; write it */
             try {
-                fs.writeFileSync("MELGenKeyInfo.txt", DBSysInfo);
-                misc.Logging("Change in DB activation status per User Preferences, MELGenKeyInfo.txt written.");
+                fs.writeFileSync("MELGenUtilsInfo.txt", DBSysInfo);
+                misc.Logging("Change in DB activation status per User Preferences, MELGenUtilsInfo.txt written.");
             }
             catch (err) {
-                misc.Logging(err + "; problem writing MELGenKeyInfo.txt after change in DB activation status per User Preferences.");
+                misc.Logging(err + "; problem writing MELGenUtilsInfo.txt after change in DB activation status per User Preferences.");
             }
 
             if (UserPrefs.FamDB != "None")
@@ -210,7 +210,7 @@ try {
     }
 }
 catch (err) {
-    misc.Logging("Could not read UserPreferences.json at MELGenKey start-up. \(" + err + "\)");
+    misc.Logging("Could not read UserPreferences.json at MELGenUtils start-up. \(" + err + "\)");
     UserPrefs = [];
     UserPrefs.length = 0;
 }
@@ -295,7 +295,7 @@ ws.on("request", function (request) {
             connection.sendUTF(path.normalize(DBLocation));
         }
         if (message.utf8Data == "SysLocation") {
-            misc.Logging(tLog + " for location of MELGenKey."); 
+            misc.Logging(tLog + " for location of MELGenUtils."); 
             var SysLocation = misc.ProcessDBSysInfo ("SysLocation");
             connection.sendUTF(path.normalize(SysLocation));
         }
@@ -467,7 +467,7 @@ ws.on("request", function (request) {
             connection.sendUTF(result);
         }
         if (message.utf8Data == "DBActiveInfo") {
-            misc.Logging(tLog + " for info of active DB from MELGenKeyInfo.txt file."); 
+            misc.Logging(tLog + " for info of active DB from MELGenUtilsInfo.txt file."); 
             var pnt1 = DBSysInfo.indexOf('DBActive = "yes"');
             var pnt2 = DBSysInfo.indexOf("\n\n", pnt1) + 1;
             connection.sendUTF(DBSysInfo.substring(pnt1, pnt2));
@@ -522,7 +522,7 @@ ws.on("request", function (request) {
             connection.sendUTF(result);
         }
         if (message.utf8Data == "ViewLog") {
-            misc.Logging(tLog + " for contents of MELGenKey log."); 
+            misc.Logging(tLog + " for contents of MELGenUtils log."); 
             connection.sendUTF('<!doctype html> <html lang="en"><head> <meta charset="utf-8"/> <link rel="shortcut icon" ' +
                                'href="Include/favicon.ico"> <title> Log Messages </title>' + '</head> <body id="Body"> ' +
                                "<style type='text/css'> @media print { @page { margin-left: 0.5in; margin-right: 0.5in; " +
@@ -555,7 +555,7 @@ ws.on("request", function (request) {
                 var ImportRes = impdb.PerformImportDB (message.utf8Data.substring(16, message.utf8Data.length));
                 if (ImportRes == -1)
                     connection.sendUTF("Import of DataBase failed. " +
-                                       "For fatal issue, see 'Miscellaneous Functions -> MELGenKey Log Messages'.<br> <br>");
+                                       "For fatal issue, see 'Miscellaneous Functions -> MELGenUtils Log Messages'.<br> <br>");
                 else
                     connection.sendUTF("Import of DataBase successful.<br> <br>");
             }
@@ -581,10 +581,10 @@ ws.on("request", function (request) {
             var CreateHTMLRes = cHTML.DoCreateHTML ();
             if (CreateHTMLRes == -1)
                 connection.sendUTF("Creation of HTML version of DataBase successful,<br>however some IDs were not able to be wrapped " +
-                                   "in HTML.<br>For details, see 'Miscellaneous Functions -> MELGenKey Log Messages'.<br> <br>");
+                                   "in HTML.<br>For details, see 'Miscellaneous Functions -> MELGenUtils Log Messages'.<br> <br>");
             else
                 connection.sendUTF("Creation of HTML version of DataBase successful.<br>For details, see " +
-                                   "'Miscellaneous Functions -> MELGenKey Log Messages'.<br> <br>");
+                                   "'Miscellaneous Functions -> MELGenUtils Log Messages'.<br> <br>");
         }
         if (message.utf8Data.substring(0,8) == "ChkLinks") {
             misc.Logging(tLog + " to check Web links in the active Family DataBase."); 
@@ -850,7 +850,7 @@ ws.on("request", function (request) {
                 Tmsg += "No fatal errors.<br> <br>" + Rmsgs[1] + "DataBase " + Tpd.db_name +
                         " will be imported and stored in " + "DBs/" + Tpd.db_name + "<br> <br>";
                 if (message.utf8Data.substring(0,8) == "ImportGC")
-                    Tmsg += "Next, if not canceling, verify the individual who will begin the MELGenKey Family DataBase.<br> <br>";
+                    Tmsg += "Next, if not canceling, verify the individual who will begin the MELGenUtils Family DataBase.<br> <br>";
                 Tmsg += "Click \"OK\" to continue the import or \"Cancel\" to abort the import.<br> <br>";
                 connection.sendUTF(Tmsg);
             } else
@@ -885,12 +885,12 @@ ws.on("request", function (request) {
             }
 
             try {
-                /* write MELGenKeyInfo.txt */
-                fs.writeFileSync("MELGenKeyInfo.txt", DBSysInfo);
-                misc.Logging("Change in DB activation status, MELGenKeyInfo.txt written.");
+                /* write MELGenUtilsInfo.txt */
+                fs.writeFileSync("MELGenUtilsInfo.txt", DBSysInfo);
+                misc.Logging("Change in DB activation status, MELGenUtilsInfo.txt written.");
             }
             catch (err) {
-                misc.Logging(err + "; problem writing MELGenKeyInfo.txt after change in DB activation status.");
+                misc.Logging(err + "; problem writing MELGenUtilsInfo.txt after change in DB activation status.");
             }
 
             if (params[1] != "999") {

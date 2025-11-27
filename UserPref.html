@@ -186,7 +186,7 @@ preferences, and the files are rotated with the oldest file being deleted.<p>
 <fieldset class="fieldset-auto-width">
 <legend>Family DataBase to Load and Activate at Boot</legend>
 <p>Selecting No Action means whatever Family DataBase, if any, was active when quitting the previous<br>
-running of MELGenKey will be active at the next running.<br>
+running of MELGenUtils will be active at the next running.<br>
 (Note - User Preference for Family DataBase takes precedence over whatever actions are made in the<br>
 "Family DataBase Activation" menu item.)<p>
 <select id="FamDB" name="FamDB" size='2' onchange="FamDBChange()">
@@ -234,7 +234,7 @@ function Save() {
                         dialog.showModal();
                     } else {
                         if (FamDBChgSW) {
-                            /* changes were made to Family DB to Load & Activate; make changes to MELGenKeyInfo and save MELGenKeyInfo.txt
+                            /* changes were made to Family DB to Load & Activate; make changes to MELGenUtilsInfo and save MELGenUtilsInfo.txt
                                file if needed */
                             var FamDBselected;
                             if (document.getElementById('FamDB').value != "NoAction") {

@@ -1,7 +1,7 @@
 # World Geographical Events (excluding USA & Canada)
 # v20251003
 # any line with the # character in column 1 is considered a comment line
-# comment lines are not included in MELGenKey Reports
+# comment lines are not included in MELGenUtils Reports
       -7500 Tlapacoya, Mexico founded [3]
       -5500 first settled societies in the Mesopotamia region [4]
       -4000 Puerto Hormiga Culture, Columbia founded [3]

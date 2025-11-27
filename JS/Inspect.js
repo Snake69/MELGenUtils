@@ -29,7 +29,7 @@ async function DoInspect () {
 
     /* the css will hide the PRINT button and the system header from a hard copy print */
     InsRep += "<!doctype html> <html> <body id='Body'> <style type='text/css'> @media print { @page { margin-left: 0.5in; margin-right: 0.5in; ";
-    InsRep += " margin-top: 0; margin-bottom: 0; } #printPB { display: none; } } </style> <pre>" + os.EOL + "MELGenKey" + os.EOL;
+    InsRep += " margin-top: 0; margin-bottom: 0; } #printPB { display: none; } } </style> <pre>" + os.EOL + "MELGenUtils" + os.EOL;
     InsRep += "Inspection Report" + os.EOL + "for Family DataBase " + misc.ProcessDBSysInfo("DBName") + os.EOL + os.EOL;
 
     /* point to first character in familydata */

@@ -1496,7 +1496,7 @@ function TOC (which) {
             tob += "                this Family DataBase" + os.EOL;
         }
         if (file == "DBinfo.txt") {
-            tob += "          info describing this Family DataBase (used by MELGenKey)" + os.EOL;
+            tob += "          info describing this Family DataBase (used by MELGenUtils)" + os.EOL;
         }
         if (file == "FamilyObscurities.txt") {
             tob += "          obscure info pertaining to some people and/or families" + os.EOL;
@@ -1638,7 +1638,7 @@ function createDBinfo (ged, DBname) {
         contents += "DBMessageBoard = \"\"" + os.EOL;
         contents += "DBBlog = \"\"" + os.EOL;
     }
-    contents += "#" + os.EOL + "# generated fields; editing will risk making DataBase invisible (or even unusable) to MELGenKey" + os.EOL +
+    contents += "#" + os.EOL + "# generated fields; editing will risk making DataBase invisible (or even unusable) to MELGenUtils" + os.EOL +
                 "#" + os.EOL;
     contents += "DBInstallationDate = \"";
     contents += yyyymmdd("today") + "\"" + os.EOL;;
@@ -1968,12 +1968,12 @@ function DoSetFocusID (ID) {
         idpos += 12;
         DBSysInfo = DBSysInfo.substring(0, idpos) + ID + DBSysInfo.substring(DBSysInfo.indexOf("\"", idpos));
         try {
-            /* write MELGenKeyInfo.txt */
-            fs.writeFileSync('MELGenKeyInfo.txt', DBSysInfo);
-            Logging("Change in Focus ID, MELGenKeyInfo.txt written.");
+            /* write MELGenUtilsInfo.txt */
+            fs.writeFileSync('MELGenUtilsInfo.txt', DBSysInfo);
+            Logging("Change in Focus ID, MELGenUtilsInfo.txt written.");
         }
         catch (err) {
-            Logging(err + "; problem writing 'MELGenKeyInfo.txt'.");
+            Logging(err + "; problem writing 'MELGenUtilsInfo.txt'.");
         }
     }
 }
@@ -2109,7 +2109,7 @@ function ChkLinks () {
     /* proceed with checking and create report */
     chkResults += "<!doctype html> <html> <body id='Body'> <style type='text/css'> @media print { @page { margin-left: 0.5in; margin-right:";
     chkResults += " 0.5in; margin-top: 0; margin-bottom: 0; } #printPB { display: none; } } </style> <pre>";
-    chkResults += os.EOL + "MELGenKey" + os.EOL + "Web Links Report" + os.EOL;
+    chkResults += os.EOL + "MELGenUtils" + os.EOL + "Web Links Report" + os.EOL;
     chkResults += "Active Family DataBase - " + ProcessDBSysInfo("DBName") + os.EOL + os.EOL;
 
     while (true) {
