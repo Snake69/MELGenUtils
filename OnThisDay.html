@@ -43,7 +43,7 @@
 
 <script>
 
-var Notifications, UserPrefs = {};
+var Notifications, DBType, UserPrefs = {};
 
 onload = function init() {
     /* if server not running or DB not active, disable certain selections */
@@ -94,29 +94,40 @@ onload = function init() {
     const ws = new WebSocket('ws://localhost:3000/');
     ws.onopen = function() {
         ws.send("DBName");
-    }
-    ws.onmessage = function(e) {
-        if (e.data != -1)
-            document.getElementById("TitleDBName").innerHTML = 'Active Family DataBase - ' + e.data; 
-        else
-            document.getElementById("TitleDBName").innerHTML = 'Active Family DataBase - none'; 
-    }
-
-    UserPrefs.length = 0;
-    ws.onopen = function() {
-        ws.send("GetUserPrefs");
-    }
-    ws.onmessage = function(e) {
-        try {
-            UserPrefs = JSON.parse(e.data);
-            if (UserPrefs.length === 0)
-                Notifications = 1;    // default is notifications on
+        ws.onmessage = function(e) {
+            if (e.data != -1)
+                document.getElementById("TitleDBName").innerHTML = 'Active Family DataBase - ' + e.data; 
             else
-                Notifications = UserPrefs.Not;
-        } catch (error) {
-            alert("Error getting User Preferences.");
+                document.getElementById("TitleDBName").innerHTML = 'Active Family DataBase - none'; 
+
+            UserPrefs.length = 0;
+            ws.send("GetUserPrefs");
+            ws.onmessage = function(e) {
+                try {
+                    UserPrefs = JSON.parse(e.data);
+                    if (UserPrefs.length === 0)
+                        Notifications = 1;    // default is notifications on
+                    else
+                        Notifications = UserPrefs.Not;
+                } catch (error) {
+                    alert("Error getting User Preferences.");
+                }
+
+                ws.send("DBFormat");
+                ws.onmessage = function(e) {
+                    if (e.data == 'G') {
+                        var span = document.getElementById("dial1span");
+                        var msg = "This function does not yet work with a Gedcom DataBase.<br> <br>";
+                        const dialog1 = document.querySelector("#dial1");
+                        span.innerHTML = msg;
+                        dialog1.showModal();
+                    }
+                    DBType = e.data;
+                }
+            }
         }
     }
+
     ws.onerror = function(error) {
         // do nothing
     }

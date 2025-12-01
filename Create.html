@@ -18,11 +18,11 @@
 
 function checkServer(path) {
     const ws = new WebSocket('ws://localhost:3000/');
+    var span = document.getElementById("dial1span");
+    const dialog1 = document.querySelector("#dial1");
 
     ws.onerror = function () {
-        var span = document.getElementById("dial1span");
         var msg = "It seems the node/server is not running.<br>Cannot perform function without the server running.<br> <br>";
-        const dialog1 = document.querySelector("#dial1");
         span.innerHTML = msg;
         dialog1.showModal();
     }

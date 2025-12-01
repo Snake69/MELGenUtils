@@ -26,7 +26,6 @@
 
 <h1>MEL Genealogy Utilities (MELGenUtils)</h1>
 <h4>v20251201</h4>
-<br>
 <h2>Main Menu</h2>
 <hr style="width:25%">
 
@@ -97,6 +96,15 @@ onload = function getData() {
                         default:
                             document.getElementById("DBStatus").innerHTML = "unknown";
                     }
+
+                    ws.send("DBFormat");
+                    ws.onmessage = function(e) {
+                        if (e.data === 'G')
+                            document.getElementById("DBFormat").innerHTML = "Gedcom";
+                        else
+                            if (e.data === 'U')
+                                document.getElementById("DBFormat").innerHTML = "User-created";
+                    }
                 }
             }
         }
@@ -111,7 +119,9 @@ onload = function getData() {
 <br> <br>
         Focus ID Within Active DB = <span id="ID"></span>
 <br> <br>
-        Active DB Status = <span id="DBStatus"></span> </h3>
+        Active DB Status = <span id="DBStatus"></span>
+<br> <br>
+        DB Format = <span id="DBFormat"></span> </h3>
 <hr style="width:25%">
 <br>
 <input type="button" id="dbcreate" onclick="location.href='Create.html'" value="Import, Create or Remove a Family DataBase"/>

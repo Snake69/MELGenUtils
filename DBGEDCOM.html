@@ -50,12 +50,10 @@
 <h1>Import DataBase from GEDCOM</h1>
 <hr style="width:50%">
 
-<h4> This function will use a Gedcom as input to create and import a MELGenUtils Family DataBase. Data in the Gedcom that <br>
-     does not conform to Gedcom standards will be ignored. Data that is not properly sourced will be ignored. Fill in the <br>
-     form below and click the 'Import GEDCOM' button to continue. See Help/Info/Docs from the Main Menu for additional information. <br>
+<h4> This function will import an entire Gedcom and any optional files/directories/folders. (Optional stuff is described <br>
+     in "Help/Info/Docs -> Using MELGenUtils" then click "Import a Family DataBase from a GEDCOM".) Fill in the <br>
+     form below and click the 'Import GEDCOM' button to continue. <br>
 <br> <br> </h4>
-
-<h2 style="color: red"> Currently this function imports only the direct ancestry of the starting individual. <br> <br> </h2>
 
 <form id="ImportGC" method="POST">
 
@@ -87,20 +85,6 @@
 </fieldset>
 
 <br> <br>
-<fieldset class="fieldset-auto-width">
-<legend>Identify With Which Individual the Family DataBase is to Begin (enter one)</legend>
-<br>
- The individual entered will be labeled as 1.0 in the Family DataBase. Oftentimes the starting individual might be yourself, <br>
- but it can be anyone in the GEDCOM. No matter which individual is selected, only individuals and data in <br>
- the GEDCOM which is connected to the starting individual will be included in the Family DataBase. <br>
-<br>
-<label> <input type="text" id="IndID" name="IndID" > Individual ID from GEDCOM </label>
-<br> <br>
-<label> OR </label>
-<br> <br>
-<label> <input type="checkbox" id="IndList" name="IndList" > Check Here to Choose from a List of Individuals </label>
-</fieldset>
-<br> <br>
 <label> <input type="checkbox" id="RemoveDir" name="RemoveDir" > Check Here to Remove the Import Directory/Folder & All It's Contents (only after a successful import) </label>
 <br> <br>
 
@@ -120,7 +104,6 @@ function sendFormData2Node() {
     const ws = new WebSocket('ws://localhost:3000/');
     var formData = new FormData(document.getElementById("ImportGC"));
     let formDataJSON = {};
-    var cntInd = 0;
 
     for (const [key, value] of formData.entries()) {
         if (key == 'dbin_loc' && value == '') {
@@ -139,17 +122,7 @@ function sendFormData2Node() {
             dialog1.showModal();
             exit;
         }
-        if ((key == 'IndID' && value != '') || (key == 'IndList'))
-            cntInd++;
         formDataJSON[key] = value;
-    }
-    if (cntInd != 1) {
-        var span = document.getElementById("dial1span");
-        var msg = 'Select one, and one only, from<br>"Identify With Which Individual the Family DataBase is to Begin".<br> <br>';
-        const dialog1 = document.querySelector("#dial1");
-        span.innerHTML = msg;
-        dialog1.showModal();
-        exit;
     }
 
     ws.onopen = function() {
@@ -170,9 +143,8 @@ function sendFormData2Node() {
                 dialog2.showModal();
 
                 dialog2.addEventListener('click', function handleButtonClicks(e) {
-                    if (e.target.tagName !== 'BUTTON') {
+                    if (e.target.tagName !== 'BUTTON')
                         return;
-                    }
                     dialog2.removeEventListener('click', handleButtonClicks);
                     if (e.target === cancelButton) {
                         var span = document.getElementById("dial1span");
@@ -181,93 +153,36 @@ function sendFormData2Node() {
                         span.innerHTML = msg;
                         dialog1.showModal();
                     } else {
-                        var ts;
-
-                        for (const [key, value] of formData.entries()) {
-                            if (key == 'IndID' && value != '')
-                                ts = ",IndID," + value + ",";
-                            if (key == 'IndList')
-                                ts = ",IndList,,";
-                        }
-                        var tosend = "StartingIndi" + ts + JSON.stringify(formDataJSON);
+                        var tosend = "CreateGED" + JSON.stringify(formDataJSON);
                         ws.send(tosend);
                         ws.onmessage = function(e) {
-                            const w = window.open('about:blank');
-                            w.document.open();
-                            w.document.write(e.data);
-                            w.document.close();
+                            var dbin, dbname, dbact, dbid, dbprot, remdir = "no";
 
-                            usedconfirm = 0;
-                            /* wait for user to confirm starting individual from GEDCOM, then continue */
-                            const timer = setInterval(() => {
-                                tosend = "";
+                            for (const [key, value] of formData.entries()) {
+                                if (key == 'dbin_loc')
+                                    dbin = value;
+                                if (key == 'db_name')
+                                    dbname = value;
+                                if (key == 'db_act')
+                                    dbact = value;
+                                if (key == 'user_dbid')
+                                    dbid = value;
+                                if (key == 'db_prot')
+                                    dbprot = value;
+                                if (key == 'RemoveDir')
+                                    remdir = "yes";
+                            }
 
-                                if (ts.indexOf("IndID"))
-                                    if (usedconfirm)
-                                        tosend = w.document.getElementById("divid").innerHTML;
-                                    else
-                                        tosend = "none";
-
-                                if (ts.indexOf("IndList")) {
-                                    var radios = w.document.getElementsByName('person');
-
-                                    for (var i = 0, length = radios.length; i < length; i++) {
-                                        if (radios[i].checked) {
-                                            var divid = "div" + radios[i].value.substring(3);
-                                            if (radios[i].value !== "none")
-                                                tosend = w.document.getElementById(divid).innerHTML;
-                                            // only one (or 0) radio can be logically checked
-                                            break;
-                                        }
-                                    }
-                                }
-
-                                if (w.closed) {
-                                    clearInterval(timer);
-
-                                    if (tosend == "")
-                                        /* the user didn't make a selection */
-                                        tosend = "none";
-                                    ws.send(tosend);
-
-                                    /* abort import if user didn't confirm an individual to start at */
-                                    if (tosend != "none") {
-                                        const wss = new WebSocket('ws://localhost:3000/');
-                                        wss.onopen = function() {
-                                            var dbin, dbname, dbact, dbprot, remdir = "no";
-
-                                            for (const [key, value] of formData.entries()) {
-                                                if (key == 'dbin_loc')
-                                                    dbin = value;
-                                                if (key == 'db_name')
-                                                    dbname = value;
-                                                if (key == 'db_act')
-                                                    dbact = value;
-                                                if (key == 'db_prot')
-                                                    dbprot = value;
-                                                if (key == 'RemoveDir')
-                                                    remdir = "yes";
-                                            }
-                                            var tosend = "PerformImportDB" + ',' + dbin + ',' + dbname + ',' + dbact + ',' + '' + ',' + dbprot +
-                                                         ',' + remdir + ',G';
-                                            wss.send(tosend);
-                                            wss.onmessage = function(e) {
-                                                var span = document.getElementById("dial1span");
-                                                var msg = e.data;
-                                                const dialog1 = document.querySelector("#dial1");
-                                                span.innerHTML = msg;
-                                                dialog1.showModal();
-                                            }
-                                        }
-                                    } else {
-                                        var span = document.getElementById("dial1span");
-                                        var msg = "Individual of where to start not confirmed. Import aborted.<br> <br>";
-                                        const dialog1 = document.querySelector("#dial1");
-                                        span.innerHTML = msg;
-                                        dialog1.showModal();
-                                    }
-                                }
-                            }, 500);
+                            var tosend = "PerformImportDB" + ',' + dbin + ',' + dbname + ',' + dbact + ',' + '' + ',' + dbprot +
+                                         ',' + remdir + ',G';
+                            ws.send(tosend);
+                            ws.onmessage = function(e) {
+                                var span = document.getElementById("dial1span");
+                                var msg = e.data;
+                                const dialog1 = document.querySelector("#dial1");
+                                span.innerHTML = msg;
+                                dialog1.showModal();
+                            }
                         }
                     }
                 })

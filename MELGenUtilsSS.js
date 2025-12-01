@@ -111,8 +111,18 @@ if (fs.existsSync(path.normalize("MELGenUtilsInfo.txt"))) {
     var DirRef = path.join(misc.ProcessDBSysInfo ("SysLocation"), "DBs");
     if (fs.existsSync(DirRef))
         fs.readdirSync(DirRef).forEach(file => {
-            DBSysInfo += os.EOL + 'DBActive = "no"' + os.EOL + 'DBName = "' + file + '"' + os.EOL + 'DBUserID = ""' + os.EOL + 'DBStatus = "0"' +
-                         os.EOL + 'DBSecurity = "0"' + os.EOL + 'DBLocation = "DBs/' + file + '"' + os.EOL;
+            if (file.indexOf("BACKUP") == -1) {             // ignore backups
+                // determine if Gedcom or user-created format
+                var DirPTRef = path.join(DirRef, file, "PlainText"), Fged = ".GED", whichFormat;
+                whichFormat = 'U';
+                fs.readdirSync(DirPTRef).forEach(file => {
+                    if (Fged === file.slice(-4).toUpperCase())
+                        whichFormat = 'G';
+                })
+                DBSysInfo += os.EOL + 'DBActive = "no"' + os.EOL + 'DBName = "' + file + '"' + os.EOL + 'DBUserID = ""' + os.EOL +
+                             'DBStatus = "0"' + os.EOL + 'DBFormat = "' + whichFormat + '"' + os.EOL + 'DBSecurity = "0"' + os.EOL +
+                             'DBLocation = "DBs/' + file + '"' + os.EOL;
+            }
         })
     DBSysInfo += os.EOL;
 
@@ -313,6 +323,11 @@ ws.on("request", function (request) {
             misc.Logging(tLog + " for status of active Family DataBase."); 
             var DBStatus = misc.ProcessDBSysInfo ("DBStatus");
             connection.sendUTF(DBStatus);
+        }
+        if (message.utf8Data == "DBFormat") {
+            misc.Logging(tLog + " for format of active Family DataBase."); 
+            var DBFormat = misc.ProcessDBSysInfo ("DBFormat");
+            connection.sendUTF(DBFormat);
         }
         if (message.utf8Data == "DBInfo") {
             misc.Logging(tLog + " for active Family DataBase info."); 
@@ -849,8 +864,6 @@ ws.on("request", function (request) {
                 /* ask user whether or not to continue import */
                 Tmsg += "No fatal errors.<br> <br>" + Rmsgs[1] + "DataBase " + Tpd.db_name +
                         " will be imported and stored in " + "DBs/" + Tpd.db_name + "<br> <br>";
-                if (message.utf8Data.substring(0,8) == "ImportGC")
-                    Tmsg += "Next, if not canceling, verify the individual who will begin the MELGenUtils Family DataBase.<br> <br>";
                 Tmsg += "Click \"OK\" to continue the import or \"Cancel\" to abort the import.<br> <br>";
                 connection.sendUTF(Tmsg);
             } else
@@ -903,23 +916,14 @@ ws.on("request", function (request) {
             familydata = "";      // new DB active, clear Family Data area
             connection.sendUTF(sendback + "<br> <br>");
         }
-        if (message.utf8Data.substring(0,12) == "StartingIndi") {
-            misc.Logging(tLog + " to determine starting individual in a Family DataBase from a Gedcom being imported."); 
-            var Tpnt = message.utf8Data.indexOf(",");               // point to
-            Tpnt = message.utf8Data.indexOf(",", Tpnt + 1);         // one position past
-            Tpnt = message.utf8Data.indexOf(",", Tpnt + 1) + 1;     // the third comma
-            var Tpd = JSON.parse(message.utf8Data.substring(Tpnt));
-            if (message.utf8Data.substring(13,18) == "IndID") {
-                var person = gedcom.ParseGedcom (Tpd, "indid", Tpd.IndID);
-                connection.sendUTF(person);
-            }
-            if (message.utf8Data.substring(13,20) == "IndList") {
-                var listall = gedcom.ParseGedcom (Tpd, "listall");
-                connection.sendUTF(listall);
-            }
-            connection.on("message", function(message) {
-                gedcom.createFiles (Tpd, message.utf8Data);
-            })
+        if (message.utf8Data.substring(0,9) == "CreateGED") {
+            misc.Logging(tLog + " import the Gedcom."); 
+            var Tpd = JSON.parse(message.utf8Data.substring(9));
+            var sendback = gedcom.createFiles (Tpd);
+            if (sendback == '')
+                connection.sendUTF("Gedcom import successful.<br> <br>");
+            else
+                connection.sendUTF(sendback + "<br> <br>");
         }
     })
 })

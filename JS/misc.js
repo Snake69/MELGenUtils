@@ -215,6 +215,15 @@ function ProcessDBSysInfo (what, param) {
         statuspos += 12;
         return (DBSysInfo.substring(statuspos, statuspos + 1));           /* DBStatus is always 1 position */
     }
+    if (what == "DBFormat") {
+        /* get DBFormat of active DB */
+        var activepos = DBSysInfo.indexOf("DBActive = \"yes\"", 0);
+        var formatpos = DBSysInfo.indexOf("DBFormat = \"", activepos);
+        if (activepos === -1 || formatpos === -1)
+            return -1;
+        formatpos += 12;
+        return (DBSysInfo.substring(formatpos, formatpos + 1));           /* DBFormat is always 1 position */
+    }
     if (what == "AllDBNameDBActive") {
         /* get all DBName's and associated DBActive values */
         var findings = '', i = 0, secondquote;

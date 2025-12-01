@@ -133,6 +133,7 @@ async function ImportDB (postdata) {
 }
 
 function PerformImportDB (dbinfo) {
+    var gedName;
     const params = dbinfo.split(',');
     var dirin, dirout, action, fid, prot, impRes = 0;
 
@@ -208,34 +209,56 @@ function PerformImportDB (dbinfo) {
         }
     }
 
-    /* copy all files which start with "text" or "body" in sequence;
-       output filenames are "body" with a sequential number attached */
-    var cnt = 0, btarr=[];
-    var text = "TEXT", body = "BODY";  
-    fs.readdirSync(dirin).forEach(file => {
-        const Absolute = path.join(dirin, file);
-        if (text === file.substring(0,4).toUpperCase() || body === file.substring(0,4).toUpperCase())
-            if (!(fs.statSync(Absolute).isDirectory()) && !(fs.statSync(Absolute).isSymbolicLink())) {
-                btarr[cnt] = file;
-                cnt++;
+    
+    if (params[6] == "G") {
+        /* if importing from Gedcom, copy only the one Gedcom file */
+        var Fged = ".GED";
+        fs.readdirSync(dirin).forEach(file => {
+            // it's already been established that there is one Gedcom file, and it is not a directory nor a link
+            if (Fged === file.slice(-4).toUpperCase()) {
+                const Absolute = path.join(dirin, file);
+                var target = path.join(dirout, "PlainText", file);
+                gedName = file;
+                try {
+                    fs.copyFileSync(Absolute, target);
+                    misc.Logging("File '" + file + "' copied to " + params[1] + "/PlainText.");
+                }
+                catch (err) {
+                    misc.Logging(err + "; problem copying '" + file + "'.");
+                    return -1;
+                }
             }
-    })
-    /* sort array ascending by sequential number */
-    if (btarr.length > 1)
-        btarr.sort((a,b) => a.substring(4) - b.substring(4));
-    /* copy file to dirout and add a new sequential number to destination filename */
-    for (cnt = 0; cnt < btarr.length; cnt++) {
-        const Absolute = path.join(dirin, btarr[cnt]);
-        var target = path.join(dirout, "PlainText", "body") + cnt;
-        fs.copyFileSync(Absolute, target);
+        })
+    } else {
+        /* if importing user-created files, copy all files which start with "text" or "body" in sequence;
+           output filenames are "body" with a sequential number attached */
+        var cnt = 0, btarr=[];
+        var text = "TEXT", body = "BODY";  
+        fs.readdirSync(dirin).forEach(file => {
+            const Absolute = path.join(dirin, file);
+            if (text === file.substring(0,4).toUpperCase() || body === file.substring(0,4).toUpperCase())
+                if (!(fs.statSync(Absolute).isDirectory()) && !(fs.statSync(Absolute).isSymbolicLink())) {
+                    btarr[cnt] = file;
+                    cnt++;
+                }
+        })
+        /* sort array ascending by sequential number */
+        if (btarr.length > 1)
+            btarr.sort((a,b) => a.substring(4) - b.substring(4));
+        /* copy file to dirout and add a new sequential number to destination filename */
+        for (cnt = 0; cnt < btarr.length; cnt++) {
+            const Absolute = path.join(dirin, btarr[cnt]);
+            var target = path.join(dirout, "PlainText", "body") + cnt;
+            fs.copyFileSync(Absolute, target);
+        }
+        var Tmsg = cnt + " file";
+        if (cnt == 1)
+            Tmsg += " ";
+        else
+            Tmsg += "s ";
+        Tmsg += "named body or text copied to " + params[1] + "/PlainText with a sequential number appended to the filename.";
+        misc.Logging(Tmsg);
     }
-    var Tmsg = cnt + " file";
-    if (cnt == 1)
-        Tmsg += " ";
-    else
-        Tmsg += "s ";
-    Tmsg += "named body or text copied to " + params[1] + "/PlainText with a sequential number appended to the filename.";
-    misc.Logging(Tmsg);
 
     /* copy file named index, if it exists */
     var index = "INDEX", swindex;  
@@ -302,7 +325,17 @@ function PerformImportDB (dbinfo) {
         /* create & write a tableofcontents file for PlainText directory */
         var tob = "Table of Contents of PlainText directory/folder" + os.EOL + os.EOL + "File Name           Description" + os.EOL + os.EOL +
                   "tableofcontents     Table of Contents" + os.EOL;
-        tob += "body0               most recent generations of family" + os.EOL;
+        if (params[6] == "G") {
+            const spaces = "                   ";
+            var len;
+            if (gedName.length > 17)
+                len = 2;
+            else
+                len = 20 - gedName.length;
+            tob += gedName + spaces.substring(0, len) + "Gedcom of family" + os.EOL;
+        }
+        else
+            tob += "body0               most recent generations of family" + os.EOL;
 
         for(x = 1; x < cnt; x++) {
             /* allow for up to 99999 body files */
@@ -310,7 +343,10 @@ function PerformImportDB (dbinfo) {
             tob += "body" + x + blanks.substring(x.length) + "next recent generations of family" + os.EOL;
         }
         if (swindex)
-            tob += "index               an every-name index to the body files" + os.EOL;
+            if (params[6] == "G")
+                tob += "index               an every-name index to the Gedcom file" + os.EOL;
+            else
+                tob += "index               an every-name index to the body file(s)" + os.EOL;
 
         var target = path.join(dirout, "PlainText", "tableofcontents");
         try {
@@ -404,8 +440,8 @@ function PerformImportDB (dbinfo) {
     }
     if (swother)
         tob += "Other               (directory/folder) contains info concerning the DataBase" + os.EOL;
-    tob += "PlainText           (directory/folder) contains the DataBase in plain text" + os.EOL + "                    ";
-    tob += "and other files which are optional" + os.EOL;
+    tob += "PlainText           (directory/folder) contains the DataBase (either Gedcom" + os.EOL + "                    ";
+    tob += "or user-created) and other files which are optional" + os.EOL;
     if (swref)
         tob += "Reference           (directory/folder) contains plain text Citation files" + os.EOL;
     if (swunsure)
@@ -623,7 +659,7 @@ function PerformImportDB (dbinfo) {
     } else
         DBSysInfo += 'no';
     DBSysInfo += '"' + os.EOL + 'DBName = "' + params[1] + '"' + os.EOL + 'DBUserID = "' + fid + '"' + os.EOL + 'DBStatus = "0"' + os.EOL +
-                 'DBSecurity = "' + prot + '"' + os.EOL;
+                 'DBFormat = "' + params[6] + '"' + os.EOL + 'DBSecurity = "' + prot + '"' + os.EOL;
     DBSysInfo += 'DBLocation = "DBs/' + params[1] + '"' + os.EOL + os.EOL;
     if (params[5] == "yes") {
         /* remove import directory and it's contents */

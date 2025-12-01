@@ -1,5 +1,5 @@
 # American Revolution Events
-# v20251115
+# v20251130
 # any line with the # character in column 1 is considered a comment line
 # comment lines are not included in MELGenUtils Reports
        1759 -1768, New England Planters immigrate to Nova Scotia, Canada
@@ -1901,9 +1901,9 @@
               of General George Washington. Asgill's mother wrote the French
               king requesting that her son be spared and Washington complied,
               defusing the situation. [7]
-30 Nov 1782 Treaty of Paris: In Paris, representatives from the United
-              States and the Great Britain sign preliminary peace articles
-              [2] [6] (later formalized as the 1783 Treaty of Paris). [2]
+30 Nov 1782 Treaty of Paris: In Paris, representatives from the United States
+              and the Great Britain [2] [6] sign preliminary peace articles
+              [2] [6] [20] (later formalized as the 1783 Treaty of Paris). [2]
  4 Dec 1782 A force of Continental dragoons commanded by Colonel William
               Washington-General George Washington's second cousin once
               removed-corners Loyalist Colonel Rowland Rugeley and his

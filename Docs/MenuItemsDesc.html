@@ -19,8 +19,8 @@
 
 <a id="item1.1">"Import, Create or Remove a Family DataBase"</a> -<br>
 Use this menu item to import or deport a Family DataBase, or to create a HTML version of the active Family DataBase. A maximum of 20 Family
-DataBases may be imported. A DataBase can be created and imported from a GEDCOM file or from plain text files (which can be created
-by hand). If creating plain text files by hand, see "Help/Info/Docs -&gt; Data Format and Notes" for formatting rules and other notes
+DataBases may be imported. A DataBase can be imported from a Gedcom file or from plain text files (which can be created by hand). If
+creating plain text files by hand, see "Help/Info/Docs -&gt; Data Format and Notes" for formatting rules and other notes
 pertaining to the plain text files. Limited verification of the DataBase will be done when it is imported. Full verification of the DataBase
 can be done by clicking the "Verify Family Data" menu item. Full verification of a DataBase must be done before all the functions are made
 available to it.<br>
@@ -34,13 +34,14 @@ auto-created from the plain text version using "Import, Create or Remove a Famil
 <hr style="width:50%">
 <br>
 &nbsp; &nbsp; <a id="item1.2">"Import a Family DataBase from a GEDCOM"</a> -<br>
-Select this menu item if a GEDCOM file is to be imported as a Family DataBase.<br>
+Select this menu item if a Gedcom file is to be imported as a Family DataBase.<br>
 <br>
-In the form enter the location of the GEDCOM file to import. The location may be a full path or a relative path, or, if a name is entered without
-any path criteria then the location will be assumed to be within the user's home directory. This is a required entry, and the location must be
-a directory/folder (which contains the GEDCOM file). Other files (all optional) besides the GEDCOM file may be part of the import. All the
-optional files must be located in the same directory/folder as the GEDCOM file. See "Help/Info/Docs -&gt; Data Format and Notes" for a
-description of the layout of the contents of the import directory/folder and other notes pertaining to the optional files.<br>
+In the form enter the location of the directory/folder which contains the Gedcom file to import. The location may be a full path or a relative
+path, or, if a name is entered without any path criteria then the location will be assumed to be within the user's home directory. This is a
+required entry, and the location must be a directory/folder (which contains the Gedcom file). Other files (all optional) besides the Gedcom
+file may be part of the import. All the optional files must be located in the same directory/folder as the Gedcom file. See
+"Help/Info/Docs -&gt; Data Format and Notes" for a description of the layout of the contents of the import directory/folder and other notes
+pertaining to the optional files.<br>
 <br>
 If the path is relative, it should be relative to the location of MELGenUtils. The location of MELGenUtils can be noted via
 "Miscellaneous Functions -> Display Info for MELGenUtils".<br>
@@ -55,38 +56,20 @@ not be able to be modified via the "Edit Family Data" menu item. This setting ca
 Check whether or not the Family DataBase will be made active upon successful import. This Family DataBase can also be made active (or
 deactivated) using the menu item "Family DataBase Activation" on the Main Menu.<br>
 <br>
-Identify with which individual in the GEDCOM the Family DataBase is to begin. Either enter the ID of the individual within the
-GEDCOM or get a list of all eligible individuals in the GEDCOM and select from that. (If selecting from a list, that list will be presented
-after clicking the "Import GEDCOM" button.) It is advisable, but not required, to select an individual from the most recent generation in
-the GEDCOM (oftentimes this might be yourself).<br>
-<br>
-Note that the individual identified as starting the MELGenUtils Family DataBase is not [necessarily] the same as the Focus ID. After importing
-the Gedcom, set the Focus ID via "Miscellaneous Functions -&gt; Set Focus ID for Active DataBase".<br>
-<br>
-The individual starting the MELGenUtils Family DataBase will be assigned the ID of 1.0, the smallest ID appearing in any MELGenUtils Family
-DataBase. (However, if the selected starting individual is not imported for whatever reason ... usually because of the lack of sources ...
-then the next generation will start the MELGenUtils Family DataBase with an ID other than 1.0.) This means that if the individual starting the
-MELGenUtils Family DataBase has children who have their own families, their family groups will not appear in the MELGenUtils Family DataBase. If
-this is not what is intended, instead select a child (who has his or her own family) as the individual starting the MELGenUtils Family DataBase.<br>
-<br>
-Also note that only the ancestors and their families of the starting individual will be included in the MELGenUtils DataBase. If the Gedcom
-contains separate unconnected family lines, you may import the same Gedcom again while using an individual from another unconnected family
-line as the starting individual. This will create another MELGenUtils Family DataBase.<br>
-<br>
 Check if the import directory/folder (identified at the top of the form) should be removed (along with all it's contents) after the import.
 This will happen only if the import is successful.<br>
 <br>
-After entering all the form data, click "Import GEDCOM". You will be alerted if there are any fatal errors stopping the DataBase from
+After entering all the form data, click "Import GEDCOM". You will be alerted if there are any fatal errors stopping the Gedcom from
 being imported. If everything is okay, there will be an opportunity to continue or not.<br>
 <br>
-Note that different programs produce GEDCOMs differently. Some programs produce GEDCOMs which contain records that do not adhere to the
-GEDCOM guidelines. And some programs produce records which have their own proprietory extensions. MELGenUtils will not pick up data that does
-not adhere to the official GEDCOM specifications.<br>
+Note that different programs produce Gedcoms differently. Some programs produce Gedcoms which contain records that do not adhere to the
+Gedcom guidelines. And some programs produce records which have their own proprietory extensions.<br>
 <br>
-Also, MELGenUtils will not pick up events or items which are not sourced.<br>
-<br>
-NOTE - In this version of MELGenUtils, non-simple Gedcoms may not be processed as you would expect (i.e., the Gedcom import function is not
-totally completed).<br>
+Note that there are two possible formats for the MELGenUtils DataBase: a user-created plain text format as described in
+"Help/Info/Docs -&gt; Data Format and Notes" and a Gedcom format. When importing a Gedcom the entire Gedcom file is copied into MELGenUtils.
+The Gedcom will be used as is when performing other functions in MELGenUtils. User-created files are also imported as is, and that format
+will be used when performing other functions in MELGenUtils. Both formats are plain-text, but user-created files are much more human-readable
+than a Gedcom file.<br>
 <br>
 <hr style="width:50%">
 <br>
@@ -94,9 +77,9 @@ totally completed).<br>
 Select this menu item if user created files (not a Gedcom) are to be imported as a Family DataBase. The user created files may be created by hand.
 See "Help/Info/Docs -&gt; Data Format and Notes" for formatting guidelines, a description of the layout of the contents of the import
 directory/folder, and other notes pertaining to the user created files. It may be wondered why anyone would ever create data by hand to be
-imported when it might be easier just to create a GEDCOM and import that. For one, I think there are people who don't use GEDCOMs for whatever
+imported when it might be easier just to create a Gedcom and import that. For one, I think there are people who don't use Gedcoms for whatever
 reason. But, I think the most likely example might be a person wants to use functions provided by MELGenUtils on just one family. It's a
-simple process to create the files by hand for one family as opposed to creating a GEDCOM for that one family.<br>
+simple process to create the files by hand for one family as opposed to creating a Gedcom for that one family.<br>
 <br>
 In the form enter the location of the files to import. This is a required entry, and the location must be a directory/folder (which
 contains all the files to import). The location may be a full path or a relative path, or, if a name is entered without any path criteria
@@ -125,6 +108,12 @@ This will happen only if the import is successful.<br>
 After entering all the form data click "Import DB". An alert will be issued if there are any fatal errors stopping the DataBase from being
 imported. If everything is okay, there will be an opportunity to continue or not.<br>
 <br>
+<br>
+Note that there are two possible formats for the MELGenUtils DataBase: a user-created plain text format as described in
+"Help/Info/Docs -&gt; Data Format and Notes" and a Gedcom format. When importing a Gedcom the entire Gedcom file is copied into MELGenUtils.
+The Gedcom will be used as is when performing other functions in MELGenUtils. User-created files are also imported as is, and that format
+will be used when performing other functions in MELGenUtils. Both formats are plain-text, but user-created files are much more human-readable
+than a Gedcom file.<br>
 <hr style="width:50%">
 <br>
 &nbsp; &nbsp; <a id="item1.4">"Create HTML Version of Family DataBase"</a> -<br>

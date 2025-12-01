@@ -16,6 +16,13 @@
 
 </head>
 <body>
+<dialog id="dial1">
+<span id="dial1span"></span>
+<form method="dialog">
+<button type="submit">OK</button>
+</form>
+</dialog>
+
 <h1>Edit Family Data</h1>
 <span id="TitleDBName"></span>
 <hr style="width:50%">
@@ -36,10 +43,22 @@ onload = function init() {
     const ws = new WebSocket('ws://localhost:3000/');
     ws.onopen = function() {
         ws.send("DBName");
-    }
-    ws.onmessage = function(e) {
-        if (e.data != -1)
-            document.getElementById("TitleDBName").innerHTML = '(' + e.data + ')'; 
+        ws.onmessage = function(e) {
+            if (e.data != -1)
+                document.getElementById("TitleDBName").innerHTML = '(' + e.data + ')'; 
+
+            ws.send("DBFormat");
+            ws.onmessage = function(e) {
+                if (e.data == 'G') {
+                    var span = document.getElementById("dial1span");
+                    var msg = "This function does not yet work with a Gedcom DataBase.<br> <br>";
+                    const dialog1 = document.querySelector("#dial1");
+                    span.innerHTML = msg;
+                    dialog1.showModal();
+                }
+                DBType = e.data;
+            }
+        }
     }
 }
 

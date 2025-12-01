@@ -1,0 +1,367 @@
+const fs = require("fs-extra");
+const path = require("path");
+const os = require("os");
+const misc = require("./misc.js");
+
+var citations = [[]], citationsFamGrp = [[]], notes = [], cnotes = [], timeline = [], ctimeline = [], alreadyDone = [[]], only1citation,
+    numcites, noSour, ged, SPECSW = 0;
+
+async function GedChecks (postdata) {
+    var swtob = 0, fpath, abs2read, x, y, Gerror = '', Gmsg = '';
+
+    /* do some checks before importing a GEDCOM */
+
+    /* remove any leading and following whitespace */
+    postdata.dbin_loc = postdata.dbin_loc.trim();
+    postdata.db_name = postdata.db_name.trim();
+
+    /* ensure path to location of data to import is absolute */
+    if (path.isAbsolute(postdata.dbin_loc))
+        fpath = path.normalize(postdata.dbin_loc);                       // absolute path
+    else
+        if (postdata.dbin_loc[0] == ".") {
+            var sysloc = misc.ProcessDBSysInfo("SysLocation");
+            fpath = path.join (sysloc, postdata.dbin_loc);               // relative path
+        } else {
+            var homedir = process.platform === "win32" ? process.env.HOMEPATH : process.env.HOME;
+            fpath = path.join (homedir, postdata.dbin_loc);              // path base is home directory
+        }
+    postdata.dbin_loc = fpath;
+
+    /* various validation checks for db-in location & contents */
+    if (!fs.existsSync(postdata.dbin_loc))
+        Gerror += "The '" + postdata.dbin_loc + "' directory/folder does not exist.<br> <br>";
+    else {
+        const stats = fs.statSync(postdata.dbin_loc);
+        if (!stats.isDirectory())
+            Gerror += "'" + postdata.dbin_loc + "' exists but is not a directory/folder.<br> <br>";
+        else {
+            if (postdata.dbin_loc == misc.ProcessDBSysInfo ("SysLocation")) {
+                Gerror += "'" + postdata.dbin_loc + "' is the location of the MELGenUtils System. ";
+                Gerror += "The location of the data to import needs to be different.<br> <br>";
+            } else {
+                var cnt = 0, ged = ".GED";
+                var dir = postdata.dbin_loc;
+
+                fs.readdirSync(dir).forEach(file => {
+                    const Absolute = path.join(dir, file);
+                    if (!fs.statSync(Absolute).isDirectory() && !fs.statSync(Absolute).isSymbolicLink())
+                        if (ged === file.slice(-4).toUpperCase()) {
+                            abs2read = Absolute;
+                            cnt++;
+
+                            var stats = fs.statSync(Absolute);
+                            if (stats.size >= 200000000) {
+                                misc.Logging("The Gedcom file '" + Absolute + "' is too large \(200MB or bigger\) to read.");
+                                Gerror += "The Gedcom file '" + Absolute + "' is too large \(200MB or bigger\) to read. " +
+                                          "Make it smaller and try again.<br> <br>";
+                            }
+                        }
+                })
+                if (cnt == 1) {
+                    Gmsg += "One GEDCOM file exists in the directory/folder '" + dir + "'.<br> <br>";
+                    x = 0;
+                    ged = fs.readFileSync(abs2read, { encoding: 'utf8' });
+                    ged = ged.replace(/\r\n/g, '\n');
+                    /* check gedcom for INDI records */
+                    while (x != -1) {
+                        x = ged.indexOf('INDI', x);
+                        if (x != -1) {
+                            y = ged.lastIndexOf("\n" + '0 @', x);
+                            if (y != -1)
+                                break;
+                            else
+                                x++;
+                        }
+                    }
+                    if (x == -1)
+                        Gerror += "The Gedcom file does not contain any INDI records " +
+                                  "(i.e., individual records which contain various relevant data).<br> <br>";
+                    /* check gedcom for SOUR records */
+                    x = 0;
+                    y = -1;
+                    while (x != -1) {
+                        x = ged.indexOf('SOUR', x);
+                        if (x != -1) {
+                            y = ged.lastIndexOf('0 ', x);
+                            if (ged.substring(y + 2, y + 6) == "HEAD") {
+                                y = 0;
+                                x++;
+                            }
+                            else {
+                                y = 1;
+                                x = -1;
+                            }
+                        }
+                    }
+                    if (y <= 0)
+                        Gerror += "There are no SOUR records (sources) in the Gedcom";
+                    if (!y)
+                        Gerror += " (other than in the HEAD section which indicates where the Gedcom itself came from)";
+                    if (y <= 0)
+                        Gerror += ".<br><br>A source for any data to be used is required by MELGenUtils.<br><br>";
+                    /* make sure at least one family in gedcom has children */
+                    x = ged.indexOf('FAMC');
+                    if (x == -1)
+                        Gerror += "No families in the Gedcom have children.<br><br>" +
+                                  "Only families with children can be a Family Group (i.e., there is nothing to import).<br><br>";
+                } else
+                    if (!cnt)
+                        Gerror += "A GEDCOM file (required) does not exist in the directory/folder '" + dir + "'.<br> <br>";
+                    else
+                        Gerror += "There can be only one GEDCOM file in the directory/folder '" + dir + "'.<br> <br>";
+
+                var tob = "TABLEOFCONTENTS";
+                fs.readdirSync(dir).forEach(file => {
+                    if (tob === file.toUpperCase())
+                        swtob = 1;
+                })
+
+                if (!swtob) {
+                    Gmsg += "tableofcontents does not exist in the directory/folder '" + postdata.dbin_loc + "'; ";
+                    Gmsg += "it will be auto-created.<br> <br>";
+                }
+            }
+            if (postdata.hasOwnProperty('RemoveDir'))
+                Gmsg += "The import directory/folder ('" + dir + "') and all it's contents will be removed only after a successful import." +
+                        "<br> <br>";
+        }
+    }
+
+    /* various validation checks for the DB output area location */
+    misc.dirExist("DBs");  /* create directory/folder "DBs" if needed */
+    var cntd = 0;
+    fs.readdirSync("DBs").forEach(file => {
+        const Absolute = path.join("DBs", file);
+        if (fs.statSync(Absolute).isDirectory())
+            if ((file.indexOf('BACKUP') === -1) && (file !== postdata.db_name))
+                cntd++;
+    })
+    if (cntd > 19) {
+        Gerror += "20 DataBases have been imported. 20 is the maximum. To remove an imported DataBase and make room";
+        Gerror += "for the new DataBase use 'Import, Create or Remove a Family DataBase -> Deport a Family DataBase'.<br> <br>";
+    } else {
+        if (!fs.existsSync(path.join ("DBs", postdata.db_name)))
+            Gmsg += "The '" + postdata.db_name + "' directory/folder does not exist; it will be auto-created.<br> <br>";
+        else {
+            const stats = fs.statSync(path.join ("DBs", postdata.db_name));
+            if (!stats.isDirectory()) {
+                Gerror += "'" + postdata.db_name + "' exists but is not a directory/folder.<br> <br>";
+            } else {
+                try {
+                    fs.accessSync(path.join ("DBs", postdata.db_name), fs.constants.W_OK)
+                }
+                catch(e) {
+                    Gerror += "Directory permissions won't allow writing to '" + postdata.db_name + "'.<br> <br>";
+                }
+
+                var numfiles = misc.GoThruDirectory(path.join ("DBs", postdata.db_name), 1);
+                if (numfiles) {
+                    Gmsg += "A Family DataBase named '" + postdata.db_name + "' already exists. The DataBase will be backed up ";
+                    Gmsg += "before importing the new DataBase.<br> <br>";
+                }
+            }
+        }
+    }
+    return [Gerror, Gmsg];
+}
+
+function ParseGedcom (postdata, directive, who) {
+    var b, e, tosend = "", indirec, sect, retitems;
+    var gedfn = ".GED";
+    var dirin;
+
+    if (path.isAbsolute(postdata.dbin_loc))
+        dirin = path.normalize(postdata.dbin_loc);                       // absolute path
+    else
+        if (postdata.dbin_loc[0] == ".") {
+            var sysloc = misc.ProcessDBSysInfo("SysLocation");
+            dirin = path.join (sysloc, postdata.dbin_loc);               // relative path
+        } else {
+            var homedir = process.platform === "win32" ? process.env.HOMEPATH : process.env.HOME;
+            dirin = path.join (homedir, postdata.dbin_loc);              // path base is home directory
+        }
+
+    /* read GEDCOM */
+    fs.readdirSync(dirin).forEach(file => {
+        if (gedfn === file.slice(-4).toUpperCase()) {
+            const Absolute = path.join(dirin, file);
+            if (!(fs.statSync(Absolute).isDirectory()) && !(fs.statSync(Absolute).isSymbolicLink())) {
+                var stats = fs.statSync(Absolute);
+                try {
+                    ged = fs.readFileSync(Absolute, { encoding: 'utf8' });
+                    misc.Logging("Read '" + Absolute + "'.");
+                    /* ensure Gedcom is ASCII */
+                    ged = convertToAscii(ged);
+                    misc.Logging("Ensured contents of Gedcom is ASCII. MELGenUtils cannot handle non-ASCII characters at this time. " +
+                                 "\(Changed internally only. Did not alter actual Gedcom file.\)");
+                    ged = ged.replace(/\r\n/g, "\n");
+                    misc.Logging("Removed \"\\r\"'s from Gedcom. \(Changed internally only. Did not alter actual Gedcom file.\)");
+                }
+                catch (err) {
+                    misc.Logging(err + "; problem reading '" + Absolute + "'.");
+                }
+            }
+        }
+    })
+    /* provide some feedback for user */
+    if (directive == "indid") {
+        /* extract INDI section */
+        retitems = misc.extract0Rec (ged, '@' + who + '@ ', "INDI", 0);
+        indirec = retitems.str;
+
+        tosend += '<!doctype html> <html> <head> <style> .first { float: left; width: 8%; } ' + '.second { float: left; width: 15%; } ' +
+                  '.third { float: left; width: 6%; } .fourth { float: left; width: 25%; } ' + '.fifth { float: left; width: 6%; } ' +
+                  '.sixth { float: left; width: 25%; } </style> </head> <body> <pre>';
+        tosend += os.EOL + "<center>Individual from GEDCOM Who Will be Starting the Family DataBase</center>" + os.EOL + os.EOL;
+
+        if (indirec == "")
+            tosend += os.EOL + os.EOL + "Individual ID '" + who + "' does not exist in the GEDCOM." + os.EOL + os.EOL;
+        else {
+            /* show some info concerning selected individual */
+            tosend += '<div class="container"> <div class="first">ID</div> <div class="second">Name</div> ' +
+                      '<div class="third">Birthdate</div> <div class="fourth">Birthplace</div> <div class="fifth">Deathdate</div> ' +
+                      '<div class="sixth">Deathplace</div></div>' + os.EOL + os.EOL;
+            /* ID */
+            tosend += '<div "class="container"> <div id="divid" class="first">' + who + '</div><div class="second">';
+            /* Given Name */
+            retitems = misc.extractField (indirec, "2", "GIVN", 0);
+            tosend += retitems.str.trim();
+            /* Surname */
+            retitems = misc.extractField (indirec, "2", "SURN", 0);
+            tosend += retitems.str.trim();
+            /* extract BIRT section */
+            sect = misc.extractSect (indirec, "1", "BIRT");
+            /* Birth Date */
+            tosend += '</div><div class="third">';
+            retitems = misc.extractField (sect, "2", "DATE", 0);
+            tosend += retitems.str.trim();
+            /* Birth Place */
+            tosend += '</div><div class="fourth">';
+            retitems = misc.extractField (sect, "2", "PLAC", 0);
+            tosend += retitems.str.trim();
+            /* extract DEAT section */
+            sect = misc.extractSect (indirec, "1", "DEAT");
+            /* Death Date */
+            tosend += '</div><div class="fifth">';
+            retitems = misc.extractField (sect, "2", "DATE", 0);
+            tosend += retitems.str.trim();
+            /* Death Place */
+            tosend += '</div><div class="sixth">';
+            retitems = misc.extractField (sect, "2", "PLAC", 0);
+            tosend += retitems.str.trim();
+            tosend += '</div></div>' + os.EOL;
+        }
+        tosend += "</pre> <center>  <button id='abort' onclick='window.close();'>Cancel/Abort</button> " +
+                  "&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <button id='acceptid' type='button' " +
+                  "onclick='window.opener.setValue(true);window.close();'>Accept & Close</button> </center> </body> </html>";
+        return tosend;
+    }
+
+    if (directive == "listall") {
+        tosend += '<!doctype html> <html> <head> <style> .radiobut { float: left; width: 5%; } .first { float: left; width: 8%; } ' +
+                  '.second { float: left; width: 15%; } .third { float: left; width: 6%; } .fourth { float: left; width: 25%; } ' +
+                  '.fifth { float: left; width: 6%; } .sixth { float: left; width: 25%; } </style> </head> <body> <pre>';
+        tosend += os.EOL + "<center>All Individuals in GEDCOM</center>" + os.EOL + os.EOL;
+        tosend += os.EOL + "<center>Select Starting/Base/Root Individual (ID# 1.0) for the Family DataBase</center>" + os.EOL + os.EOL;
+        tosend += '<div class="container"><div class="radiobut">Select</div> <div class="first">ID</div> <div class="second">Name</div> ' +
+                  '<div class="third">Birthdate</div> <div class="fourth">Birthplace</div> <div class="fifth">Deathdate</div> ' +
+                  '<div class="sixth">Deathplace</div></div>' + os.EOL + os.EOL;
+        for (var j = i = 0; i < ged.length; i++, j++) {
+            /* extract INDI section */
+            b = ged.indexOf('@ INDI', i);
+            if (b == -1)
+                break;
+            b = ged.lastIndexOf('0 @', b);
+            e = ged.indexOf('0 ', b + 1);
+            if (b == -1 || e == -1)
+                break;
+            else
+                indirec = ged.toString().substring(b, e);
+            i = e - 1;
+
+            lit1 = "but" + j;
+            lit2 = "div" + j;
+            tosend += '<div "class="container"><div class="radiobut"> <input type="radio" id="' + lit1 + '" name="person" value="' + lit1 +
+                      '"></div> ' + '<div id="' + lit2 + '"class="first">' +
+                      indirec.substring(3, indirec.indexOf('@', 3)) + '</div><div class="second">';
+            /* Given Name */
+            retitems = misc.extractField (indirec, "2", "GIVN", 0);
+            tosend += retitems.str.trim();
+            /* Surname */
+            retitems = misc.extractField (indirec, "2", "SURN", 0);
+            tosend += " " + retitems.str.trim();
+
+            /* extract BIRT section */
+            sect = misc.extractSect (indirec, "1", "BIRT");
+            /* Birth Date */
+            tosend += '</div><div class="third">';
+            retitems = misc.extractField (sect, "2", "DATE", 0);
+            tosend += retitems.str.trim();
+            /* Birth Place */
+            tosend += '</div><div class="fourth">';
+            retitems = misc.extractField (sect, "2", "PLAC", 0);
+            tosend += retitems.str.trim();
+
+            /* extract DEAT section */
+            sect = misc.extractSect (indirec, "1", "DEAT");
+            /* Death Date */
+            tosend += '</div><div class="fifth">';
+            retitems = misc.extractField (sect, "2", "DATE", 0);
+            tosend += retitems.str.trim();
+            /* Death Place */
+            tosend += '</div><div class="sixth">';
+            retitems = misc.extractField (sect, "2", "PLAC", 0);
+            tosend += retitems.str.trim();
+            tosend += '</div></div>' + os.EOL;
+        }
+        tosend += '<div class="container"><div class="radiobut"> <input type="radio" id="none" name="person" value="none">NONE</div>' + os.EOL;
+        tosend += "</pre> <center> <button id='acceptInd' onclick='window.close();'>Accept & Close</button> </center> </body> </html>";
+        return tosend;
+    }
+}
+
+function createFiles (pd) {
+    var DBinfo, dirin, target;
+
+    if (path.isAbsolute(pd.dbin_loc))
+        dirin = path.normalize(pd.dbin_loc);                     // absolute path
+    else
+        if (pd.dbin_loc[0] == ".") {
+            var sysloc = misc.ProcessDBSysInfo("SysLocation");
+            dirin = path.join (sysloc, pd.dbin_loc);             // relative path
+        } else {
+            var homedir = process.platform === "win32" ? process.env.HOMEPATH : process.env.HOME;
+            dirin = path.join (homedir, pd.dbin_loc);            // path base is home directory
+        }
+
+    // create DBinfo.txt file in input directory; it will be deleted later
+    DBinfo = misc.createDBinfo(ged, pd.db_name.trim());
+    if (!fs.existsSync(path.join(dirin, 'Other'))) {
+        try {
+            fs.mkdirSync(path.join(dirin, 'Other'));
+            misc.Logging("'Other' directory/folder created.");
+        }
+        catch (err) {
+            misc.Logging(err + "; problem creating directory/folder '" + dirin + "/Other'.");
+        }
+    }
+    target = path.join(dirin, "Other", "DBinfo.txt");
+    try {
+        fs.writeFileSync(target, DBinfo);
+        misc.Logging("'DBinfo.txt' file created or appended.");
+    }
+    catch (err) {
+        misc.Logging(err + "; problem writing '" + target + "'.");
+    }
+}
+
+/* from stackoverflow.com */
+function convertToAscii(string) {
+    const unicodeToAsciiMap = {'Ⱥ':'A','Æ':'AE','Ꜻ':'AV','Ɓ':'B','Ƀ':'B','Ƃ':'B','Ƈ':'C','Ȼ':'C','Ɗ':'D','ǲ':'D','ǅ':'D','Đ':'D','Ƌ':'D','Ǆ':'DZ','Ɇ':'E','Ꝫ':'ET','Ƒ':'F','Ɠ':'G','Ǥ':'G','Ⱨ':'H','Ħ':'H','Ɨ':'I','Ꝺ':'D','Ꝼ':'F','Ᵹ':'G','Ꞃ':'R','Ꞅ':'S','Ꞇ':'T','Ꝭ':'IS','Ɉ':'J','Ⱪ':'K','Ꝃ':'K','Ƙ':'K','Ꝁ':'K','Ꝅ':'K','Ƚ':'L','Ⱡ':'L','Ꝉ':'L','Ŀ':'L','Ɫ':'L','ǈ':'L','Ł':'L','Ɱ':'M','Ɲ':'N','Ƞ':'N','ǋ':'N','Ꝋ':'O','Ꝍ':'O','Ɵ':'O','Ø':'O','Ƣ':'OI','Ɛ':'E','Ɔ':'O','Ȣ':'OU','Ꝓ':'P','Ƥ':'P','Ꝕ':'P','Ᵽ':'P','Ꝑ':'P','Ꝙ':'Q','Ꝗ':'Q','Ɍ':'R','Ɽ':'R','Ꜿ':'C','Ǝ':'E','Ⱦ':'T','Ƭ':'T','Ʈ':'T','Ŧ':'T','Ɐ':'A','Ꞁ':'L','Ɯ':'M','Ʌ':'V','Ꝟ':'V','Ʋ':'V','Ⱳ':'W','Ƴ':'Y','Ỿ':'Y','Ɏ':'Y','Ⱬ':'Z','Ȥ':'Z','Ƶ':'Z','Œ':'OE','ᴀ':'A','ᴁ':'AE','ʙ':'B','ᴃ':'B','ᴄ':'C','ᴅ':'D','ᴇ':'E','ꜰ':'F','ɢ':'G','ʛ':'G','ʜ':'H','ɪ':'I','ʁ':'R','ᴊ':'J','ᴋ':'K','ʟ':'L','ᴌ':'L','ᴍ':'M','ɴ':'N','ᴏ':'O','ɶ':'OE','ᴐ':'O','ᴕ':'OU','ᴘ':'P','ʀ':'R','ᴎ':'N','ᴙ':'R','ꜱ':'S','ᴛ':'T','ⱻ':'E','ᴚ':'R','ᴜ':'U','ᴠ':'V','ᴡ':'W','ʏ':'Y','ᴢ':'Z','ᶏ':'a','ẚ':'a','ⱥ':'a','æ':'ae','ꜻ':'av','ɓ':'b','ᵬ':'b','ᶀ':'b','ƀ':'b','ƃ':'b','ɵ':'o','ɕ':'c','ƈ':'c','ȼ':'c','ȡ':'d','ɗ':'d','ᶑ':'d','ᵭ':'d','ᶁ':'d','đ':'d','ɖ':'d','ƌ':'d','ı':'i','ȷ':'j','ɟ':'j','ʄ':'j','ǆ':'dz','ⱸ':'e','ᶒ':'e','ɇ':'e','ꝫ':'et','ƒ':'f','ᵮ':'f','ᶂ':'f','ɠ':'g','ᶃ':'g','ǥ':'g','ⱨ':'h','ɦ':'h','ħ':'h','ƕ':'hv','ᶖ':'i','ɨ':'i','ꝺ':'d','ꝼ':'f','ᵹ':'g','ꞃ':'r','ꞅ':'s','ꞇ':'t','ꝭ':'is','ʝ':'j','ɉ':'j','ⱪ':'k','ꝃ':'k','ƙ':'k','ᶄ':'k','ꝁ':'k','ꝅ':'k','ƚ':'l','ɬ':'l','ȴ':'l','ⱡ':'l','ꝉ':'l','ŀ':'l','ɫ':'l','ᶅ':'l','ɭ':'l','ł':'l','ſ':'s','ẜ':'s','ẝ':'s','ɱ':'m','ᵯ':'m','ᶆ':'m','ȵ':'n','ɲ':'n','ƞ':'n','ᵰ':'n','ᶇ':'n','ɳ':'n','ꝋ':'o','ꝍ':'o','ⱺ':'o','ø':'o','ƣ':'oi','ɛ':'e','ᶓ':'e','ɔ':'o','ᶗ':'o','ȣ':'ou','ꝓ':'p','ƥ':'p','ᵱ':'p','ᶈ':'p','ꝕ':'p','ᵽ':'p','ꝑ':'p','ꝙ':'q','ʠ':'q','ɋ':'q','ꝗ':'q','ɾ':'r','ᵳ':'r','ɼ':'r','ᵲ':'r','ᶉ':'r','ɍ':'r','ɽ':'r','ↄ':'c','ꜿ':'c','ɘ':'e','ɿ':'r','ʂ':'s','ᵴ':'s','ᶊ':'s','ȿ':'s','ɡ':'g','ᴑ':'o','ᴓ':'o','ᴝ':'u','ȶ':'t','ⱦ':'t','ƭ':'t','ᵵ':'t','ƫ':'t','ʈ':'t','ŧ':'t','ᵺ':'th','ɐ':'a','ᴂ':'ae','ǝ':'e','ᵷ':'g','ɥ':'h','ʮ':'h','ʯ':'h','ᴉ':'i','ʞ':'k','ꞁ':'l','ɯ':'m','ɰ':'m','ᴔ':'oe','ɹ':'r','ɻ':'r','ɺ':'r','ⱹ':'r','ʇ':'t','ʌ':'v','ʍ':'w','ʎ':'y','ᶙ':'u','ᵫ':'ue','ꝸ':'um','ⱴ':'v','ꝟ':'v','ʋ':'v','ᶌ':'v','ⱱ':'v','ⱳ':'w','ᶍ':'x','ƴ':'y','ỿ':'y','ɏ':'y','ʑ':'z','ⱬ':'z','ȥ':'z','ᵶ':'z','ᶎ':'z','ʐ':'z','ƶ':'z','ɀ':'z','œ':'oe','ₓ':'x'};
+    const stringWithoutAccents = string.normalize("NFD").replace(/[\u0300-\u036f]/g, '');
+    return stringWithoutAccents.replace(/[^\u0000-\u007E]/g, character => unicodeToAsciiMap[character] || '');
+}
+
+module.exports = { GedChecks, ParseGedcom, createFiles };
+

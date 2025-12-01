@@ -251,6 +251,7 @@ function toggleIndSites () {
         document.getElementById("divInd").style.display = 'none';
 }
 
+var DBType;
 onload = function init() {
     const ws = new WebSocket('ws://localhost:3000/');
     var sites = [], sites2 = [], listbox;
@@ -266,6 +267,18 @@ onload = function init() {
             for (i = 0; i < sites2.length; i++)
                 listbox += '<option value="' + sites2[i][0] + '">' + sites2[i][1] + '</option>';
             document.getElementById('IndSitesLB').innerHTML = listbox;
+
+            ws.send("DBFormat");
+            ws.onmessage = function(e) {
+                if (e.data == 'G') {
+                    var span = document.getElementById("dial2span");
+                    var msg = "This function does not yet work searching a Gedcom DataBase.<br> <br>";
+                    const dialog2 = document.querySelector("#dial2");
+                    span.innerHTML = msg;
+                    dialog2.showModal();
+                }
+                DBType = e.data;
+            }
         }
     }
     toggleSCit();

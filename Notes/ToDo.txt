@@ -1,51 +1,40 @@
 
-Priority
-add Gender support
-  Gedcoms contain a Gender field (SEX)
-
-
 The task list below is by function (for the most part) and not prioritized.
 
 Main Menu (top level menu)
-  add variable "DataBase Type = " - identify DataBase as user-created plain text or Gedcom
-  auto-refresh display whenever any of the variables on the page change, & other times (e.g., change to which DB is active)
-    example: node is running and main menu is displayed; kill node - main menu page doesn't change
-      perhaps force a refresh every so often OR perform the onload routine every so often
   allow focus ID to be set/changed
   let user know, when a library isn't installed, which functions won't work; disable appropriate function buttons
     https://stackoverflow.com/questions/15302618/node-js-check-if-module-is-installed-without-actually-requiring-it
-  if no DB active, in the Main Menu do not show "Focus ID Within Active DB =" line and "Active DB Status =" line and "DataBase Type ="
+  if no DB active, in the Main Menu do not show "Focus ID Within Active DB =" line, "Active DB Status =" line and "DB Format =" line
+  would like to refresh this page every-so-often, on focus, and/or when any display data changes but this seems to create too many
+    EventListeners and may interfere with the sse EventListener
 
 Import, Create or Remove a Family DataBase -> Import a Family DataBase from a GEDCOM
-  simply copy the Gedcom in
-    allow for the import of Other, Images and UnsureIfRelated directories
-    allow for import of index file
-  if the Gedcom file is a zip file, unzip it before importing
+  if the Gedcom file is a zip file (must have extention ".zip", zip file may contain optional stuff), unzip it before importing
   add option to import only part of Gedcom
-    import only that part of Gedcom containing only direct ancestry from starting individual
+    import only that part of Gedcom containing direct ancestry of a selected individual
     option to start and stop at certain points
+      handle IDs whether they are encompassed by @ or not
       for starting/ending point give user option to:
-        enter name - use exact match (verify first), if multiple exact matches send user list to choose from, if no exact matches send user
-          list of near matches, if no near matches send user list of all individuals
-        start with first individual in GEDCOM
+        enter name - use exact match (verify first) or Gedcom ID, if multiple exact matches for name, send user list to choose from, if
+          no exact matches send user list of near matches, if no near matches send user list of all individuals
     allow data to be created and not imported (for user review)
   need to be able to handle importing Gedcom files larger than 200MB
   as part of final result, produce a report
     exactly what was imported
     items not sourced
-  "Check Here to Choose from a List of Individuals" should auto-uncheck if text is entered in box by user & if
-    "Check Here to Choose from a List of Individuals" is checked by user then text in box should auto-erase
   handle 0 @.....@ OBJE records; if 1 FILE link-to-file record present, download file
+    make downloading files a user option
 
 Import, Create or Remove a Family DataBase -> Import a Family DataBase from User Created Files
   if a zip file, unzip it before importing
     change instructions for installing TestDB in Readme.html & Readme.md
   allow only "body" or "text" files with a sequential number appended (e.g., text0.0 and bodya are not allowed)
-  option to import as a Gedcom
+  option to store in Gedcom format (see Notes/MELGenUtilsDB2Gedcom)
   allow data to be created and not imported (for user review)
 
 Import, Create or Remove a Family DataBase -> Create HTML Version of Family DataBase
-  allow to create from plain text files or from a Gedcom
+  add creation from a Gedcom
   increase size of font used for Section Headings
   the links to indexes should all be upper case (e.g., indexA.html rather than indexa.html) even if first letter of surname is lower case
   link IDs in DevHistory.txt to Family Groups
@@ -110,16 +99,14 @@ Import, Create or Remove a Family DataBase -> Create HTML Version of Family Data
     https://www.recoll.org/usermanual/webhelp/docs/RCL.PROGRAM.PYTHONAPI.INTRO.html
 
 Import, Create or Remove a Family DataBase -> Deport a Family DataBase
-  look for plain text files or Gedcom to deport
   back up data
   do anything if it's the active DB ?
   add indicator to backed-up directory name so it is known it was deported
 
 Import, Create or Remove a Family DataBase -> Re-Import a Deported Family DataBase
-  look for plain text files or Gedcom to re-import
 
 Verify Family Data
-  allow for plain text files or Gedcom to verify
+  add verify data from a Gedcom
   may need to change Docs, Docs/VerificationChecks.html and/or Include/ExampleOfUserCreatedFiles
   plain text files - ran into 1 strange issue where the end of the Family Group was EOL, X, EOL, EOL
     the X was an undisplayable character (vi didn't even acknowledge the character was there)
@@ -131,22 +118,11 @@ Verify Family Data
     https://en.wikipedia.org/wiki/List_of_counties_by_U.S._state
     https://en.wikipedia.org/wiki/Index_of_U.S._counties
   plain text files - the names of people at the head of family groups with no parents need to be cited
-  plain text files - check that all children and HOF Line when not a child in another Family Group have gender indicator
-    like:
-      199.0  Herbert Ryder (M) [1]
-
-    Children:
-
-    i.    Fred. (M) [3]
-    ii.   Elizabeth. (F) [3]
-    iii.  name unknown. (U) [3]
-
   bug (plain text files)
     "Notes -" header missing, Verify did not catch it
       how to catch this?
       what if multiple or all headers are missing?
       if columns 1-11 of a line contains a date, then we know there must be a Timeline header
-
   add option on command line to auto-fix problems which can be fixed
     ask user before fixing
     do not fix anything
@@ -355,7 +331,7 @@ Verify Family Data
     verify sort order (str.split(",").sort().join(","))
 
 Family DataBase Activation
-  identify each DataBase as plain text or Gedcom
+  identify each DataBase as plain text or Gedcom in display list
   rewrite function to use Select/Option
   when "MELGenUtils DataBase Activation" is clicked provide the user with a list of DBs to choose from
   allow DB to be deactivated (? - isn't this already being done by clearing the checkbox and saving)
@@ -365,11 +341,11 @@ Family DataBase Activation
     or both
 
 Display Family Data -> HTML Family Data
+
 Display Family Data -> Plain Text Family Data
   when displaying Gedcom, include a simple conversion to a more human-readable format
 
 Edit Family Data
-  display a form which includes all data in separate editable fields whether it be a plain text DB or a Gedcom
   offer various ways for user to edit DB
     allow user to use their favorite system editor (vi, notepad, TextEdit (Mac), etc)
     provide a textarea via HTML (ala NotesActDB.html or GenNotes.html) 
@@ -383,7 +359,6 @@ Edit Family Data
     should optionally happen; backup (?) and delete HTML version (if it exists) and alert user it needs to be re-created
 
 Reports
-  all reports will need to be able to handle a plain text DB or a Gedcom
 
 Reports -> Produce Timeline
   take into account a 5-position year in Timeline files (digit in column 12)
@@ -658,7 +633,6 @@ Reports -> Design a Report
   allow user to change design of already-available report as to where info goes and what info shows
 
 Search/Inspect/Analyze Family Data
-  all functions will need to be able to handle a plain text DB or a Gedcom
 
 Search/Inspect/Analyze Family Data -> Search
   include full text search at familysearch.org in Internet results
@@ -1048,7 +1022,7 @@ Search/Inspect/Analyze Family Data -> Analyze
     look for possible duplicate Family Groups
 
 Miscellaneous Functions -> Back Up Active DataBase
-  need to be able to handle a plain text DB or a Gedcom
+  allow for a Gedcom DB
   set up auto periodic back up
     back up just changes or entire DB
   Save/Transfer portion of data
@@ -1057,7 +1031,6 @@ Miscellaneous Functions -> Back Up Active DataBase
   print portion of data
 
 Miscellaneous Functions -> Produce PDF
-  need to be able to handle a plain text DB or a Gedcom
   window.print() allows user to save to a PDF file
   will have to reformat text: 80 columns max (using code below), indent for continuation lines will be different depending upon the
     Section within the Family Group (Timeline - 14, Notes & Questions & Extras & Explanations - 2,
@@ -1109,10 +1082,10 @@ Miscellaneous Functions -> Slideshow
       add to or subtract from delay period
 
 Miscellaneous Functions -> Active DataBase Stats
-  need to be able to handle a plain text DB or a Gedcom
+  allow for Gedcom DB
 
 Miscellaneous Functions -> Set Focus ID for Active DataBase
-  need to be able to handle a plain text DB or a Gedcom
+  allow for a Gedcom DB
   bug - in a test DB, there was one Family Group; the DB imported successfully (with no focus ID specified), Verified successfully,
           and Inspected successfully
         the begining portion of the Family Group looked like:
@@ -1128,7 +1101,7 @@ Miscellaneous Functions -> Set Focus ID for Active DataBase
           there seemed to be a loop in processing
 
 Miscellaneous Functions -> Copy Active DataBase
-  need to be able to handle a plain text DB or a Gedcom
+  allow for Gedcom DB
   add email as an option for output 
   add printing as an option for output
     print only Family Data, Citation material & images of people (let user know)
@@ -1154,13 +1127,12 @@ Miscellaneous Functions -> Additional Research Regarding Active DataBase
 Miscellaneous Functions -> Audio/Video Intro for Active DataBase
 
 Miscellaneous Functions -> Knowledge Tree for Active DataBase
-  need to be able to handle a plain text DB or a Gedcom
   questions & answers
 
 Miscellaneous Functions -> Create a Gedcom from Active DataBase
   optional Gedcom formats can be offered the user like (1) a Gedcom which contains 100% of the data
     in NOTE form or (2) a fully structured Gedcom
-  different Gedcom versions can be offered
+  different Gedcom versions (5.1, 5.5, 7.0, etc) can be offered
   need to be able to create/copy a portion of an already existing Gedcom
   see Notes.txt for GEDCOM specs
   see Notes/CreateGedcom
@@ -1168,10 +1140,9 @@ Miscellaneous Functions -> Create a Gedcom from Active DataBase
   how will the Others, UnsureIfRelated files and the index be included?
 
 Miscellaneous Functions -> Solve a Problem in Active DataBase
-  need to be able to handle a plain text DB or a Gedcom
 
 Miscellaneous Functions -> Create an Index for Active DataBase
-  need to be able to handle a plain text DB or a Gedcom
+  allow for Gedcom format
   processName() - when omitting, add all states, Canada provinces, et al
     however, some states can be proper names for people (e.g., Montana, York, et al)
   modify code so that all name pickups use function findProperName()
@@ -1222,19 +1193,17 @@ Miscellaneous Functions -> Access Message Board Regarding Active DataBase
     https://github.com/cfenollosa/bashblog
 
 Miscellaneous Functions -> Ethnicity Percentages for an Individual in Active DataBase
-  need to be able to handle a plain text DB or a Gedcom
   based upon only the contents of the DB
   based upon DNA results
 
 Miscellaneous Functions -> Display Info for Active DataBase
 
 Miscellaneous Functions -> Publish
-  need to be able to handle a plain text DB or a Gedcom
   book of the active DB
   Web page of active DB
 
 Miscellaneous Functions -> Link Checker for Active DataBase
-  need to be able to handle a plain text DB or a Gedcom
+  allow for Gedcom DB
   perhaps require Web address to be enclosed within <> as well as beginning with http or https
   add options 
     show all or show just broken
@@ -1279,8 +1248,10 @@ Miscellaneous Functions -> Money Value Conversion
 
 Miscellaneous Functions -> Merge Two Family DataBases Into One
   need to be able to handle a plain text DB, a Gedcom or a mix of both
+
 Miscellaneous Functions -> Split One Family DataBase Into Two
   need to be able to handle a plain text DB or a Gedcom, and perhaps output a different type than is input
+
 Miscellaneous Functions -> Password Protection for a DataBase
 Miscellaneous Functions -> Write-protection for a DataBase
 
@@ -2439,9 +2410,6 @@ general/other
       flags - for different countries (where a person was born, where a person served in Armed Forces)
       emblems indicating participation in wars
 
-  think about using the Gedcom format for MELGenUtils DBs; everything in MELGenUtils would be generated from that
-    perhaps as an option
-
   sse's
     change system alert to dialog
 
@@ -2458,5 +2426,5 @@ general/other
     one fix (the only fix?) seems to be to send the buffer to node & use a node-worker (see Notes/PrintingFix)
     can't use worker on browser side because of security - already tried
 
-  use OBS Studio to provide a video (with audio) demonstrating MELGenUtils on youtube.com
+  use OBS Studio to provide a video (with audio) demonstrating MELGenUtils on youtube.com, et al
 
