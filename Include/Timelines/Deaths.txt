@@ -1,5 +1,5 @@
 # Deaths of Notable People
-# v20251129
+# v20251207
 # any line with the # character in column 1 is considered a comment line
 # comment lines are not included in MELGenUtils Reports
       - 961 David died and his throne is replaced by his son Solomon [3]
@@ -8273,8 +8273,8 @@
 16 Oct 1679 Roger Boyle died, 1st Earl of Orrery, Irish-English soldier
               and politician (b. 1621) [8]
 19 Nov 1679 Roger Conant died, Massachusetts governor (b. 1592) [8]
- 4 Dec 1679 Thomas Hobbes (b.1588), English philosopher [7] [8] and
-              theorist, [8] died. [7] [8] "The reputation of power IS
+ 4 Dec 1679 Thomas Hobbes (b.1588), English philosopher [7] [8] [19] and
+              theorist, [8] died. [7] [8] [19] "The reputation of power IS
               power." Hobbes sought to separate politics from religion. In
               his book "Leviathan" he argues that the only way to secure
               civil society is through universal submission to the absolute
@@ -10939,8 +10939,8 @@
               [8]
 16 Oct 1791 Grigory Potemkin died, Russian general and politician (b. 1739)
               [8]
- 5 Dec 1791 Wolfgang Amadeus Mozart died [7] [8] in Vienna, [7] Austrian
-              composer [7] [8] and musician (b. 1756) [8]
+ 5 Dec 1791 Wolfgang Amadeus Mozart died [7] [8] [19] in Vienna, [7]
+              Austrian composer [7] [8] and musician (b. 1756) [8]
 10 Dec 1791 Jacob Frank died, Polish religious leader (b. 1726) [8]
 23 Feb 1792 Joshua Reynolds died, English painter and academic (b. 1723) [8]
 29 Feb 1792 Johann Andreas Stein died, German piano builder (b. 1728) [8]
@@ -10950,12 +10950,9 @@
               designed the Culzean Castle (b. 1728) [8]
 10 Mar 1792 John Stuart died, 3rd Earl of Bute, Scottish politician,
               Prime Minister of the United Kingdom (b. 1713) [8]
-29 Mar 1792 King Gustav III of Sweden died after being shot in the back
-              at a midnight masquerade ball at Stockholm's Royal Opera just
-              13 days earlier. He is succeeded by Gustav IV Adolf. [6]
-            King Gustav III (b. 1746) of Sweden died after being shot in
-              the back at a midnight masquerade ball at Stockholm's Royal
-              Opera 13 days earlier. He is succeeded by Gustav IV Adolf. [8]
+29 Mar 1792 King Gustav III (b. 1746) of Sweden died after being shot in the
+              back at a midnight masquerade ball at Stockholm's Royal Opera
+              13 days earlier. He is succeeded by Gustav IV Adolf. [6] [8]
  3 Apr 1792 George Pocock died, English admiral (b. 1706) [8]
  4 Apr 1792 James Sykes died, American lawyer and politician (b. 1725) [8]
 14 Apr 1792 Maximilian Hell died, Slovak-Hungarian astronomer and priest
@@ -33195,8 +33192,8 @@
             Kazuharu Sonoda died, Japanese wrestler (b. 1956) [8]
 29 Nov 1987 Irene Handl died, English actress (b. 1901) [8]
 30 Nov 1987 Simon Carmiggelt died, Dutch journalist and author (b. 1913) [8]
- 1 Dec 1987 James Baldwin died, American novelist, poet, and critic (b. 1924)
-              [8]
+ 1 Dec 1987 James Baldwin died, American novelist, [8] [19] poet, critic,
+              (b. 1924) [8] and activist [19]
             Punch Imlach died, Canadian ice hockey player, coach, and
               manager (b. 1918) [8]
  2 Dec 1987 Luis Federico Leloir died, French-Argentinian physician and
@@ -35554,7 +35551,7 @@
               founded Tata Motors and Tata Global Beverages (b. 1904) [8]
 30 Nov 1993 David Houston died, American singer-songwriter (b. 1938) [8]
  1 Dec 1993 Ray Gillen died, American singer-songwriter (b. 1959) [8]
- 2 Dec 1993 Pablo Escobar died, Colombian drug lord [8]
+ 2 Dec 1993 Pablo Escobar died, Colombian drug lord [8] [19]
  3 Dec 1993 Lewis Thomas died, American physician, etymologist, and academic
               (b. 1913) [8]
  4 Dec 1993 Margaret Landon died, American missionary and author (b. 1903)
@@ -38964,7 +38961,8 @@
 30 Nov 2000 Eloise Jarvis McGraw died, American author (b. 1915) [8]
             Scott Smith died, Canadian bass player (b. 1955) [8]
  2 Dec 2000 Gail Fisher died, American actress (b. 1935) [8]
- 3 Dec 2000 Gwendolyn Brooks died, American poet and educator (b. 1917) [8]
+ 3 Dec 2000 Gwendolyn Brooks died, American poet [8] [19] and educator,
+              (b. 1917) [8] Pulitzer Prize-winner [19]
             Hoyt Curtin died, American composer and producer (b. 1922) [8]
  4 Dec 2000 Henck Arron died, Surinamese banker and politician, 1st Prime
               Minister of the Republic of Suriname (b. 1936) [8]
@@ -51561,8 +51559,9 @@
               Bassetti Architects (b. 1917) [8]
             William B. Edmondson died, American lawyer and diplomat,
               United States Ambassador to South Africa (b. 1927) [8]
-            Nelson Mandela died, South African lawyer and politician, 1st
-              President of South Africa, Nobel Prize laureate (b. 1918) [8]
+            Nelson Mandela died, [8] [19] South African lawyer and politician,
+              1st President of South Africa, Nobel Prize laureate (b. 1918)
+              [8]
  6 Dec 2013 Jean-Pierre Desthuilliers died, French poet and critic (b. 1939)
               [8]
             Stan Tracey died, English pianist and composer (b. 1926) [8]
@@ -57608,6 +57607,7 @@
 18 Sep 2020 Supreme Court Justice Ruth Bader Ginsburg died [19]
  8 Nov 2020 "Jeopardy!" host Alex Trebek died [19]
 13 Nov 2020 Paul Hornung, Green Bay Packers legend, died [16]
+ 7 Dec 2020 sound barrier-breaking pilot Chuck Yeager died [19]
 18 Oct 2021 former Secretary of State Colin Powell died [19]
  8 Jul 2022 former Japanese Prime Minister Shinzo Abe assassinated [19]
 31 Jul 2022 basketball legend Bill Russell died [19]

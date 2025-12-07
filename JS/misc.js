@@ -2178,8 +2178,366 @@ async function checkLinkFetch(FID, url) {
     }
 }
 
+function listINDIs (DBName) {
+    var b, e, tosend = "", indirec, sect, retitems, lit1, lit2;
+    var gedfn = ".GED", dirin, ged, last8Str, last4Str;
+
+    var sysloc = ProcessDBSysInfo("SysLocation");
+    dirin = path.join (sysloc, "DBs", DBName, "PlainText");
+
+    /* read GEDCOM */
+    fs.readdirSync(dirin).forEach(file => {
+        if (gedfn === file.slice(-4).toUpperCase()) {
+            const Absolute = path.join(dirin, file);
+            if (!(fs.statSync(Absolute).isDirectory()) && !(fs.statSync(Absolute).isSymbolicLink())) {
+                var stats = fs.statSync(Absolute);
+                try {
+                    ged = fs.readFileSync(Absolute, { encoding: 'utf8' });
+                    Logging("Read '" + Absolute + "'.");
+                    /* ensure Gedcom is ASCII */
+                    ged = convertToAscii(ged);
+                    Logging("Ensured contents of Gedcom is ASCII. MELGenUtils cannot handle non-ASCII characters at this time. " +
+                                 "\(Changed internally only. Did not alter actual Gedcom file.\)");
+                    ged = ged.replace(/\r\n/g, "\n");
+                    Logging("Removed \"\\r\"'s from Gedcom. \(Changed internally only. Did not alter actual Gedcom file.\)");
+                }
+                catch (err) {
+                    Logging(err + "; problem reading '" + Absolute + "'.");
+                }
+            }
+        }
+    })
+    tosend += '<head> <style> .radiobut { float: left; width: 5%; } .first { float: left; width: 8%; } ' +
+              '.second { float: left; width: 15%; } .third { float: left; width: 6%; } .fourth { float: left; width: 25%; } ' +
+              '.fifth { float: left; width: 6%; } .sixth { float: left; width: 25%; } </style> </head> <body> <pre>';
+    tosend += os.EOL + "<center>All Individuals in GEDCOM</center>" + os.EOL + os.EOL;
+    tosend += '<div class="container"><div class="radiobut">Select</div> <div class="first">Gedcom ID</div> <div class="second">Name</div> ' +
+              '<div class="third">Birthdate</div> <div class="fourth">Birthplace</div> <div class="fifth">Deathdate</div> ' +
+              '<div class="sixth">Deathplace</div></div>' + os.EOL + os.EOL;
+    for (var j = i = 0; i < ged.length; i++, j++) {
+        /* extract INDI section */
+        b = ged.indexOf('@ INDI', i);
+        if (b == -1)
+            break;
+        b = ged.lastIndexOf('0 @', b);
+        e = ged.indexOf('0 ', b + 1);
+        if (b == -1 || e == -1)
+            break;
+        else
+            indirec = ged.toString().substring(b, e);
+        i = e - 1;
+
+        lit1 = "but" + j;
+        lit2 = "div" + j;
+        tosend += '<div "class="container"><div class="radiobut"> <input type="radio" id="' + lit1 + '" name="person" value="' + lit1 +
+                  '"></div> ' + '<div id="' + lit2 + '"class="first">' +
+                  indirec.substring(3, indirec.indexOf('@', 3)) + '</div><div class="second">';
+        /* Given Name */
+        retitems = extractField (indirec, "2", "GIVN", 0);
+        tosend += retitems.str.trim();
+        /* Surname */
+        retitems = extractField (indirec, "2", "SURN", 0);
+        tosend += " " + retitems.str.trim();
+
+        /* extract BIRT section */
+        sect = extractSect (indirec, "1", "BIRT");
+        /* Birth Date */
+        tosend += '</div><div class="third">';
+        retitems = extractField (sect, "2", "DATE", 0);
+        tosend += retitems.str.trim();
+        /* Birth Place */
+        tosend += '</div><div class="fourth">';
+        retitems = extractField (sect, "2", "PLAC", 0);
+        tosend += retitems.str.trim();
+
+        /* extract DEAT section */
+        sect = extractSect (indirec, "1", "DEAT");
+        /* Death Date */
+        tosend += '</div><div class="fifth">';
+        retitems = extractField (sect, "2", "DATE", 0);
+        tosend += retitems.str.trim();
+        /* Death Place */
+        tosend += '</div><div class="sixth">';
+        retitems = extractField (sect, "2", "PLAC", 0);
+        tosend += retitems.str.trim();
+        tosend += '</div></div>' + os.EOL;
+    }
+    tosend += '<div class="container"><div class="radiobut"> <input type="radio" id="none" name="person" value="none">NONE</div>' + os.EOL;
+    tosend += "</pre> <center> <button id='acceptInd' onclick='getIndividual();'>Display Individual</button> </center>";
+    return tosend;
+}
+
+function getINDIData (id) {
+    var b, e, tosend = "<pre>", sect, retitems, date, place, childCnt;
+    var gedfn = ".GED", dirin, ged, mdate, mplace;
+
+    const sysloc = ProcessDBSysInfo("SysLocation");
+    const DBname = ProcessDBSysInfo("DBName");
+    dirin = path.join (sysloc, "DBs", DBname, "PlainText");
+
+    /* read GEDCOM */
+    fs.readdirSync(dirin).forEach(file => {
+        if (gedfn === file.slice(-4).toUpperCase()) {
+            const Absolute = path.join(dirin, file);
+            if (!(fs.statSync(Absolute).isDirectory()) && !(fs.statSync(Absolute).isSymbolicLink())) {
+                var stats = fs.statSync(Absolute);
+                try {
+                    ged = fs.readFileSync(Absolute, { encoding: 'utf8' });
+                    Logging("Read '" + Absolute + "'.");
+                    /* ensure Gedcom is ASCII */
+                    ged = convertToAscii(ged);
+                    Logging("Ensured contents of Gedcom is ASCII. MELGenUtils cannot handle non-ASCII characters at this time. " +
+                                 "\(Changed internally only. Did not alter actual Gedcom file.\)");
+                    ged = ged.replace(/\r\n/g, "\n");
+                    Logging("Removed \"\\r\"'s from Gedcom. \(Changed internally only. Did not alter actual Gedcom file.\)");
+                }
+                catch (err) {
+                    Logging(err + "; problem reading '" + Absolute + "'.");
+                }
+            }
+        }
+    })
+
+    tosend += "<br>";
+    /* extract INDI section */
+    retitems = extract0Rec (ged, '@' + id + '@', "INDI", 0);
+    const indiRec = retitems.str;
+    if (indiRec == '')
+        return "No INDI record in the Gedcom for this individual (ID = " + id + ".<br>This should not happen! Contact MELGenUtils maintainer.<br>";
+
+    tosend += "Data for Individual from Gedcom<br><br>";
+    var fullName = GetFullNameFromID (ged, id);
+    tosend += "Individual - " + fullName.trim() + "<br>";   // name
+    tosend += "Gedcom ID - " + id + "<br>";                 // Gedcom ID
+    /* extract BIRT section */
+    sect = extractSect (indiRec, "1", "BIRT");
+    date = extractField (sect, "2", "DATE", 0);
+    place = extractField (sect, "2", "PLAC", 0);
+    if (date.str.trim() != "undefined" || place.str.trim() != "undefined")
+        tosend += "Born - ";
+    if (date.str.trim() != "undefined")
+        tosend += date.str.trim() + " ";                    // birth date
+    if (place.str.trim() != "undefined")
+        tosend += "in " + place.str.trim() + "<br>";        // birth place
+    /* extract BAPT section */
+    sect = extractSect (indiRec, "1", "BAPT");              // baptismal info
+    if (sect == "")                                         // could be in
+        sect = extractSect (indiRec, "1", "CHR");           // either section
+    date = extractField (sect, "2", "DATE", 0);
+    place = extractField (sect, "2", "PLAC", 0);
+    if (date.str.trim() != "undefined" || place.str.trim() != "undefined")
+        tosend += "Baptized - ";
+    if (date.str.trim() != "undefined")
+        tosend += date.str.trim() + " ";                    // baptismal date
+    if (place.str.trim() != "undefined")
+        tosend += "in " + place.str.trim() + "<br>";        // baptismal place
+    /* extract DEAT section */
+    sect = extractSect (indiRec, "1", "DEAT");
+    date = extractField (sect, "2", "DATE", 0);
+    place = extractField (sect, "2", "PLAC", 0);
+    if (date.str.trim() != "undefined" || place.str.trim() != "undefined")
+        tosend += "Died - ";
+    if (date.str.trim() != "undefined")
+        tosend += date.str.trim() + " ";                    // death date
+    if (place.str.trim() != "undefined")
+        tosend += "in " + place.str.trim() + "<br>";        // death place
+    /* extract BURI section */
+    sect = extractSect (indiRec, "1", "BURI");
+    date = extractField (sect, "2", "DATE", 0);
+    place = extractField (sect, "2", "PLAC", 0);
+    if (date.str.trim() != "undefined" || place.str.trim() != "undefined")
+        tosend += "Buried - ";
+    if (date.str.trim() != "undefined")
+        tosend += date.str.trim() + " ";                    // burial date
+    if (place.str.trim() != "undefined")
+        tosend += "in " + place.str.trim() + "<br>";        // burial place
+
+    last8Str = tosend.slice(-8);
+    last4Str = tosend.slice(-4);
+    if (last4Str === "<br>") {
+        if (last8Str !== "<br><br>")
+            tosend += "<br>";
+    } else
+        tosend += "<br><br>";
+
+    // other stuff for individual
+    var Notes = getNotes (indiRec);
+    if (Notes.length > 8) {                      // if no Notes, Notes will contain "Notes - "
+        Notes = Notes.substring(0, Notes.lastIndexOf(',')) + '.';     // replace the last comma with a period
+        tosend += Notes + "<br><br>";
+    }
+
+    // parents
+    const parents = findFam (ged, indiRec, "FAMC");
+    if (parents != -1 && parents != 0) {
+        retitems = extractField (parents, "1", "HUSB", 0);
+        var idp = retitems.str.trim();
+        idp = idp.substring(1, idp.indexOf('@', 1));
+        if (idp != '' && idp != "undefined") {
+            const fullNamesp = GetFullNameFromID (ged, idp);
+            tosend += "Father - " + fullNamesp.trim() + "<br>";                    // father name
+        }
+        retitems = extractField (parents, "1", "WIFE", 0);
+        idp = retitems.str.trim();
+        idp = idp.substring(1, idp.indexOf('@', 1));
+        if (idp != '' && idp != "undefined") {
+            const fullNamesp = GetFullNameFromID (ged, idp);
+            tosend += "Mother - " + fullNamesp.trim() + "<br>";                    // mother name
+        }
+    } else
+        tosend += "Father - name unknown<br>Mother - name unknown<br><br>";
+
+    last8Str = tosend.slice(-8);
+    last4Str = tosend.slice(-4);
+    if (last4Str === "<br>") {
+        if (last8Str !== "<br><br>")
+            tosend += "<br>";
+    } else
+        tosend += "<br><br>";
+
+    // get spouse
+    const family = findFam (ged, indiRec, "FAMS");
+    if (family != -1 && family != '0') {
+        // get ID for spouse
+        retitems = extractField (family, "1", "HUSB", 0);
+        var idt = retitems.str.trim();
+        if (idt == "@" + id + "@") {
+            retitems = extractField (family, "1", "WIFE", 0);
+            idt = retitems.str.trim();
+        }
+        // get marriage date & place
+        sect = extractSect (family, "1", "MARR", 0);
+        if (sect != '') {
+            retitems = extractField (sect, "2", "DATE", 0);
+            mdate = retitems.str.trim();
+            retitems = extractField (sect, "2", "PLAC", 0);
+            mplace = retitems.str.trim();
+        }
+        // extract INDI for spouse
+        retitems = extract0Rec (ged, idt, "INDI", 0);
+        const irecsp = retitems.str.trim();
+        if (irecsp != "") {
+            idt = idt.substring(1, idt.indexOf('@', 1));
+            const fullNamesp = GetFullNameFromID (ged, idt);
+            tosend += "Spouse - " + fullNamesp.trim();                    // spouse name
+            if (mdate.trim() != "undefined")
+                tosend += " " + mdate.trim();
+            if (mplace.trim() != "undefined")
+                tosend += " in " + mplace.trim();
+            tosend += "<br>";
+            tosend += "Spouse Gedcom ID - " + idt + "<br><br>";           // spouse Gedcom ID
+        }
+
+        // get children
+        /* get each child's name */
+        for (var childPtr = childCnt = 0; childPtr < family.length; childCnt++) {
+            retitems = extractField (family, "1", "CHIL", childPtr);
+            childPtr = retitems.e;
+            idt = retitems.str.trim();
+            if (typeof retitems.str != "undefined" && retitems.str == "undefined")
+                /* no more children in FAM */
+                break;
+            retitems = extract0Rec (ged, idt + " ", "INDI", 0);
+            const irecChild = retitems.str.trim();
+            retitems = extractField (irecChild, "2", "GIVN", 0);
+            chName = retitems.str.trim();
+            if (!childCnt)
+                tosend += "Children - " + chName + "<br>";
+            else
+                tosend += "           " + chName + "<br>";
+        }
+    }
+
+    tosend += "<br></pre>";
+    return tosend;
+}
+
+function getNotes (indiRec) {
+    var Notes = "Notes - ", retStuff;
+
+    retStuff = processOther ("SSN", "SSN", indiRec, "1");
+    if (retStuff != '')
+        Notes += retStuff + ', ';
+    retStuff = processOther ("EMAIL", "email address", indiRec, "1");
+    if (retStuff != '')
+        Notes += retStuff + ', ';
+    retStuff = processOther ("ADDR", "lived at", indiRec, "1");
+    if (retStuff != '')
+        Notes += retStuff + ', ';
+    retStuff = processOther ("RESI", "lived at", indiRec, "1");
+    if (retStuff != '')
+        Notes += retStuff + ', ';
+    retStuff = processOther ("OCCU", "worked as a", indiRec, "1");
+    if (retStuff != '')
+        Notes += retStuff + ', ';
+    retStuff = processOther ("ADOP", "adopted", indiRec, "1");
+    if (retStuff != '')
+        Notes += retStuff + ', ';
+    retStuff = processOther ("NICK", "known as", indiRec, "1");
+    if (retStuff != '')
+        Notes += retStuff + ', ';
+    retStuff = processOther ("ALIA", "known as", indiRec, "1");
+    if (retStuff != '')
+        Notes += retStuff + ', ';
+    retStuff = processOther ("RELI", "a", indiRec, "1");
+    if (retStuff != '')
+        Notes += retStuff + ', ';
+    retStuff = processOther ("CREM", "cremated", indiRec, "1");
+    if (retStuff != '')
+        Notes += retStuff + ', ';
+    retStuff = processOther ("RETI", "retired", indiRec, "1");
+    if (retStuff != '')
+        Notes += retStuff + ', ';
+    retStuff = processOther ("NATU", "naturalized", indiRec, "1");
+    if (retStuff != '')
+        Notes += retStuff + ', ';
+    retStuff = processOther ("EMIG", "emigrated", indiRec, "1");
+    if (retStuff != '')
+        Notes += retStuff + ', ';
+    retStuff = processOther ("IMMI", "immigrated", indiRec, "1");
+    if (retStuff != '')
+        Notes += retStuff + ', ';
+    retStuff = processOther ("EDUC", "attended", indiRec, "1");
+    if (retStuff != '')
+        Notes += retStuff + ', ';
+    retStuff = processOther ("GRAD", "graduated from", indiRec, "1");
+    if (retStuff != '')
+        Notes += retStuff + ', ';
+    retStuff = processOther ("DSCR", "described as", indiRec, "1");
+    if (retStuff != '')
+        Notes += retStuff + ', ';
+
+    return Notes;
+}
+
+function processOther (what, lit, irec, level) {
+    var sect, edate = '', eplace = '', contents = '', stuff = '';
+
+    sect = extractSect (irec, level, what);
+    if (sect != "") {
+        retitems = extractField (sect, "1", what, 0);
+        contents = retitems.str.trim();
+        retitems = extractField (sect, "2", "DATE", 0);
+        edate = retitems.str.trim();
+        retitems = extractField (sect, "2", "PLAC", 0);
+        eplace = retitems.str.trim();
+
+        if (contents != '' && contents != "undefined")
+            stuff = lit + " " + contents;
+    }     
+
+    return stuff;
+}
+
+/* from stackoverflow.com */
+function convertToAscii(string) {
+    const unicodeToAsciiMap = {'Ⱥ':'A','Æ':'AE','Ꜻ':'AV','Ɓ':'B','Ƀ':'B','Ƃ':'B','Ƈ':'C','Ȼ':'C','Ɗ':'D','ǲ':'D','ǅ':'D','Đ':'D','Ƌ':'D','Ǆ':'DZ','Ɇ':'E','Ꝫ':'ET','Ƒ':'F','Ɠ':'G','Ǥ':'G','Ⱨ':'H','Ħ':'H','Ɨ':'I','Ꝺ':'D','Ꝼ':'F','Ᵹ':'G','Ꞃ':'R','Ꞅ':'S','Ꞇ':'T','Ꝭ':'IS','Ɉ':'J','Ⱪ':'K','Ꝃ':'K','Ƙ':'K','Ꝁ':'K','Ꝅ':'K','Ƚ':'L','Ⱡ':'L','Ꝉ':'L','Ŀ':'L','Ɫ':'L','ǈ':'L','Ł':'L','Ɱ':'M','Ɲ':'N','Ƞ':'N','ǋ':'N','Ꝋ':'O','Ꝍ':'O','Ɵ':'O','Ø':'O','Ƣ':'OI','Ɛ':'E','Ɔ':'O','Ȣ':'OU','Ꝓ':'P','Ƥ':'P','Ꝕ':'P','Ᵽ':'P','Ꝑ':'P','Ꝙ':'Q','Ꝗ':'Q','Ɍ':'R','Ɽ':'R','Ꜿ':'C','Ǝ':'E','Ⱦ':'T','Ƭ':'T','Ʈ':'T','Ŧ':'T','Ɐ':'A','Ꞁ':'L','Ɯ':'M','Ʌ':'V','Ꝟ':'V','Ʋ':'V','Ⱳ':'W','Ƴ':'Y','Ỿ':'Y','Ɏ':'Y','Ⱬ':'Z','Ȥ':'Z','Ƶ':'Z','Œ':'OE','ᴀ':'A','ᴁ':'AE','ʙ':'B','ᴃ':'B','ᴄ':'C','ᴅ':'D','ᴇ':'E','ꜰ':'F','ɢ':'G','ʛ':'G','ʜ':'H','ɪ':'I','ʁ':'R','ᴊ':'J','ᴋ':'K','ʟ':'L','ᴌ':'L','ᴍ':'M','ɴ':'N','ᴏ':'O','ɶ':'OE','ᴐ':'O','ᴕ':'OU','ᴘ':'P','ʀ':'R','ᴎ':'N','ᴙ':'R','ꜱ':'S','ᴛ':'T','ⱻ':'E','ᴚ':'R','ᴜ':'U','ᴠ':'V','ᴡ':'W','ʏ':'Y','ᴢ':'Z','ᶏ':'a','ẚ':'a','ⱥ':'a','æ':'ae','ꜻ':'av','ɓ':'b','ᵬ':'b','ᶀ':'b','ƀ':'b','ƃ':'b','ɵ':'o','ɕ':'c','ƈ':'c','ȼ':'c','ȡ':'d','ɗ':'d','ᶑ':'d','ᵭ':'d','ᶁ':'d','đ':'d','ɖ':'d','ƌ':'d','ı':'i','ȷ':'j','ɟ':'j','ʄ':'j','ǆ':'dz','ⱸ':'e','ᶒ':'e','ɇ':'e','ꝫ':'et','ƒ':'f','ᵮ':'f','ᶂ':'f','ɠ':'g','ᶃ':'g','ǥ':'g','ⱨ':'h','ɦ':'h','ħ':'h','ƕ':'hv','ᶖ':'i','ɨ':'i','ꝺ':'d','ꝼ':'f','ᵹ':'g','ꞃ':'r','ꞅ':'s','ꞇ':'t','ꝭ':'is','ʝ':'j','ɉ':'j','ⱪ':'k','ꝃ':'k','ƙ':'k','ᶄ':'k','ꝁ':'k','ꝅ':'k','ƚ':'l','ɬ':'l','ȴ':'l','ⱡ':'l','ꝉ':'l','ŀ':'l','ɫ':'l','ᶅ':'l','ɭ':'l','ł':'l','ſ':'s','ẜ':'s','ẝ':'s','ɱ':'m','ᵯ':'m','ᶆ':'m','ȵ':'n','ɲ':'n','ƞ':'n','ᵰ':'n','ᶇ':'n','ɳ':'n','ꝋ':'o','ꝍ':'o','ⱺ':'o','ø':'o','ƣ':'oi','ɛ':'e','ᶓ':'e','ɔ':'o','ᶗ':'o','ȣ':'ou','ꝓ':'p','ƥ':'p','ᵱ':'p','ᶈ':'p','ꝕ':'p','ᵽ':'p','ꝑ':'p','ꝙ':'q','ʠ':'q','ɋ':'q','ꝗ':'q','ɾ':'r','ᵳ':'r','ɼ':'r','ᵲ':'r','ᶉ':'r','ɍ':'r','ɽ':'r','ↄ':'c','ꜿ':'c','ɘ':'e','ɿ':'r','ʂ':'s','ᵴ':'s','ᶊ':'s','ȿ':'s','ɡ':'g','ᴑ':'o','ᴓ':'o','ᴝ':'u','ȶ':'t','ⱦ':'t','ƭ':'t','ᵵ':'t','ƫ':'t','ʈ':'t','ŧ':'t','ᵺ':'th','ɐ':'a','ᴂ':'ae','ǝ':'e','ᵷ':'g','ɥ':'h','ʮ':'h','ʯ':'h','ᴉ':'i','ʞ':'k','ꞁ':'l','ɯ':'m','ɰ':'m','ᴔ':'oe','ɹ':'r','ɻ':'r','ɺ':'r','ⱹ':'r','ʇ':'t','ʌ':'v','ʍ':'w','ʎ':'y','ᶙ':'u','ᵫ':'ue','ꝸ':'um','ⱴ':'v','ꝟ':'v','ʋ':'v','ᶌ':'v','ⱱ':'v','ⱳ':'w','ᶍ':'x','ƴ':'y','ỿ':'y','ɏ':'y','ʑ':'z','ⱬ':'z','ȥ':'z','ᵶ':'z','ᶎ':'z','ʐ':'z','ƶ':'z','ɀ':'z','œ':'oe','ₓ':'x'};
+    const stringWithoutAccents = string.normalize("NFD").replace(/[\u0300-\u036f]/g, '');
+    return stringWithoutAccents.replace(/[^\u0000-\u007E]/g, character => unicodeToAsciiMap[character] || '');
+}
+
 module.exports = { ProcessDBSysInfo, UpdateDBSysInfo, TimelineEvents, ReadFamilyDB, ReadIndex, DetermineSection, Look4Match, ChildrenMatch,
                    DBInfo, dirExist, OTDEvents, TOC, Logging, createDBinfo, yyyymmdd, extract0Rec, extractField, romanize, getParentID,
                    getParentName, findFam, Check4Children, extractSect, GoThruDirectory, PreSetFocusID, DoSetFocusID, loadFamDB, DBIndex,
-                   ChkLinks, GetFullNameFromID };
+                   ChkLinks, GetFullNameFromID, listINDIs, convertToAscii, getINDIData };
 

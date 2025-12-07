@@ -117,7 +117,8 @@ onload = function init() {
                 ws.onmessage = function(e) {
                     if (e.data == 'G') {
                         var span = document.getElementById("dial1span");
-                        var msg = "This function does not yet work with a Gedcom DataBase.<br> <br>";
+                        var msg = "This function does not yet work with a Gedcom DataBase.<br> " +
+                                  "But, non-family On This Day events can still be included in the report.<br> <br>";
                         const dialog1 = document.querySelector("#dial1");
                         span.innerHTML = msg;
                         dialog1.showModal();

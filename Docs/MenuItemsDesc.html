@@ -26,7 +26,7 @@ can be done by clicking the "Verify Family Data" menu item. Full verification of
 available to it.<br>
 <br>
 After a Family DataBase is created and imported, changes may be made by hand to the active Family DataBase by selecting the
-"Edit Family Data" menu item. Re-verification of the DataBase will be done automatically upon completion of the changes.
+"Create/Edit Family Data" menu item. Re-verification of the DataBase will be done automatically upon completion of the changes.
 If a HTML version of the Family DataBase exists, the HTML version will need to be re-created after any changes are made to the
 DataBase. Do not make changes directly by hand to the HTML version of the Family DataBase. The HTML version should always be
 auto-created from the plain text version using "Import, Create or Remove a Family DataBase -&gt; Create HTML Version of Family DataBase".<br>
@@ -50,7 +50,7 @@ Enter a name to assign to the Family DataBase. This is a required entry. Enter s
 cannot be used by a Family DataBase which is already imported.<br>
 <br>
 Check whether the Family DataBase should be Writeable/Updateable or not. If the Family DataBase is not made Writeable/Updateable it will
-not be able to be modified via the "Edit Family Data" menu item. This setting can be changed in
+not be able to be modified via the "Create/Edit Family Data" menu item. This setting can be changed in
 "Miscellaneous Functions -&gt; Write-protection for a DataBase".<br>
 <br>
 Check whether or not the Family DataBase will be made active upon successful import. This Family DataBase can also be made active (or
@@ -96,7 +96,7 @@ Enter a focus ID in the DataBase (oftentimes this might be yourself). This is an
 it will be useful for certain functions. Note that the ID for any person in the DataBase may be entered here.<br>
 <br>
 Check whether the Family DataBase should be Writeable/Updateable or not. If the DataBase is not Writeable/Updateable it will not be able to be
-modified via the "Edit Family Data" menu item. This setting can be changed in "Miscellaneous Functions -&gt; Write-protection for
+modified via the "Create/Edit Family Data" menu item. This setting can be changed in "Miscellaneous Functions -&gt; Write-protection for
 a DataBase".<br>
 <br>
 Check whether or not the Family DataBase will be made active upon successful import. This DataBase can also be made active (or deactivated)
@@ -222,7 +222,11 @@ Email addresses and Web site addresses to be clickable in the HTML version of th
 <hr style="width:50%">
 <br>
 &nbsp; &nbsp; <a id="item4.3">"Plain Text Family Data"</a> -<br>
-Display the plain text version of the currently active Family DataBase. If no Family DataBase is active this button will be disabled.<br>
+Display the plain text version of the currently active user-created Family DataBase. If no Family DataBase is active this button will be
+disabled.<br>
+<br>
+NOTE - If the active Family DataBase is user-created, the button selection will display as above. If the active Family DataBase is in
+Gedcom format, see "Display Family Data -&gt; Full Gedcom Structure/Format" and "Display Family Data -&gt; Gedcom, Human-Readable".<br>
 <br>
 Clicking this button will bring up a list of plain text files available for the active Family DataBase. Any of the entries in the list may
 be clicked to display that particular data. Use the browser back button, if needed, to go back to the list of plain text files.<br>
@@ -231,18 +235,54 @@ Use the browser Print facility to print a portion of the family data to hard cop
 communication technique may be available for sharing smaller batches of information. Copy text by highlighting it with the mouse pointer,
 and then paste it into another program (e.g., a text editor or the body of an email) that supports the technique.<br>
 <br>
-All MELGenUtils Family DataBases will have a plain text version of the family data. All functions in MELGenUtils that process family data
-will use the plain text version as the basis for the processing (except "Display Family Data -&gt; HTML Family Data"). The format of
-the Family Data is fully explained in "Help/Info/Docs -&gt; Data Format and Notes".<br>
+All MELGenUtils Family DataBases will have a plain text version of the family data, beit user-created or Gedcom. All functions in MELGenUtils
+that process family data will use the plain text version as the basis for the processing (except "Display Family Data -&gt; HTML Family Data").
+The format of the user-created Family Data is fully explained in "Help/Info/Docs -&gt; Data Format and Notes".<br>
 <br>
 <hr style="width:50%">
 <br>
-<a id="item5.1">"Edit Family Data"</a> -<br>
-Use this menu item to edit the data in the currently active Family DataBase. If no Family DataBase is active this button will be disabled.
-Re-verification of the DataBase will be done automatically upon completion of the changes. If a HTML version of the
-Family DataBase exists, the HTML version will need to be re-created after any changes are made to the Family DataBase. Do not make changes
-directly by hand to the HTML version of the Family DataBase. The HTML version should always be auto-created from the plain text
-version using "Import, Create or Remove a Family DataBase -&gt; Create HTML Version of Family DataBase".<br>
+&nbsp; &nbsp; <a id="item4.4">"Full Gedcom Structure/Format"</a> -<br>
+Display the plain text version of the currently active Gedcom Family DataBase. If no Family DataBase is active this button will be
+disabled.<br>
+<br>
+NOTE - If the active Family DataBase is a Gedcom, the button selection will display as above, as well as a second button selection,
+"Display Family Data -&gt; Gedcom, Human-Readable". If the active Family DataBase is user-created plain text format, see
+"Display Family Data -&gt; Plain Text Family Data".<br>
+<br>
+Clicking this button will bring up a list of plain text files available for the active Family DataBase, including the Gedcom file. Any of
+the entries in the list may be clicked to display that particular contents. The entire Gedcom in it's full, structured format may be viewed
+here. Use the browser back button, if needed, to go back to the list of plain text files.<br>
+<br>
+All MELGenUtils Family DataBases will have a plain text version of the family data, beit user-created or Gedcom. All functions in MELGenUtils
+that process family data will use the plain text version as the basis for the processing (except "Display Family Data -&gt; HTML Family Data").<br>
+<br>
+<hr style="width:50%">
+<br>
+&nbsp; &nbsp; <a id="item4.5">"Gedcom, Human-Readable"</a> -<br>
+Display the plain text version for individuals in the currently active Gedcom Family DataBase. If no Family DataBase is active this button will
+be disabled.<br>
+<br>
+NOTE - If the active Family DataBase is a Gedcom, the button selection will display as above, as well as a second button selection,
+"Display Family Data -&gt; Full Gedcom Structure/Format". If the active Family DataBase is user-created plain text format, see
+"Display Family Data -&gt; Plain Text Family Data".<br>
+<br>
+Clicking this button will bring up a list of all individuals in the active Gedcom Family DataBase. To see the Gedcom data in a human-readable
+format for any individual, select the individual by clicking the associated circle to the left of that individual, then click the
+"Display Individual" button at the bottom of the list. The data will appear in a new browser tab. To select another individual, select
+from the list again.<br>
+<br>
+All MELGenUtils Family DataBases will have a plain text version of the family data, beit user-created or Gedcom. All functions in MELGenUtils
+that process family data will use the plain text version as the basis for the processing (except "Display Family Data -&gt; HTML Family Data").<br>
+<br>
+<hr style="width:50%">
+<a id="item5.1">"Create/Edit Family Data"</a> -<br>
+Use this menu item to edit the data in the currently active Family DataBase, or to create new Family Data. If editing the currently active
+Family DataBase, re-verification of the DataBase will be done automatically upon completion of the changes. In this case, if a HTML version
+of the currently active Family DataBase exists, the HTML version will need to be re-created after any changes are made to the Family DataBase.
+Do not make changes directly by hand to the HTML version of the Family DataBase. The HTML version should always be auto-created from the
+plain text version using "Import, Create or Remove a Family DataBase -&gt; Create HTML Version of Family DataBase".<br>
+<br>
+If creating new Family Data, the data will need to be imported after completion.<br>
 <br>
 Note - This function is not yet available.<br>
 <br>

@@ -5,9 +5,6 @@ Main Menu (top level menu)
   allow focus ID to be set/changed
   let user know, when a library isn't installed, which functions won't work; disable appropriate function buttons
     https://stackoverflow.com/questions/15302618/node-js-check-if-module-is-installed-without-actually-requiring-it
-  if no DB active, in the Main Menu do not show "Focus ID Within Active DB =" line, "Active DB Status =" line and "DB Format =" line
-  would like to refresh this page every-so-often, on focus, and/or when any display data changes but this seems to create too many
-    EventListeners and may interfere with the sse EventListener
 
 Import, Create or Remove a Family DataBase -> Import a Family DataBase from a GEDCOM
   if the Gedcom file is a zip file (must have extention ".zip", zip file may contain optional stuff), unzip it before importing
@@ -27,6 +24,9 @@ Import, Create or Remove a Family DataBase -> Import a Family DataBase from a GE
     make downloading files a user option
 
 Import, Create or Remove a Family DataBase -> Import a Family DataBase from User Created Files
+  add an index.html file to the PlainText directory containing the directory listing (the JS will need to point to the index.html file)
+    this will keep the user from being able to go "up" in the directory listing display
+    like in ImportDB.js, lines 362-378
   if a zip file, unzip it before importing
     change instructions for installing TestDB in Readme.html & Readme.md
   allow only "body" or "text" files with a sequential number appended (e.g., text0.0 and bodya are not allowed)
@@ -99,14 +99,14 @@ Import, Create or Remove a Family DataBase -> Create HTML Version of Family Data
     https://www.recoll.org/usermanual/webhelp/docs/RCL.PROGRAM.PYTHONAPI.INTRO.html
 
 Import, Create or Remove a Family DataBase -> Deport a Family DataBase
-  back up data
-  do anything if it's the active DB ?
-  add indicator to backed-up directory name so it is known it was deported
+  if it's the active DB, tell user & ask if he/she is sure
+  add indicator to deported directory name so it is known it was deported
+  should deported DB stay in MELGenUtilsInfo.txt and DBStatus marked as deported?
 
 Import, Create or Remove a Family DataBase -> Re-Import a Deported Family DataBase
 
 Verify Family Data
-  add verify data from a Gedcom
+  add verify data regarding a Gedcom
   may need to change Docs, Docs/VerificationChecks.html and/or Include/ExampleOfUserCreatedFiles
   plain text files - ran into 1 strange issue where the end of the Family Group was EOL, X, EOL, EOL
     the X was an undisplayable character (vi didn't even acknowledge the character was there)
@@ -343,16 +343,25 @@ Family DataBase Activation
 Display Family Data -> HTML Family Data
 
 Display Family Data -> Plain Text Family Data
-  when displaying Gedcom, include a simple conversion to a more human-readable format
+    OR                                             (only one or the other will display)
+Display Family Data -> Full Gedcom Stucture/Format
+  for plain-text DB, add option to show data for an individual (in this case, a HOF) (as done with Gedcom DB)
+  for plain-text DB, add PRINT buttons
 
-Edit Family Data
-  offer various ways for user to edit DB
+Display Family Data -> Gedcom, Human-Readable
+  include button in Gedcom individual data display to right of each parent, each spouse & each child - if clicked the associated data will display
+  add PRINT button to INDI list
+  add PRINT button to individual data page
+
+Create/Edit Family Data
+  output in plain text format or Gedcom format
+  offer various ways for user to create/edit DB
     allow user to use their favorite system editor (vi, notepad, TextEdit (Mac), etc)
     provide a textarea via HTML (ala NotesActDB.html or GenNotes.html) 
       see https://github.com/Benarjishyam/collabarative-text-editor
-    provide a form which can be filled in to update/create a Family Group
-      if updating an already existing Family Group, the form will be filled in with data already there; user will then edit
-    user can input a specially formatted file which will auto-update a DB
+    provide a form which can be filled in to create/edit a Family Group
+      if editing an already existing Family Group, the form will be filled in with data already there; user will then edit
+    user can input a specially formatted file which will auto-create/update data
   allow for notification to be sent to data creator and to anyone user has shared data with when DataBase is updated
   any change by user should ripple through database (e.g., ID references), also update index if needed
   when changes are made to a DB, also alert user to other changes which MELGenUtils cannot make (e.g., names or id refs in photos); verification
@@ -2268,7 +2277,7 @@ general/other
     events for children (any event containing "child #")
     events containing any unknown names ("------")
 
-  expand upon the contents of Docs/MenuItemsDesc.html
+  expand upon and/or ensure correctness of contents of Docs/MenuItemsDesc.html
 
   at import, if table of contents file exists in import directory, it is copied to MELGenUtils DB area, if it doesn't exist it is created
     if table of contents file exists, it could contain bad info

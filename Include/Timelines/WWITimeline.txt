@@ -1,5 +1,5 @@
 # World War I Events
-# v20251111
+# v20251204
 # any line with the # character in column 1 is considered a comment line
 # comment lines are not included in MELGenUtils Reports
        1914 -1918, World War I, about 15 million people died [11]
@@ -1925,11 +1925,11 @@
               formally surrenders his undefeated army at Abercorn in
               present-day Zambia. [1]
 27 Nov 1918 The Germans evacuate Belgium. [1]
-28 Nov 1918 Kaiser Wilhelm II of Prussia and Germany abdicates [2]
+28 Nov 1918 Kaiser Wilhelm II of Prussia and Germany abdicates. [2]
  1 Dec 1918 Kingdom of Serbs, Croats and Slovenes proclaimed. [1]
  4 Dec 1918 U.S. President Woodrow Wilson sails for the World War I peace
               talks in Versailles, becoming the first US president to travel
-              to Europe while in office. [1]
+              to Europe while in office. [1] [12]
  5 Jan 1919 Hermann Detzner surrenders at the Finschhafen District of New
               Guinea. [1]
 10 Jan 1919 Fakhri Pasha surrenders at Medina. [1]

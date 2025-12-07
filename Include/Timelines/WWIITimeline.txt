@@ -1,5 +1,5 @@
 # World War II Events
-# v20251120
+# v20251207
 # any line with the # character in column 1 is considered a comment line
 # comment lines are not included in MELGenUtils Reports
 29 Oct 1918 Start of the German Revolution. [1]
@@ -3389,29 +3389,29 @@
             Vilna Ghetto Gestapo Workers Aktion - 800 Jews and 10 Poles
               shot at the Ponary massacre death site. Temperatures are minus
               23 degrees Celsius. [1]
- 7 Dec 1941 (8 Dec, Asian time zones) Japan launches an attack on Pearl
-              Harbor, (Imperial Japanese Navy with 353 planes attack killing
-              2403 people) [4] declares war on the United States and the United
-              Kingdom and invades Thailand and British Malaya and launches
-              aerial attacks against Guam, Hong Kong, the Philippines,
-              Shanghai, Singapore and Wake Island. Canada declares war on
-              Japan. Australia declares war on Japan. [1] Army sergeant George
-              Schmersahl of Bloomfield (NJ) was killed in action that day,
-              perhaps the first New Jerseyan to die in World War II. [10]
-              Some other people who died: Mervyn S. Bennion, American captain
-              (b. 1887), Frederick Curtice Davis, American sailor (b. 1915),
-              Julius Ellsberry, American sailor (b. 1921), John C. England,
-              American sailor (b. 1920), Edwin J. Hill, American sailor
-              (b. 1894), Ralph Hollis, American sailor (b. 1906), Herbert
-              C. Jones, American sailor (b. 1918), Isaac C. Kidd, American
-              admiral (b. 1884), Robert Lawrence Leopold, American sailor
-              (b. 1916), Herbert Hugo Menges, American sailor (b. 1917),
-              Thomas James Reeves, American sailor (b. 1895), Aloysius Schmitt,
-              American priest and sailor (b. 1909), Robert R. Scott, American
-              sailor (b. 1915), Peter Tomich, American sailor (b. 1893), Robert
-              Uhlmann, American sailor (b. 1919), Franklin Van Valkenburgh,
-              American captain (b. 1888), Eldon P. Wyman, American sailor
-              (b. 1917) [1]
+ 7 Dec 1941 (8 Dec, Asian time zones) [4] Japan launches an attack on Pearl
+              Harbor, [4] [11] (Imperial Japanese Navy with 353 planes attack
+              [4] killing 2403 people) [4] [11] declares war on the United
+              States and the United Kingdom and invades Thailand and British
+              Malaya and launches aerial attacks against Guam, Hong Kong,
+              the Philippines, Shanghai, Singapore and Wake Island. Canada
+              declares war on Japan. Australia declares war on Japan. [1]
+              Army sergeant George Schmersahl of Bloomfield (NJ) was killed in
+              action that day, perhaps the first New Jerseyan to die in World
+              War II. [10] Some other people who died: Mervyn S. Bennion,
+              American captain (b. 1887), Frederick Curtice Davis, American
+              sailor (b. 1915), Julius Ellsberry, American sailor (b. 1921),
+              John C. England, American sailor (b. 1920), Edwin J. Hill,
+              American sailor (b. 1894), Ralph Hollis, American sailor
+              (b. 1906), Herbert C. Jones, American sailor (b. 1918), Isaac
+              C. Kidd, American admiral (b. 1884), Robert Lawrence Leopold,
+              American sailor (b. 1916), Herbert Hugo Menges, American sailor
+              (b. 1917), Thomas James Reeves, American sailor (b. 1895),
+              Aloysius Schmitt, American priest and sailor (b. 1909), Robert
+              R. Scott, American sailor (b. 1915), Peter Tomich, American
+              sailor (b. 1893), Robert Uhlmann, American sailor (b. 1919),
+              Franklin Van Valkenburgh, American captain (b. 1888), Eldon
+              P. Wyman, American sailor (b. 1917) [1]
             Adolf Hitler signs the German "Night and Fog decree" dictating
               the elimination of anti-Nazi resistance activities in Western
               Europe. [1]
@@ -5260,7 +5260,7 @@
 28 Nov 1942 The Allied Forces take Reunion from Vichy France. [1]
 29 Nov 1942 The Allied offensive in Tunisia meets with only minimum
               success. [1]
-            coffee rationing begins [7]
+            Coffee rationing begins. [7]
 30 Nov 1942 The naval Battle of Tassafaronga (off Guadalcanal); this is a
               night action in which a smaller squadron of Japanese destroyers
               led by Raizo Tanaka defeats a U.S. cruiser force under Carleton
@@ -5273,12 +5273,12 @@
  2 Dec 1942 Heavy fighting in Tunisia, as German forces are pushed into
               the final North African corner. [1]
             Below the bleachers of Stagg Field at the University of Chicago,
-              a team led by Enrico Fermi initiate the first nuclear chain
-              reaction. A coded message, "The Italian navigator has landed
-              in the new world" is sent to President Roosevelt. [1]
- 4 Dec 1942 The first US bombing of mainland Italy --Naples. [1]
-            Polish Christians come to the aid of Polish Jews [7]
-            FDR orders dismantling of Works Progress Administration [4]
+              a team led by Enrico Fermi initiate [1] the first nuclear chain
+              reaction. [1] [11] A coded message, "The Italian navigator
+              has landed in the new world" is sent to President Roosevelt. [1]
+ 4 Dec 1942 The first US bombing of mainland Italy -- Naples. [1]
+            Polish Christians come to the aid of Polish Jews. [7]
+            FDR orders dismantling of Works Progress Administration. [4]
             Carlson's patrol during the Guadalcanal Campaign ends. [1]
  6 Dec 1942 RAF bombs Eindhoven, the Netherlands. [1]
  7 Dec 1942 British commandos conduct Operation Frankton a raid on shipping

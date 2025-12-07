@@ -407,6 +407,11 @@ ws.on("request", function (request) {
             else
                 connection.sendUTF(FamGroup);
         }
+        if (message.utf8Data.substring(0,12) == "GetINDIData ") {
+            misc.Logging(tLog + " to get Gedcom INDI data for ID " + message.utf8Data.substring(12) + "."); 
+            const INDIData = misc.getINDIData(message.utf8Data.substring(12));     // just the ID, no @ signs
+            connection.sendUTF(INDIData);
+        }
         if (message.utf8Data.substring(0,10) == "WriteRecur") {
             var OTDTRecur = [{}];
             OTDTRecur.length = 0;
@@ -480,6 +485,11 @@ ws.on("request", function (request) {
                 misc.Logging("Could not save User Preferences. \(" + err + "\)");
             }
             connection.sendUTF(result);
+        }
+        if (message.utf8Data == "GetINDIList") {
+            misc.Logging(tLog + " to get a list of INDIs from Gedcom."); 
+            const INDIList = misc.listINDIs(misc.ProcessDBSysInfo ("DBName"));
+            connection.sendUTF(INDIList);
         }
         if (message.utf8Data == "DBActiveInfo") {
             misc.Logging(tLog + " for info of active DB from MELGenUtilsInfo.txt file."); 
