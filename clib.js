@@ -28,6 +28,20 @@ function check4ActiveDB() {
     })
 }
 
+/* show other individual data */
+function showIData(id) {
+    const ws = new WebSocket('ws://localhost:3000/');
+    ws.onopen = function() {
+        ws.send("GetINDIData " + id);
+        ws.onmessage = function(e) {
+            var w = window.open('about:blank');
+            w.document.open();
+            w.document.write(e.data);
+            w.document.close();
+        }
+    }
+}
+
 /* user wants to Print; reformat area to print depending upon user-selected max line length */
 function userPrint(what) {
     var indent, linelen, ctext, bpos, lpos, spacepos, ll, x, newlinesw;

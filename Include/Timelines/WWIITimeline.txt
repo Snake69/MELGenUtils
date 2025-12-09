@@ -1,5 +1,5 @@
 # World War II Events
-# v20251207
+# v20251208
 # any line with the # character in column 1 is considered a comment line
 # comment lines are not included in MELGenUtils Reports
 29 Oct 1918 Start of the German Revolution. [1]
@@ -3415,14 +3415,14 @@
             Adolf Hitler signs the German "Night and Fog decree" dictating
               the elimination of anti-Nazi resistance activities in Western
               Europe. [1]
- 8 Dec 1941 The United States declared war on Japan in the wake of the
-              Pearl Harbor attack. Around 560,500 New Jerseyans, including
-              10,000 women and 360,000 draftees, served in all branches of
-              the armed forces during World War II. A total of 10,372 of them,
-              including ten of the state's seventeen Medal of Honor awardees,
-              made the ultimate sacrifice and were killed in action or died
-              of wounds or other causes. [4]
-            San Francisco has 1st blackout, at 6:15PM [9]
+ 8 Dec 1941 The United States declared war on Japan [1] [4] [11] in the wake
+              of the Pearl Harbor attack. Around 560,500 New Jerseyans,
+              including 10,000 women and 360,000 draftees, served in all
+              branches of the armed forces during World War II. A total of
+              10,372 of them, including ten of the state's seventeen Medal
+              of Honor awardees, made the ultimate sacrifice and were killed
+              in action or died of wounds or other causes. [4]
+            San Francisco has 1st blackout, at 6:15PM. [9]
             Japanese forces simultaneously invade Shanghai International
               Settlement, Malaya, Thailand, Hong Kong, the Philippines, and
               the Dutch East Indies. (See 7 Dec for the concurrent attack
@@ -3430,14 +3430,14 @@
             U.S. President Franklin D. Roosevelt declares December 7 to be
               "a date which will live in infamy", after which the U.S. declares
               war on Japan. [1]
-            The United States, the United Kingdom, the Netherlands and
-              New Zealand declare war on Japan. [1]
+            The United Kingdom, the Netherlands and New Zealand declare
+              war on Japan. [1]
             Japanese forces take the Gilbert Islands (which include
               Tarawa). Clark Field in the Philippines is bombed, and many
               American aircraft are destroyed on the ground. [1]
             Japanese troops attack Thailand in the Battle of Prachuab
               Khirikhan. [1]
-            The Battle of Hong Kong begins [1]
+            The Battle of Hong Kong begins. [1]
             Kamenka, Krasnaya Polyana, and Kriukovo, are liberated by the
               Workers' and Peasants' Red Army. The Germans are never again
               within artillery range of Moscow. [1]

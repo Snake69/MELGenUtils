@@ -1,5 +1,11 @@
 
-The task list below is by function (for the most part) and not prioritized.
+do Create/Edit Family Data for user-created plain text
+  provide a form which can be filled in to create/edit a Family Group
+  if editing an already existing Family Group, fill in the form with data already there; user will then edit
+
+
+
+The task list below is by function (for much of it) and not prioritized.
 
 Main Menu (top level menu)
   allow focus ID to be set/changed
@@ -343,15 +349,13 @@ Family DataBase Activation
 Display Family Data -> HTML Family Data
 
 Display Family Data -> Plain Text Family Data
+  add option to show data for an individual (in this case, a HOF) (as done with Gedcom DB)
+  add PRINT buttons
     OR                                             (only one or the other will display)
 Display Family Data -> Full Gedcom Stucture/Format
-  for plain-text DB, add option to show data for an individual (in this case, a HOF) (as done with Gedcom DB)
-  for plain-text DB, add PRINT buttons
 
 Display Family Data -> Gedcom, Human-Readable
-  include button in Gedcom individual data display to right of each parent, each spouse & each child - if clicked the associated data will display
   add PRINT button to INDI list
-  add PRINT button to individual data page
 
 Create/Edit Family Data
   output in plain text format or Gedcom format
@@ -359,9 +363,8 @@ Create/Edit Family Data
     allow user to use their favorite system editor (vi, notepad, TextEdit (Mac), etc)
     provide a textarea via HTML (ala NotesActDB.html or GenNotes.html) 
       see https://github.com/Benarjishyam/collabarative-text-editor
-    provide a form which can be filled in to create/edit a Family Group
-      if editing an already existing Family Group, the form will be filled in with data already there; user will then edit
-    user can input a specially formatted file which will auto-create/update data
+    user can input a specially formatted file which will auto-update data (NOT create since this would be redundant - user can just create
+      files by hand)
   allow for notification to be sent to data creator and to anyone user has shared data with when DataBase is updated
   any change by user should ripple through database (e.g., ID references), also update index if needed
   when changes are made to a DB, also alert user to other changes which MELGenUtils cannot make (e.g., names or id refs in photos); verification
@@ -2377,7 +2380,7 @@ general/other
     Make INFO color green
     but when printing
       if user formats report to not exceed a particular column number, the HTML for color inserted into lines will screw up the line length
-      how to print a partiular color on a color printer
+      how to print a particular color on a color printer
 
   General options for Inspect or Analyze
     allow user to select phrases to key on and the sequence of such phrases
@@ -2432,8 +2435,10 @@ general/other
       do the reformat if looking for a space in each line to do the break; currently breaking at the line width specified by user whether there's
       a space or character in that position; fix it so line always breaks at space
     try using CSS (see Notes/PrintingFix)
-    one fix (the only fix?) seems to be to send the buffer to node & use a node-worker (see Notes/PrintingFix)
-    can't use worker on browser side because of security - already tried
+    one fix might be to send the buffer to node & use a node-worker (see Notes/PrintingFix)
+      can't use worker on browser side because of security - already tried
+    rather than have a Print button which calls the system print function, create a printer-friendly version before calling the
+      system print function
 
   use OBS Studio to provide a video (with audio) demonstrating MELGenUtils on youtube.com, et al
 

@@ -1709,33 +1709,10 @@ function extractField (rec, level, label, start) {
     b = rec.indexOf(level + " " + label, start);
     e = rec.indexOf("\n", b + 7);
     if (b == -1 || e == -1)
-        if (label == "GIVN") {
-            /* extract given name from NAME record */
-            b = rec.indexOf("1" + " " + "NAME", start);
-            if (b == -1)
-                return { str: "------", e: e };
-            else {
-                e = rec.indexOf("/", b);
-                if (e == -1)
-                    return { str: "------", e: e };
-                else
-                    return { str: rec.substring(b + 7, rec.indexOf("/", b + 7) - 1) + " ", e: e };
-            }
-        } else
-            if (label == "SURN") {
-                /* extract surname from NAME record */
-                b = rec.indexOf("1" + " " + "NAME", start);
-                if (b == -1)
-                    return { str: "------", e: e };
-                else {
-                    b = rec.indexOf("/", b);
-                    if (b == -1)
-                        return { str: "------", e: e };
-                    else
-                        return { str: rec.substring(b + 1, rec.indexOf("/", b + 1)) + " ", e: e };
-                }
-            } else
-                return { str: "undefined", e: e };
+        if (label == "GIVN" || label == "SURN")
+            return { str: "------", e: e };
+        else
+            return { str: "undefined", e: e };
     else
         return { str: rec.substring(b + 7, e) + " ", e: e };
 }
@@ -1859,23 +1836,23 @@ function extractSect (rec, level, label) {
 
 /* given an ID, return full name */
 function GetFullNameFromID (ged, id) {
-    var irec, Gretitems, Lretitems;
+    var irec, Gretitems, Lretitems, name;
 
     /* get INDI record for requested ID */
     retitems = extract0Rec (ged, "@" + id + "@", "INDI", 0);
     irec = retitems.str;
     Gretitems = extractField (irec, 2, "GIVN", 0);
-    if (Gretitems.str == '')
+    if (Gretitems.str == '' || Gretitems == -1)
         name = "------";
     else
         name = Gretitems.str.trim();
     Lretitems = extractField (irec, 2, "SURN", 0);
-    if (Lretitems.str == '')
+    if (Lretitems.str == '' || Lretitems == -1)
         name += " " + "------";
     else
         name += " " + Lretitems.str.trim();
 
-    if (Gretitems.str == '' && Lretitems.str == '')
+    if ((Gretitems.str == '' || Gretitems == -1) && (Lretitems.str == '' || Lretitems == -1))
         return "name unknown";
     else
         return name;
@@ -2180,7 +2157,7 @@ async function checkLinkFetch(FID, url) {
 
 function listINDIs (DBName) {
     var b, e, tosend = "", indirec, sect, retitems, lit1, lit2;
-    var gedfn = ".GED", dirin, ged, last8Str, last4Str;
+    var gedfn = ".GED", dirin, ged, last2Str, last1Str;
 
     var sysloc = ProcessDBSysInfo("SysLocation");
     dirin = path.join (sysloc, "DBs", DBName, "PlainText");
@@ -2268,7 +2245,7 @@ function listINDIs (DBName) {
 }
 
 function getINDIData (id) {
-    var b, e, tosend = "<pre>", sect, retitems, date, place, childCnt;
+    var b, e, tosend = "", sect, retitems, date, place, childCnt;
     var gedfn = ".GED", dirin, ged, mdate, mplace;
 
     const sysloc = ProcessDBSysInfo("SysLocation");
@@ -2298,17 +2275,19 @@ function getINDIData (id) {
         }
     })
 
-    tosend += "<br>";
+    tosend += "<!doctype html> <html> <body id='Body'> <pre>" + os.EOL + "MELGenUtils" + os.EOL + os.EOL;
+
+    tosend += "\n";
     /* extract INDI section */
     retitems = extract0Rec (ged, '@' + id + '@', "INDI", 0);
     const indiRec = retitems.str;
     if (indiRec == '')
-        return "No INDI record in the Gedcom for this individual (ID = " + id + ".<br>This should not happen! Contact MELGenUtils maintainer.<br>";
+        return "No INDI record in the Gedcom for this individual (ID = " + id + ".\nThis should not happen! Contact MELGenUtils maintainer.\n";
 
-    tosend += "Data for Individual from Gedcom<br><br>";
+    tosend += "Data for Individual from Gedcom\n\n";
     var fullName = GetFullNameFromID (ged, id);
-    tosend += "Individual - " + fullName.trim() + "<br>";   // name
-    tosend += "Gedcom ID - " + id + "<br>";                 // Gedcom ID
+    tosend += "Individual - " + fullName.trim() + "\n";   // name
+    tosend += "Gedcom ID - " + id + "\n";                 // Gedcom ID
     /* extract BIRT section */
     sect = extractSect (indiRec, "1", "BIRT");
     date = extractField (sect, "2", "DATE", 0);
@@ -2318,7 +2297,7 @@ function getINDIData (id) {
     if (date.str.trim() != "undefined")
         tosend += date.str.trim() + " ";                    // birth date
     if (place.str.trim() != "undefined")
-        tosend += "in " + place.str.trim() + "<br>";        // birth place
+        tosend += "in " + place.str.trim() + "\n";        // birth place
     /* extract BAPT section */
     sect = extractSect (indiRec, "1", "BAPT");              // baptismal info
     if (sect == "")                                         // could be in
@@ -2330,7 +2309,7 @@ function getINDIData (id) {
     if (date.str.trim() != "undefined")
         tosend += date.str.trim() + " ";                    // baptismal date
     if (place.str.trim() != "undefined")
-        tosend += "in " + place.str.trim() + "<br>";        // baptismal place
+        tosend += "in " + place.str.trim() + "\n";        // baptismal place
     /* extract DEAT section */
     sect = extractSect (indiRec, "1", "DEAT");
     date = extractField (sect, "2", "DATE", 0);
@@ -2340,7 +2319,7 @@ function getINDIData (id) {
     if (date.str.trim() != "undefined")
         tosend += date.str.trim() + " ";                    // death date
     if (place.str.trim() != "undefined")
-        tosend += "in " + place.str.trim() + "<br>";        // death place
+        tosend += "in " + place.str.trim() + "\n";        // death place
     /* extract BURI section */
     sect = extractSect (indiRec, "1", "BURI");
     date = extractField (sect, "2", "DATE", 0);
@@ -2350,21 +2329,21 @@ function getINDIData (id) {
     if (date.str.trim() != "undefined")
         tosend += date.str.trim() + " ";                    // burial date
     if (place.str.trim() != "undefined")
-        tosend += "in " + place.str.trim() + "<br>";        // burial place
+        tosend += "in " + place.str.trim() + "\n";        // burial place
 
-    last8Str = tosend.slice(-8);
-    last4Str = tosend.slice(-4);
-    if (last4Str === "<br>") {
-        if (last8Str !== "<br><br>")
-            tosend += "<br>";
+    last2Str = tosend.slice(-2);
+    last1Str = tosend.slice(-1);
+    if (last1Str === "\n") {
+        if (last2Str !== "\n\n")
+            tosend += "\n";
     } else
-        tosend += "<br><br>";
+        tosend += "\n\n";
 
     // other stuff for individual
     var Notes = getNotes (indiRec);
     if (Notes.length > 8) {                      // if no Notes, Notes will contain "Notes - "
         Notes = Notes.substring(0, Notes.lastIndexOf(',')) + '.';     // replace the last comma with a period
-        tosend += Notes + "<br><br>";
+        tosend += Notes + "\n\n";
     }
 
     // parents
@@ -2374,26 +2353,40 @@ function getINDIData (id) {
         var idp = retitems.str.trim();
         idp = idp.substring(1, idp.indexOf('@', 1));
         if (idp != '' && idp != "undefined") {
-            const fullNamesp = GetFullNameFromID (ged, idp);
-            tosend += "Father - " + fullNamesp.trim() + "<br>";                    // father name
+            var fullNamesp = GetFullNameFromID (ged, idp);
+            if (fullNamesp.trim() == "------ ------")
+                fullNamesp = "name unknown";
+            tosend += "Father - " + fullNamesp.trim();                           // father name
+            if (fullNamesp != "name unknown")
+                tosend += "<script type=\"text/javascript\" src=\"clib.js\"></script> <button id='showFather' " +
+                          "onclick='showIData(\"" + idp + "\")'>Show Father Data</button> \n";
+            else
+                tosend += "\n";
         }
         retitems = extractField (parents, "1", "WIFE", 0);
         idp = retitems.str.trim();
         idp = idp.substring(1, idp.indexOf('@', 1));
         if (idp != '' && idp != "undefined") {
-            const fullNamesp = GetFullNameFromID (ged, idp);
-            tosend += "Mother - " + fullNamesp.trim() + "<br>";                    // mother name
+            var fullNamesp = GetFullNameFromID (ged, idp);
+            if (fullNamesp.trim() == "------ ------")
+                fullNamesp = "name unknown";
+            tosend += "Mother - " + fullNamesp.trim();                           // mother name
+            if (fullNamesp != "name unknown")
+                tosend += "<script type=\"text/javascript\" src=\"clib.js\"></script> <button id='showMother' " +
+                          "onclick='showIData(\"" + idp + "\")'>Show Mother Data</button> \n";
+            else
+                tosend += "\n";
         }
     } else
-        tosend += "Father - name unknown<br>Mother - name unknown<br><br>";
+        tosend += "Father - name unknown\nMother - name unknown\n\n";
 
-    last8Str = tosend.slice(-8);
-    last4Str = tosend.slice(-4);
-    if (last4Str === "<br>") {
-        if (last8Str !== "<br><br>")
-            tosend += "<br>";
+    last2Str = tosend.slice(-2);
+    last1Str = tosend.slice(-1);
+    if (last1Str === "\n") {
+        if (last2Str !== "\n\n")
+            tosend += "\n";
     } else
-        tosend += "<br><br>";
+        tosend += "\n\n";
 
     // get spouse
     const family = findFam (ged, indiRec, "FAMS");
@@ -2419,13 +2412,14 @@ function getINDIData (id) {
         if (irecsp != "") {
             idt = idt.substring(1, idt.indexOf('@', 1));
             const fullNamesp = GetFullNameFromID (ged, idt);
-            tosend += "Spouse - " + fullNamesp.trim();                    // spouse name
+            tosend += "Marriage - " + fullNamesp.trim();                    // spouse name
             if (mdate.trim() != "undefined")
                 tosend += " " + mdate.trim();
             if (mplace.trim() != "undefined")
                 tosend += " in " + mplace.trim();
-            tosend += "<br>";
-            tosend += "Spouse Gedcom ID - " + idt + "<br><br>";           // spouse Gedcom ID
+            tosend += "<script type=\"text/javascript\" src=\"clib.js\"></script> <button id='showSpouse' " +
+                      "onclick='showIData(\"" + idt + "\")'>Show Spouse Data</button> \n";
+            tosend += "Spouse Gedcom ID - " + idt + "\n\n";           // spouse Gedcom ID
         }
 
         // get children
@@ -2442,13 +2436,16 @@ function getINDIData (id) {
             retitems = extractField (irecChild, "2", "GIVN", 0);
             chName = retitems.str.trim();
             if (!childCnt)
-                tosend += "Children - " + chName + "<br>";
+                tosend += "Children - " + chName;
             else
-                tosend += "           " + chName + "<br>";
+                tosend += "           " + chName;
+            idt = idt.substring(1, idt.indexOf('@', 1));
+            tosend += "<script type=\"text/javascript\" src=\"clib.js\"></script> <button id='showChild' " +
+                      "onclick='showIData(\"" + idt + "\")'>Show Child Data</button> \n";
         }
     }
 
-    tosend += "<br></pre>";
+    tosend += "\n</pre> </body> </html>";
     return tosend;
 }
 
