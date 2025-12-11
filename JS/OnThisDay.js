@@ -114,7 +114,8 @@ async function OnThisDay (postdata, ind) {
                 })
             })
         } else
-            return Promise.resolve();
+            //return Promise.resolve();
+            return "ERRORS " + errors;
     } else
         if (errors == "")
             DoOnThisDay (postdata);

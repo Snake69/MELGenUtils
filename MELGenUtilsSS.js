@@ -684,28 +684,29 @@ ws.on("request", function (request) {
             rdata = "";
 
             var OTDRes = '';
-            OTDRes = await otd.OnThisDay(JSON.parse(message.utf8Data.substring(18)), "RECUR")
-                .then(() => {
-                    if (OTDRes.startsWith("ERRORS "))
-                        connection.sendUTF(OTDRes.substring(7) + "<br> <br>");
-                    else {
-                        recur.killAllCronJobs();      // kill all cron jobs currently running
-                        /* [re]initiate recurring On This Day Reports */
-                        for (var x = 0; x < Object.keys(OTDRecur).length; x++)
-                            if (OTDRecur[x].active == '1')
-                                recur.setCron(OTDRecur[x]);
-                        /* since ALL cron jobs were killed, need to [re]initiate URL monitoring cron jobs as well */
-                        for (var x = 0; x < Object.keys(MonURLs).length; x++)
-                            if (MonURLs[x].Active == '0')
-                                monweb.setCronMon(MonURLs[x], sseClients);
-                        connection.sendUTF("On This Day Report Established");
-                    }
-                })
-                .catch((error) => {
-                    const OTDRes2 = (error + ", Could not verify connection to Relay Host.<br>\(i.e., Something is " +
-                                     "wrong/incorrect with Relay Host and/or Login and/or Password and/or Port.\)<br> <br>");
-                    connection.sendUTF(OTDRes2);
-                })
+            try {
+                OTDRes = await otd.OnThisDay(JSON.parse(message.utf8Data.substring(18)), "RECUR");
+                if (OTDRes != true)
+                    connection.sendUTF(OTDRes.substring(7) + "<br> <br>");
+                else {
+                    recur.killAllCronJobs();      // kill all cron jobs currently running
+                    /* [re]initiate recurring On This Day Reports */
+                    for (var x = 0; x < Object.keys(OTDRecur).length; x++)
+                        if (OTDRecur[x].active == '1')
+                            recur.setCron(OTDRecur[x]);
+
+                    /* since ALL cron jobs were killed, need to [re]initiate URL monitoring cron jobs as well */
+                    for (var x = 0; x < Object.keys(MonURLs).length; x++)
+                        if (MonURLs[x].Active == '0')
+                            monweb.setCronMon(MonURLs[x], sseClients);
+
+                    connection.sendUTF("On This Day Report Established");
+                }
+            } catch (error) {
+                const OTDRes2 = (error + ", Could not verify connection to Relay Host.<br>\(i.e., Something is " +
+                                 "wrong/incorrect with Relay Host and/or Login and/or Password and/or Port.\)<br> <br>");
+                connection.sendUTF(OTDRes2);
+            }
         }
         if (message.utf8Data.substring(0,8) == "Timeline") {
             misc.Logging(tLog + " for a Timeline Report."); 

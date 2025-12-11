@@ -3,6 +3,8 @@ do Create/Edit Family Data for user-created plain text
   provide a form which can be filled in to create/edit a Family Group
   if editing an already existing Family Group, fill in the form with data already there; user will then edit
 
+when outputting report which includes year only (On This Day & Timeline Reports) the year needs to be 5 characters (not 4) to allow for
+  the minus sign (BC)
 
 
 The task list below is by function (for much of it) and not prioritized.

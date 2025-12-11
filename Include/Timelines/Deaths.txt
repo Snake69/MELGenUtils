@@ -1,5 +1,5 @@
 # Deaths of Notable People
-# v20251209
+# v20251210
 # any line with the # character in column 1 is considered a comment line
 # comment lines are not included in MELGenUtils Reports
       - 961 David died and his throne is replaced by his son Solomon [3]
@@ -16252,8 +16252,9 @@
 22 Nov 1896 George Washington Gale Ferris Jr. died, American engineer,
               invented the Ferris wheel (b. 1859) [8]
 26 Nov 1896 Coventry Patmore died, English poet and critic (b. 1823) [8]
-10 Dec 1896 Alfred Nobel died, Swedish chemist and engineer, invented
-              Dynamite and founded the Nobel Prize (b. 1833) [8]
+10 Dec 1896 Alfred Nobel died, [8] [19] Swedish chemist and engineer,
+              invented Dynamite [8] and founded the Nobel Prize [8] [19]
+              (b. 1833) [8]
 27 Dec 1896 John Brown died, English businessman and politician (b. 1816)
               [8]
 30 Dec 1896 Jose Rizal died, Filipino ophthalmologist, journalist, and
@@ -43214,8 +43215,8 @@
  9 Dec 2006 Georgia Gibbs died, American singer (b. 1919) [8]
 10 Dec 2006 Olivia Coolidge died, English-American author and educator
               (b. 1908) [8]
-            Augusto Pinochet died, Chilean general and politician, 30th
-              President of Chile (b. 1915) [8]
+            Augusto Pinochet died, [8] [19] Chilean general and politician,
+              30th President of Chile (b. 1915) [8]
 12 Dec 2006 Paul Arizin died, American basketball player (b. 1928) [8]
             Peter Boyle died, American actor (b. 1935) [8]
             Kenny Davern died, American clarinet player and saxophonist
